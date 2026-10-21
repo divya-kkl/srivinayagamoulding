@@ -770,12 +770,16 @@
   gap: 6px;
   z-index: 4;
   opacity: 0;
+  pointer-events: none;
   transform: translateY(8px);
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.pd-related-card:hover .pd-related-bottom-actions {
+.pd-related-card:hover .pd-related-bottom-actions,
+.pd-related-card:active .pd-related-bottom-actions,
+.pd-related-card:focus-within .pd-related-bottom-actions {
   opacity: 1;
+  pointer-events: auto;
   transform: translateY(0);
 }
 
@@ -1202,8 +1206,17 @@
   }
 
   .pd-related-bottom-actions {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(8px);
+  }
+
+  .pd-related-card:hover .pd-related-bottom-actions,
+  .pd-related-card:active .pd-related-bottom-actions,
+  .pd-related-card:focus-within .pd-related-bottom-actions {
     opacity: 1;
-    transform: none;
+    pointer-events: auto;
+    transform: translateY(0);
   }
 }
 
@@ -1838,14 +1851,24 @@
   }
 
   .pd-related-bottom-actions {
-    opacity: 1;
-    transform: none;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(8px);
     bottom: 8px;
     left: 6px;
     right: 6px;
     gap: 5px;
     display: flex;
     align-items: center;
+    transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .pd-related-card:hover .pd-related-bottom-actions,
+  .pd-related-card:active .pd-related-bottom-actions,
+  .pd-related-card:focus-within .pd-related-bottom-actions {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
   }
 
   .pd-related-view-details-btn {
