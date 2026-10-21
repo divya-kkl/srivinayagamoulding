@@ -33,6 +33,35 @@
   align-items: center;
   gap: 0.35rem;
   letter-spacing: 0.5px;
+  border: none;
+  font-family: inherit;
+}
+
+.live-badge.live-badge-clickable {
+  cursor: pointer;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  user-select: none;
+}
+
+.live-badge.live-badge-clickable:hover {
+  transform: translateY(-1px) scale(1.04);
+  box-shadow: 0 4px 12px rgba(212, 175, 55, 0.45);
+  background: linear-gradient(135deg, #FFF0B8 0%, #E6C24A 50%, #B88B1C 100%);
+}
+
+.live-badge.live-badge-clickable:active {
+  transform: translateY(0) scale(0.98);
+}
+
+.live-badge-chevron {
+  opacity: 0.7;
+  transition: transform 0.2s ease;
+}
+
+.live-badge.live-badge-clickable:hover .live-badge-chevron {
+  opacity: 1;
+  transform: translateY(1px);
 }
 
 .pulse-dot {

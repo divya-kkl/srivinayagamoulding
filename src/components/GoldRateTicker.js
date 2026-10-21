@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import RateHistoryModal from './RateHistoryModal';
 import './GoldRateTicker.css';
 
 const GoldRateTicker = ({ rates = [], onOpenCalculator, siteSettings, isLoadingSettings, isLoadingRates }) => {
   const [shimmering, setShimmering] = useState(true);
+  const [isHistoryOpen, setIsHistoryOpen] = useState(false);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -23,7 +25,7 @@ const GoldRateTicker = ({ rates = [], onOpenCalculator, siteSettings, isLoadingS
                 className="ticker-badge-shimmer"
                 style={{
                   display: 'inline-block',
-                  width: '92px',
+                  width: '112px',
                   height: '22px',
                   borderRadius: '4px',
                 }}
@@ -42,9 +44,18 @@ const GoldRateTicker = ({ rates = [], onOpenCalculator, siteSettings, isLoadingS
             </div>
           ) : (
             <>
-              <span className="live-badge">
-                <span className="pulse-dot"></span> LIVE RATES
-              </span>
+              <button
+                type="button"
+                className="live-badge live-badge-clickable"
+                onClick={() => setIsHistoryOpen(true)}
+                title="Click to view 7-Day Gold & Silver Rate History"
+                aria-label="View 7-Day Gold & Silver Rate History"
+              >
+                <span className="pulse-dot"></span> RATE HISTORY
+                <svg className="live-badge-chevron" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                  <polyline points="6 9 12 15 18 9" />
+                </svg>
+              </button>
               <div className="ticker-rates-wrapper">
                 <div className="ticker-rates-content">
                   {rates.length > 0 ? (
@@ -96,6 +107,14 @@ const GoldRateTicker = ({ rates = [], onOpenCalculator, siteSettings, isLoadingS
           </a>
         </div>
       </div>
+
+      {/* 7-Day Gold & Silver Rate History Modal (Supabase) */}
+      <RateHistoryModal
+        isOpen={isHistoryOpen}
+        onClose={() => setIsHistoryOpen(false)}
+        onOpenCalculator={onOpenCalculator}
+        liveRates={rates}
+      />
     </div>
   );
 };

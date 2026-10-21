@@ -126,14 +126,23 @@ const ProductGrid = ({
             <div className="products-grid">
               {displayedProducts.map((product) => (
                 <div key={product.id} className="product-card">
-                  <div className="product-img-wrapper">
+                  <div
+                    className="product-img-wrapper"
+                    onClick={() => {
+                      if (onQuickView) {
+                        onQuickView(product);
+                      } else {
+                        window.location.href = `/product/${encodeURIComponent(product.name.toLowerCase())}`;
+                      }
+                    }}
+                    role="button"
+                    tabIndex={0}
+                    style={{ cursor: 'pointer' }}
+                    title={`Click to view ${product.name}`}
+                  >
                     <img src={product.image} alt={product.name} loading="lazy" />
 
                     {product.badge && <span className="product-badge">{product.badge}</span>}
-
-                    <button className="quick-view-hover-btn" onClick={() => onQuickView(product)}>
-                      Quick View
-                    </button>
                   </div>
 
                   <div className="product-info-box">
