@@ -70,13 +70,46 @@
   box-shadow: var(--shadow-sm);
 }
 
+.filter-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+  border-bottom: 1px solid var(--border-light);
+  padding-bottom: 8px;
+}
+
 .filter-title {
   font-size: 1.1rem;
   font-weight: 700;
-  margin-bottom: 15px;
-  padding-bottom: 10px;
-  border-bottom: 1px solid var(--border-light);
+  margin: 0;
   color: var(--text-dark);
+}
+
+.price-simple-x-btn {
+  background: rgba(74, 14, 23, 0.08);
+  border: 1px solid rgba(74, 14, 23, 0.25);
+  color: var(--bg-maroon-main, #4A0E17);
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.82rem;
+  font-weight: 700;
+  line-height: 1;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  padding: 0;
+}
+
+.price-simple-x-btn:hover {
+  background: var(--bg-maroon-main, #4A0E17);
+  color: var(--gold-light, #F7E7AD);
+  border-color: var(--gold-primary, #D4AF37);
+  transform: scale(1.12);
+  box-shadow: 0 2px 8px rgba(74, 14, 23, 0.35);
 }
 
 .price-range-label {
@@ -88,6 +121,7 @@
 .price-filter-form {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   gap: 8px;
 }
 
@@ -103,8 +137,6 @@
   color: #ccc;
 }
 
-
-
 .price-go-btn {
   background-color: var(--bg-maroon-main);
   color: #fff;
@@ -113,6 +145,61 @@
   border-radius: 4px;
   cursor: pointer;
   font-weight: bold;
+  transition: opacity 0.2s ease;
+}
+
+.price-go-btn:hover {
+  opacity: 0.9;
+}
+
+.price-reset-inline-btn {
+  background: #f0f0f0;
+  color: #555;
+  border: 1px solid #ccc;
+  padding: 6px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.8rem;
+  transition: all 0.2s ease;
+}
+
+.price-reset-inline-btn:hover {
+  background: #e2e2e2;
+  color: #222;
+}
+
+.active-filter-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(74, 10, 31, 0.08);
+  border: 1px solid rgba(74, 10, 31, 0.2);
+  color: var(--bg-maroon-main);
+  padding: 5px 10px;
+  border-radius: 6px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  margin-top: 10px;
+}
+
+.active-filter-pill button {
+  background: transparent;
+  border: none;
+  color: #888;
+  font-size: 1.1rem;
+  line-height: 1;
+  cursor: pointer;
+  padding: 0;
+  margin-left: 2px;
+}
+
+.active-filter-pill button:hover {
+  color: #C62828;
+}
+
+.active-filter-banner {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
 }
 
 .category-main-content {

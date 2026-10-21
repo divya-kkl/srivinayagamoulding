@@ -4,6 +4,7 @@ import { getProductsFromSupabase } from '../services/productService';
 import { getSubcategoriesFromSupabase, getChildCategories, getCategoryBreadcrumbs } from '../services/subcategoryService';
 import { calculateFinalPrice } from '../admin/product/ProductPriceCalculator';
 import LoadMoreSection from './LoadMoreSection';
+import SortDropdown from './SortDropdown';
 
 const CategoryPage = ({ liveRates = [] }) => {
   const [products, setProducts] = useState([]);
@@ -121,6 +122,13 @@ const CategoryPage = ({ liveRates = [] }) => {
     setMaxPrice(inputMaxPrice);
   };
 
+  const handleClearPriceFilter = () => {
+    setInputMinPrice('');
+    setInputMaxPrice('');
+    setMinPrice('');
+    setMaxPrice('');
+  };
+
   return (
     <div className="category-page-container animate-fade-in" style={{ paddingTop: '20px' }}>
       {/* Breadcrumbs Navigation */}
@@ -171,7 +179,20 @@ const CategoryPage = ({ liveRates = [] }) => {
       <div className="container category-page-layout">
         <aside className={`category-sidebar ${showFilters ? 'mobile-visible' : ''}`}>
           <div className="filter-block">
-            <h3 className="filter-title">PRICE</h3>
+            <div className="filter-title-row">
+              <h3 className="filter-title">PRICE</h3>
+              {(minPrice !== '' || maxPrice !== '' || inputMinPrice !== '' || inputMaxPrice !== '') && (
+                <button
+                  type="button"
+                  onClick={handleClearPriceFilter}
+                  className="price-simple-x-btn"
+                  title="Clear Price Filter"
+                  aria-label="Clear Price Filter"
+                >
+                  ✕
+                </button>
+              )}
+            </div>
             <div className="price-range-label">
               ₹ {minPrice || '0'} - ₹ {maxPrice || 'Any'}
             </div>
@@ -246,16 +267,28 @@ const CategoryPage = ({ liveRates = [] }) => {
           <div className="category-toolbar">
             <div className="sort-box">
               <label>Sort by:</label>
-              <select value={sortBy} onChange={e => setSortBy(e.target.value)}>
-                <option value="position">Position</option>
-                <option value="price-low-high">Price: Low to High</option>
-                <option value="price-high-low">Price: High to Low</option>
-              </select>
+              <SortDropdown value={sortBy} onChange={setSortBy} />
             </div>
             <div className="items-count">
               Showing {filteredProducts.length} of {products.length} products directly in <strong>{subcategoryName}</strong>
             </div>
           </div>
+
+          {(minPrice !== '' || maxPrice !== '') && (
+            <div className="active-filter-banner" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '8px', marginBottom: '16px', background: '#FFFDF5', border: '1px solid #E2D6BE', padding: '8px 14px', borderRadius: '8px' }}>
+              <span style={{ fontSize: '0.86rem', color: '#444' }}>
+                Applied Price Filter: <strong style={{ color: '#4a0a1f' }}>₹{minPrice || '0'} - ₹{maxPrice || 'Any'}</strong> ({filteredProducts.length} items found)
+              </span>
+              <button
+                type="button"
+                onClick={handleClearPriceFilter}
+                style={{ background: '#4A0E17', color: '#fff', border: 'none', padding: '5px 12px', borderRadius: '6px', fontSize: '0.78rem', cursor: 'pointer', fontWeight: 'bold', display: 'inline-flex', alignItems: 'center', gap: '4px' }}
+                title="Remove Filter"
+              >
+                ✕ Remove Filter
+              </button>
+            </div>
+          )}
 
           {loading ? (
             <div className="products-grid">
@@ -290,13 +323,18 @@ const CategoryPage = ({ liveRates = [] }) => {
               <div className="products-grid">
                 {filteredProducts.slice(0, visibleCount).map((product) => (
                   <div key={product.id} className="product-card">
-                    <div className="product-img-wrapper">
+                    <div
+                      className="product-img-wrapper"
+                      onClick={() => {
+                        window.location.href = `/product/${encodeURIComponent(product.name.toLowerCase())}`;
+                      }}
+                      role="button"
+                      tabIndex={0}
+                      style={{ cursor: 'pointer' }}
+                      title={`Click to view ${product.name}`}
+                    >
                       <img src={product.image} alt={product.name} loading="lazy" />
                       {product.badge && <span className="product-badge">{product.badge}</span>}
-
-                      <button className="quick-view-hover-btn" onClick={() => { window.location.href = `/product/${encodeURIComponent(product.name.toLowerCase())}`; }}>
-                        Quick View
-                      </button>
                     </div>
 
                     <div className="product-info-box">

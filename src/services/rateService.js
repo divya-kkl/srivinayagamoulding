@@ -29,6 +29,51 @@ export async function getRatesFromSupabase() {
   }
 }
 
+export async function getRateHistoryFromSupabase(limitDays = 7) {
+  try {
+    let { data, error } = await supabase
+      .from('daily_rates')
+      .select('*')
+      .order('date', { ascending: false })
+      .order('created_at', { ascending: false });
+
+    if (error) throw error;
+    if (!data || data.length === 0) {
+      return { data: [], groupedByDate: [], dates: [] };
+    }
+
+    const normalized = data.map(normalizeRate);
+
+    // Extract latest unique dates up to limitDays (e.g. 7 days)
+    const uniqueDates = [];
+    for (const item of normalized) {
+      const d = item.date;
+      if (d && !uniqueDates.includes(d)) {
+        uniqueDates.push(d);
+        if (uniqueDates.length >= limitDays) break;
+      }
+    }
+
+    // Group rows by date
+    const groupedByDate = uniqueDates.map((dateStr) => {
+      const dayItems = normalized.filter((r) => r.date === dateStr);
+      return {
+        date: dateStr,
+        items: dayItems,
+      };
+    });
+
+    return {
+      data: normalized.filter((r) => uniqueDates.includes(r.date)),
+      groupedByDate,
+      dates: uniqueDates,
+    };
+  } catch (error) {
+    console.error("Error fetching 7-day rate history:", error.message);
+    return { error: error.message, data: [], groupedByDate: [], dates: [] };
+  }
+}
+
 export async function createRateInSupabase(rate) {
   try {
     const insertPayload = {
