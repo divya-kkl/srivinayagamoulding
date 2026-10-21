@@ -162,10 +162,22 @@ const Footer = ({ onSelectCategory, onOpenCalculator, logoUrl, shopName = 'GOD J
         <div className="footer-bottom-bar">
           <div className="copyright-text">
             {isLoadingSettings ? (
-              <div className="nav-shimmer" style={{ display: 'inline-block', width: '300px', height: '14px', borderRadius: '4px' }}></div>
+              <div className="nav-shimmer" style={{ display: 'inline-block', width: '220px', height: '14px', borderRadius: '4px' }}></div>
             ) : (
-              `© ${new Date().getFullYear()} ${shopName}. All Rights Reserved. Kitzo Technology.`
+              `© ${new Date().getFullYear()} ${shopName}. All Rights Reserved.`
             )}
+          </div>
+
+          <div className="developer-attribution">
+            <a
+              href="https://www.kitzo.in/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="kitzo-link"
+              title="Kitzo Technologies"
+            >
+              Designed &amp; Developed by Kitzo Technologies
+            </a>
           </div>
 {/* 
           <div className="payment-badges-row">

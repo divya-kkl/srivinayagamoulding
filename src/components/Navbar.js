@@ -30,7 +30,25 @@ const Navbar = ({
   const [isSearching, setIsSearching] = useState(false);
   const [isSearchDropdownOpen, setIsSearchDropdownOpen] = useState(false);
   const [openDropdownId, setOpenDropdownId] = useState(null);
+  const [isScrolled, setIsScrolled] = useState(false);
   const searchBarRef = useRef(null);
+
+  // Detect window scroll on all pages to shrink navbar smoothly
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollY = window.pageYOffset || document.documentElement.scrollTop || window.scrollY || 0;
+      setIsScrolled(scrollY > 20);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    document.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      document.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
 
   // Close dropdown when clicked outside
   useEffect(() => {
@@ -117,7 +135,7 @@ const Navbar = ({
   };
 
   return (
-    <header className="main-navbar-header">
+    <header className={`main-navbar-header ${isScrolled ? 'scrolled-compact' : ''}`}>
       <div className="container nav-main-container">
 
         <button

@@ -45,17 +45,35 @@ const GoldRateTicker = ({ rates = [], onOpenCalculator, siteSettings, isLoadingS
               <span className="live-badge">
                 <span className="pulse-dot"></span> LIVE RATES
               </span>
-              <div className="ticker-rates">
-                {rates.length > 0 ? rates.map((rate, idx) => (
-                  <React.Fragment key={rate.id}>
-                    <span className="rate-item">
-                      <strong>{rate.type}:</strong> ₹{rate.amount ? rate.amount.toLocaleString('en-IN') : 'N/A'}
-                    </span>
-                    {idx < rates.length - 1 && <span className="divider">|</span>}
-                  </React.Fragment>
-                )) : (
-                  <span className="rate-item">Live rates not updated yet</span>
-                )}
+              <div className="ticker-rates-wrapper">
+                <div className="ticker-rates-content">
+                  {rates.length > 0 ? (
+                    <>
+                      <div className="ticker-rates-track">
+                        {rates.map((rate, idx) => (
+                          <React.Fragment key={`orig-${rate.id || idx}`}>
+                            <span className="rate-item">
+                              <strong>{rate.type}:</strong> ₹{rate.amount ? rate.amount.toLocaleString('en-IN') : 'N/A'}
+                            </span>
+                            <span className="divider">|</span>
+                          </React.Fragment>
+                        ))}
+                      </div>
+                      <div className="ticker-rates-track ticker-rates-track-clone" aria-hidden="true">
+                        {rates.map((rate, idx) => (
+                          <React.Fragment key={`clone-${rate.id || idx}`}>
+                            <span className="rate-item">
+                              <strong>{rate.type}:</strong> ₹{rate.amount ? rate.amount.toLocaleString('en-IN') : 'N/A'}
+                            </span>
+                            <span className="divider">|</span>
+                          </React.Fragment>
+                        ))}
+                      </div>
+                    </>
+                  ) : (
+                    <span className="rate-item">Live rates not updated yet</span>
+                  )}
+                </div>
               </div>
             </>
           )}

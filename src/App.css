@@ -78,6 +78,41 @@
   transform: translateX(0);
 }
 
+/* Floating Scroll-to-Top Button */
+.floating-scroll-top-btn {
+  position: fixed;
+  bottom: 96px;
+  right: 31px;
+  width: 46px;
+  height: 46px;
+  background-color: #4A0A1F;
+  background: linear-gradient(135deg, #5C0B1B 0%, #3D040E 100%);
+  color: #FFFFFF;
+  border: 1.5px solid rgba(212, 175, 55, 0.45);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35), 0 0 10px rgba(212, 175, 55, 0.2);
+  z-index: 998;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  outline: none;
+  animation: fadeIn 0.3s ease;
+}
+
+.floating-scroll-top-btn:hover {
+  background: linear-gradient(135deg, #700D22 0%, #4A0A1F 100%);
+  border-color: #D4AF37;
+  color: #FFE082;
+  transform: translateY(-3px) scale(1.08);
+  box-shadow: 0 8px 24px rgba(74, 10, 31, 0.5), 0 0 14px rgba(212, 175, 55, 0.4);
+}
+
+.floating-scroll-top-btn:active {
+  transform: translateY(-1px) scale(0.98);
+}
+
 @media (max-width: 768px) {
   .floating-whatsapp-btn {
     bottom: 20px;
@@ -92,5 +127,13 @@
   .floating-whatsapp-tooltip {
     display: none;
   }
+
+  .floating-scroll-top-btn {
+    bottom: 84px;
+    right: 25px;
+    width: 42px;
+    height: 42px;
+  }
 }
+
 

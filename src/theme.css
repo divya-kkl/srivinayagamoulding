@@ -1,15 +1,9 @@
-﻿
+
 :root {
-  
-  --theme-font-heading: 'Times New Roman', Times, serif;
-  
-  --theme-font-body: 'Times New Roman', Times, serif;
-
-  --theme-font-size-heading: 32px;
-  
-
-  --theme-font-size-body: 16px;
-
+  --theme-font-heading: var(--font-heading, 'Poppins', sans-serif);
+  --theme-font-body: var(--font-body, 'Poppins', sans-serif);
+  --theme-font-size-heading: var(--font-size-heading, 28px);
+  --theme-font-size-body: var(--font-size-base, 14.5px);
   --theme-bg-color: #FDFBF7;
 }
 
