@@ -137,11 +137,11 @@ const ProductGrid = ({
                   </div>
 
                   <div className="product-info-box">
-                    <h3 className="product-title" onClick={() => { window.location.href = `/product/${encodeURIComponent(product.name.toLowerCase())}` }} style={{ marginBottom: '8px', color: '#001a33', fontSize: '1.1rem', fontWeight: 'bold', cursor: 'pointer', fontFamily: "'Times New Roman', Times, serif" }}>
+                    <h3 className="product-title" onClick={() => { window.location.href = `/product/${encodeURIComponent(product.name.toLowerCase())}` }} style={{ marginBottom: '8px', color: '#001a33', fontSize: '1.1rem', fontWeight: 'bold', cursor: 'pointer' }}>
                       {product.name} {product.productCode && <span style={{ display: 'none' }}>#{product.productCode}</span>}
                     </h3>
 
-                    <div className="product-weight-purity" style={{ marginBottom: '12px', color: '#003366', fontSize: '0.9rem', fontFamily: "'Times New Roman', Times, serif" }}>
+                    <div className="product-weight-purity" style={{ marginBottom: '12px', color: '#003366', fontSize: '0.9rem' }}>
                       Weight: {product.netWeight > 0 ? `${product.netWeight}g` : '-'} • {product.purity || '-'}
                     </div>
 
@@ -149,7 +149,7 @@ const ProductGrid = ({
                       const { finalPrice } = calculateFinalPrice(product, liveRates);
                       if (finalPrice > 0) {
                         return (
-                          <div style={{ color: '#000', fontWeight: 'bold', fontSize: '1.4rem', marginBottom: '15px', fontFamily: "'Times New Roman', Times, serif" }}>
+                          <div style={{ color: '#000', fontWeight: 'bold', fontSize: '1.4rem', marginBottom: '15px' }}>
                             ₹{finalPrice.toLocaleString('en-IN')}
                           </div>
                         );
@@ -175,8 +175,7 @@ const ProductGrid = ({
                       fontWeight: 'bold',
                       letterSpacing: '1px',
                       cursor: 'pointer',
-                      marginTop: 'auto',
-                      fontFamily: "'Times New Roman', Times, serif"
+                      marginTop: 'auto'
                     }}
                   >
                     VIEW PRODUCT

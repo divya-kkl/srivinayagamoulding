@@ -1,10 +1,15 @@
 .main-navbar-header {
   background: var(--bg-maroon-dark);
   border-bottom: 2px solid var(--gold-primary);
+  position: -webkit-sticky;
   position: sticky;
   top: 0;
-  z-index: 90;
+  left: 0;
+  right: 0;
+  width: 100%;
+  z-index: 990;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .nav-main-container {
@@ -13,6 +18,7 @@
   justify-content: space-between;
   padding: 0.85rem 1.5rem;
   gap: 1.5rem;
+  transition: padding 0.3s ease, gap 0.3s ease;
 }
 
 .mobile-hamburger-btn {
@@ -31,6 +37,10 @@
   user-select: none;
 }
 
+.brand-logo-wrapper img {
+  transition: max-height 0.3s ease;
+}
+
 .brand-emblem {
   background: radial-gradient(circle, rgba(212, 175, 55, 0.25) 0%, rgba(74, 14, 23, 0) 70%);
   padding: 0.25rem;
@@ -38,6 +48,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  transition: padding 0.3s ease, transform 0.3s ease;
+}
+
+.brand-emblem svg {
+  transition: width 0.3s ease, height 0.3s ease;
 }
 
 .brand-text {
@@ -54,6 +69,7 @@
   background: var(--gold-gradient);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
+  transition: font-size 0.3s ease;
 }
 
 .brand-subtitle {
@@ -62,6 +78,7 @@
   letter-spacing: 2px;
   font-weight: 500;
   text-transform: uppercase;
+  transition: all 0.3s ease;
 }
 
 .nav-search-bar {
@@ -405,6 +422,86 @@
   border-radius: 2px;
 }
 
+/* =========================================================
+   Scrolled Compact Header States (Scroll Shrink Effect)
+   ========================================================= */
+.main-navbar-header.scrolled-compact {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.45);
+  background: rgba(33, 4, 9, 0.98);
+  backdrop-filter: blur(8px);
+  border-bottom: 1.5px solid rgba(212, 175, 55, 0.75);
+}
+
+.main-navbar-header.scrolled-compact .nav-main-container {
+  padding: 0.48rem 1.5rem;
+  gap: 1.25rem;
+}
+
+.main-navbar-header.scrolled-compact .brand-logo-wrapper img {
+  max-height: 36px !important;
+}
+
+.main-navbar-header.scrolled-compact .brand-emblem {
+  padding: 0.18rem;
+}
+
+.main-navbar-header.scrolled-compact .brand-emblem svg {
+  width: 26px;
+  height: 26px;
+}
+
+.main-navbar-header.scrolled-compact .brand-title {
+  font-size: 1.25rem;
+}
+
+.main-navbar-header.scrolled-compact .brand-subtitle {
+  opacity: 0;
+  max-height: 0;
+  margin: 0;
+  overflow: hidden;
+  transform: translateY(-4px);
+  pointer-events: none;
+}
+
+.main-navbar-header.scrolled-compact .nav-search-bar input {
+  padding: 0.4rem 2.4rem;
+  font-size: 0.88rem;
+  height: 38px;
+}
+
+.main-navbar-header.scrolled-compact .search-icon {
+  left: 0.85rem;
+  width: 16px;
+  height: 16px;
+}
+
+.main-navbar-header.scrolled-compact .clear-search-btn {
+  right: 0.85rem;
+  font-size: 1.1rem;
+}
+
+.main-navbar-header.scrolled-compact .category-nav-bar {
+  padding: 0.1rem 0;
+}
+
+.main-navbar-header.scrolled-compact .nav-links-flex {
+  gap: 1.4rem;
+}
+
+.main-navbar-header.scrolled-compact .nav-category-link {
+  padding: 0.35rem 0.45rem;
+  font-size: 14.5px;
+}
+
+.main-navbar-header.scrolled-compact .calc-btn {
+  padding: 0.45rem 0.85rem;
+  font-size: 0.8rem;
+}
+
+.main-navbar-header.scrolled-compact .action-icon-btn {
+  padding: 0.5rem;
+}
+
 @media (max-width: 900px) {
   .nav-main-container {
     flex-wrap: wrap;
@@ -484,6 +581,46 @@
 
   .category-nav-bar {
     display: none !important;
+  }
+
+  /* Scrolled Compact overrides on Mobile */
+  .main-navbar-header.scrolled-compact .nav-main-container {
+    padding: 0.45rem 1rem 0.55rem;
+    row-gap: 0.45rem;
+  }
+
+  .main-navbar-header.scrolled-compact .brand-logo-wrapper img {
+    max-height: 30px !important;
+  }
+
+  .main-navbar-header.scrolled-compact .brand-emblem svg {
+    width: 22px;
+    height: 22px;
+  }
+
+  .main-navbar-header.scrolled-compact .brand-title {
+    font-size: 1.18rem;
+  }
+
+  .main-navbar-header.scrolled-compact .nav-search-bar {
+    margin-top: 0;
+  }
+
+  .main-navbar-header.scrolled-compact .nav-search-bar input {
+    height: 38px;
+    font-size: 0.88rem;
+    padding: 0 2.2rem 0 2.4rem;
+  }
+
+  .main-navbar-header.scrolled-compact .nav-search-bar .search-icon {
+    left: 0.85rem;
+    width: 16px;
+    height: 16px;
+  }
+
+  .main-navbar-header.scrolled-compact .nav-search-bar .clear-search-btn {
+    right: 0.85rem;
+    font-size: 1.15rem;
   }
 }
 

@@ -41,6 +41,16 @@ function App() {
   const [quickViewProduct, setQuickViewProduct] = useState(null);
   const [siteSettings, setSiteSettings] = useState(null);
   const [isLoadingSettings, setIsLoadingSettings] = useState(true);
+  const [showScrollTop, setShowScrollTop] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollY = window.pageYOffset || document.documentElement.scrollTop || window.scrollY || 0;
+      setShowScrollTop(scrollY > 250);
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   useEffect(() => {
     const fetchRates = async () => {
@@ -243,6 +253,30 @@ function App() {
           </a>
         );
       })()}
+
+      {/* Floating Scroll to Top Button */}
+      {showScrollTop && (
+        <button
+          type="button"
+          className="floating-scroll-top-btn"
+          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          aria-label="Scroll to top"
+          title="Scroll to top"
+        >
+          <svg
+            width="18"
+            height="18"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="#FFFFFF"
+            strokeWidth="2.8"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <polyline points="18 15 12 9 6 15" />
+          </svg>
+        </button>
+      )}
     </div>
   );
 }

@@ -1,11 +1,11 @@
 .product-grid-section {
   padding: 3rem 0 5rem 0;
   background: var(--bg-cream-light);
-  font-family: 'Times New Roman', Times, serif;
+  font-family: var(--font-body);
 }
 
 .product-grid-section * {
-  font-family: 'Times New Roman', Times, serif;
+  font-family: inherit;
 }
 
 .filter-tabs-bar {

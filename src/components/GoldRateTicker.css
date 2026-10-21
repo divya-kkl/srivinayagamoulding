@@ -77,11 +77,32 @@
   }
 }
 
-.ticker-rates {
+/* Rates Track & Content for Desktop & Mobile */
+.ticker-rates-wrapper {
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.ticker-rates-content {
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+}
+
+.ticker-rates-track {
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  color: rgba(255, 255, 255, 0.9);
+}
+
+.ticker-rates-track .divider:last-child {
+  display: none;
+}
+
+.ticker-rates-track-clone {
+  display: none;
 }
 
 .rate-item strong {
@@ -124,6 +145,7 @@
 @media (max-width: 768px) {
   .gold-ticker-wrapper {
     padding: 0.35rem 0;
+    overflow: hidden;
   }
 
   .ticker-container {
@@ -134,12 +156,13 @@
     padding: 0 12px;
     gap: 8px;
     width: 100%;
+    overflow: hidden;
   }
 
   .ticker-left {
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 8px;
     flex: 1;
     min-width: 0;
     overflow: hidden;
@@ -147,17 +170,63 @@
 
   .live-badge {
     font-size: 0.65rem;
-    padding: 0.15rem 0.4rem;
+    padding: 0.15rem 0.45rem;
     white-space: nowrap;
     flex-shrink: 0;
+    z-index: 2;
+    box-shadow: 2px 0 8px rgba(37, 3, 8, 0.9);
   }
 
-  .ticker-rates {
-    font-size: 0.72rem;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+  /* Marquee scrolling container on mobile */
+  .ticker-rates-wrapper {
+    flex: 1;
     min-width: 0;
+    overflow: hidden;
+    position: relative;
+    font-size: 0.75rem;
+    mask-image: linear-gradient(90deg, transparent 0%, #000 12px, #000 calc(100% - 12px), transparent 100%);
+    -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 12px, #000 calc(100% - 12px), transparent 100%);
+  }
+
+  .ticker-rates-content {
+    display: inline-flex;
+    align-items: center;
+    white-space: nowrap;
+    width: max-content;
+    animation: tickerMarquee 15s linear infinite;
+    will-change: transform;
+  }
+
+  .ticker-rates-content:hover,
+  .ticker-rates-content:active {
+    animation-play-state: paused;
+  }
+
+  .ticker-rates-track {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding-right: 0.75rem;
+  }
+
+  .ticker-rates-track .divider:last-child {
+    display: inline;
+  }
+
+  .ticker-rates-track-clone {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding-right: 0.75rem;
+  }
+
+  @keyframes tickerMarquee {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
   }
 
   .phone-number-text,
@@ -169,6 +238,7 @@
     display: flex;
     align-items: center;
     flex-shrink: 0;
+    z-index: 2;
   }
 
   .phone-contact {
@@ -183,6 +253,7 @@
     color: var(--gold-primary);
     flex-shrink: 0;
     text-decoration: none;
+    box-shadow: -2px 0 8px rgba(37, 3, 8, 0.9);
   }
 
   .phone-contact svg {
