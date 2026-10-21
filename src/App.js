@@ -1,23 +1,248 @@
-import logo from './logo.svg';
+import React, { useState, useEffect } from 'react';
 import './App.css';
+import GoldRateTicker from './components/GoldRateTicker';
+import Navbar from './components/Navbar';
+import HeroCarousel from './components/HeroCarousel';
+import Categories from './components/Categories';
+import ProductGrid from './components/ProductGrid';
+import GoldCalculatorModal from './components/GoldCalculatorModal';
+import WhyChooseUs from './components/WhyChooseUs';
+import Testimonials from './components/Testimonials';
+
+import QuickViewModal from './components/QuickViewModal';
+import ProductDetailsPage from './components/ProductDetailsPage';
+import CategoryPage from './components/CategoryPage';
+import SearchPage from './components/SearchPage';
+import FeaturedProductsPage from './components/FeaturedProductsPage';
+import Footer from './components/Footer';
+import AdminPanel from './admin/AdminPanel';
+
+import { PRODUCTS } from './data/jewelleryData';
+import { getRatesFromSupabase } from './services/rateService';
+import { getSiteSettings } from './services/settingService';
+import { useDispatch, useSelector } from 'react-redux';
+import { toggleWishlist } from './redux/slices/wishlistSlice';
+import { setLiveRates } from './redux/slices/ratesSlice';
 
 function App() {
+  const dispatch = useDispatch();
+  const reduxWishlist = useSelector((state) => state.wishlist?.items || []);
+  const reduxRates = useSelector((state) => state.rates?.liveRates || []);
+
+  const [activeCategory, setActiveCategory] = useState(() => {
+    const params = new URLSearchParams(window.location.search);
+    return params.get('category') || 'all';
+  });
+  const [searchQuery, setSearchQuery] = useState('');
+  const [goldRates, setGoldRates] = useState([]);
+  const [isLoadingRates, setIsLoadingRates] = useState(true);
+  const [products] = useState(PRODUCTS);
+  const [isCalculatorOpen, setIsCalculatorOpen] = useState(false);
+  const [quickViewProduct, setQuickViewProduct] = useState(null);
+  const [siteSettings, setSiteSettings] = useState(null);
+  const [isLoadingSettings, setIsLoadingSettings] = useState(true);
+
+  useEffect(() => {
+    const fetchRates = async () => {
+      setIsLoadingRates(true);
+      const { data, error } = await getRatesFromSupabase();
+      if (!error && data) {
+        const current = data.filter(r => r.isCurrent);
+        setGoldRates(current);
+        dispatch(setLiveRates(current));
+      }
+      setTimeout(() => {
+        setIsLoadingRates(false);
+      }, 1500);
+    };
+
+    const fetchSettings = async () => {
+      const { data } = await getSiteSettings();
+      if (data) {
+        setSiteSettings(data);
+      } else {
+        setSiteSettings({ shop_name: 'GOD JEWELLERY' });
+      }
+      
+      const hasShimmered = sessionStorage.getItem('appShimmerDone');
+      if (hasShimmered) {
+        setIsLoadingSettings(false);
+      } else {
+        setTimeout(() => {
+          setIsLoadingSettings(false);
+          sessionStorage.setItem('appShimmerDone', 'true');
+        }, 1500);
+      }
+    };
+
+    fetchRates();
+    fetchSettings();
+  }, [dispatch]);
+
+  const handleToggleWishlist = (product) => {
+    dispatch(toggleWishlist(product));
+  };
+
+  const currentRates = goldRates.length > 0 ? goldRates : reduxRates;
+  const currentWishlist = reduxWishlist;
+
+  const isAdminRoute = window.location.pathname === '/admin';
+  const isProductRoute = window.location.pathname.startsWith('/product/');
+  const isSubcategoryRoute = window.location.pathname.startsWith('/subcategory/');
+  const isSearchRoute = window.location.pathname.startsWith('/search');
+  const isFeaturedRoute = window.location.pathname === '/featured' || 
+                          window.location.pathname === '/products' || 
+                          window.location.pathname === '/all-products' ||
+                          window.location.pathname.startsWith('/tag/');
+
+  if (isAdminRoute) {
+    return (
+      <AdminPanel
+        onClose={() => {
+          window.location.href = '/admin';
+        }}
+      />
+    );
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="god-jewellery-app">
+  
+      <GoldRateTicker
+        rates={goldRates}
+        isLoadingRates={isLoadingRates}
+        onOpenCalculator={() => setIsCalculatorOpen(true)}
+        siteSettings={siteSettings}
+        isLoadingSettings={isLoadingSettings}
+      />
+
+      {/* 2. Main Royal Navigation Bar */}
+      <Navbar
+        activeCategory={activeCategory}
+        setActiveCategory={setActiveCategory}
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
+        wishlistCount={currentWishlist.length}
+        onOpenWishlist={() => { }}
+        onOpenCalculator={() => setIsCalculatorOpen(true)}
+        logoUrl={siteSettings?.logo_url}
+        shopName={siteSettings?.shop_name}
+        isLoadingSettings={isLoadingSettings}
+        liveRates={currentRates}
+      />
+
+      {isProductRoute ? (
+        <ProductDetailsPage
+          key={window.location.pathname}
+          liveRates={currentRates}
+          wishlist={currentWishlist}
+          onToggleWishlist={handleToggleWishlist}
+        />
+      ) : isSubcategoryRoute ? (
+        <CategoryPage liveRates={currentRates} />
+      ) : isSearchRoute ? (
+        <SearchPage liveRates={currentRates} />
+      ) : isFeaturedRoute ? (
+        <FeaturedProductsPage liveRates={currentRates} />
+      ) : (
+        <>
+         
+          <HeroCarousel
+            onSelectCategory={(catId) => {
+              if (catId === 'scheme') {
+                const el = document.getElementById('gold-savings-scheme');
+                if (el) el.scrollIntoView({ behavior: 'smooth' });
+              } else {
+                setActiveCategory(catId);
+              }
+            }}
+            onOpenCalculator={() => setIsCalculatorOpen(true)}
+          />
+
+          <Categories
+            activeCategory="all"
+            onSelectCategory={setActiveCategory}
+            onSelectSubcategory={(subcat) => {
+              window.location.href = `/subcategory/${encodeURIComponent(subcat.name.toLowerCase())}`;
+            }}
+          />
+
+          <ProductGrid
+            products={products}
+            activeCategory={activeCategory}
+            onSelectCategory={setActiveCategory}
+            searchQuery={searchQuery}
+            wishlist={currentWishlist}
+            onToggleWishlist={handleToggleWishlist}
+            onQuickView={(product) => setQuickViewProduct(product)}
+            liveRates={currentRates}
+          />
+
+          <WhyChooseUs shopName={siteSettings?.shop_name} isLoadingSettings={isLoadingSettings} />
+          <Testimonials shopName={siteSettings?.shop_name} isLoadingSettings={isLoadingSettings} />
+        </>
+      )}
+
+      <Footer
+        onSelectCategory={setActiveCategory}
+        onOpenCalculator={() => setIsCalculatorOpen(true)}
+        logoUrl={siteSettings?.logo_url}
+        shopName={siteSettings?.shop_name}
+        siteSettings={siteSettings}
+        isLoadingSettings={isLoadingSettings}
+      />
+
+      <GoldCalculatorModal
+        isOpen={isCalculatorOpen}
+        onClose={() => setIsCalculatorOpen(false)}
+        rates={currentRates}
+      />
+
+
+
+      <QuickViewModal
+        product={quickViewProduct}
+        onClose={() => setQuickViewProduct(null)}
+        liveRates={goldRates}
+      />
+
+      {/* Floating WhatsApp Button (Bottom Right) */}
+      {(() => {
+        const rawPhone = siteSettings?.store_phone;
+        const digits = String(rawPhone).replace(/\D/g, '');
+        const formattedPhone = digits.length >= 10 ? (digits.length === 10 ? `91${digits}` : digits) : "";
+        const shopName = siteSettings?.shop_name;
+        const whatsappUrl = `https://wa.me/${formattedPhone}?text=${encodeURIComponent(`Hello ${shopName}, I would like to inquire about your jewellery collections.`)}`;
+        return (
+          <a
+            href={whatsappUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="floating-whatsapp-btn"
+            title="Chat with us on WhatsApp"
+            aria-label="Chat on WhatsApp"
+          >
+            <span className="floating-whatsapp-tooltip">Chat with us</span>
+            <img
+              src="/whatappicon.png"
+              alt="WhatsApp"
+              className="floating-whatsapp-img"
+              onError={(e) => {
+                if (!e.target.src.includes('whatsapp.png')) {
+                  e.target.src = '/whatsapp.png';
+                } else {
+                  e.target.style.display = 'none';
+                  const svgEl = e.target.parentElement.querySelector('.floating-whatsapp-svg');
+                  if (svgEl) svgEl.style.display = 'block';
+                }
+              }}
+            />
+            <svg viewBox="0 0 32 32" className="floating-whatsapp-svg" style={{ display: 'none' }}>
+              <path d="M16.002 2.667C8.64 2.667 2.669 8.638 2.669 16c0 2.583.742 5.087 2.148 7.234L3.109 29.14l6.109-1.603a13.255 13.255 0 006.784 1.796h.005c7.36 0 13.332-5.972 13.332-13.333 0-3.564-1.388-6.914-3.909-9.435s-5.871-3.901-9.428-3.901zm7.777 18.917c-.324.912-1.884 1.743-2.633 1.856-.673.101-1.523.142-2.457-.156-.567-.18-1.294-.421-2.223-.822-3.916-1.691-6.471-5.633-6.667-5.892-.196-.261-1.593-2.117-1.593-4.037 0-1.921 1.008-2.866 1.366-3.257.358-.39.78-.488 1.04-.488.261 0 .521.002.748.013.239.011.56-.09.877.671.325.78 1.106 2.698 1.203 2.894.098.196.163.424.033.684-.13.261-.196.423-.39.651-.196.229-.412.511-.587.685-.196.196-.399.408-.171.8.228.391 1.01 1.667 2.169 2.702 1.49 1.33 2.747 1.742 3.137 1.938.391.195.62.163.847-.099.228-.261.978-1.139 1.238-1.53.26-.391.521-.326.879-.195.358.13 2.276 1.073 2.666 1.269.391.196.652.293.749.456.097.163.097.945-.228 1.856z" />
+            </svg>
+          </a>
+        );
+      })()}
     </div>
   );
 }

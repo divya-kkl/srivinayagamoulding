@@ -1,0 +1,228 @@
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(5px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.modal-card {
+  background: #FFF;
+  border-radius: var(--radius-lg);
+  width: 100%;
+  max-width: 580px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+  border: 1px solid var(--border-gold);
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-header {
+  background: var(--bg-maroon-dark);
+  color: #FFF;
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 2px solid var(--gold-primary);
+}
+
+.modal-title-group {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.modal-title {
+  color: var(--gold-light);
+  font-size: 1.25rem;
+  margin: 0;
+}
+
+.modal-subtitle {
+  color: rgba(255, 255, 255, 0.65);
+  font-size: 0.75rem;
+}
+
+.modal-close-btn {
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 1.8rem;
+  cursor: pointer;
+  line-height: 1;
+  transition: var(--transition);
+}
+
+.modal-close-btn:hover {
+  color: var(--gold-primary);
+}
+
+.modal-body {
+  padding: 1.5rem;
+}
+
+.calc-input-group {
+  margin-bottom: 1.5rem;
+}
+
+.calc-label {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: 0.92rem;
+  color: var(--text-dark);
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.label-with-val {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.highlight-val {
+  color: var(--bg-maroon-main);
+  font-weight: 700;
+  font-size: 0.88rem;
+}
+
+.metal-type-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.6rem;
+}
+
+.metal-type-btn {
+  background: #FAF6F0;
+  border: 1px solid var(--border-light);
+  padding: 0.6rem 0.4rem;
+  border-radius: var(--radius-md);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.metal-type-btn span {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--text-dark);
+}
+
+.metal-type-btn small {
+  color: var(--gold-dark);
+  font-weight: 600;
+  font-size: 0.72rem;
+}
+
+.metal-type-btn.active {
+  background: var(--bg-maroon-main);
+  border-color: var(--gold-primary);
+}
+
+.metal-type-btn.active span {
+  color: var(--gold-light);
+}
+
+.metal-type-btn.active small {
+  color: #FFF;
+}
+
+.calc-range-slider {
+  width: 100%;
+  accent-color: var(--bg-maroon-main);
+  cursor: pointer;
+}
+
+.quick-weight-chips {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+  margin-top: 0.6rem;
+}
+
+.weight-chip {
+  background: rgba(0, 0, 0, 0.04);
+  border: 1px solid var(--border-light);
+  border-radius: var(--radius-sm);
+  padding: 0.25rem 0.55rem;
+  font-size: 0.75rem;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.weight-chip.active {
+  background: var(--gold-gradient);
+  color: var(--bg-maroon-dark);
+  font-weight: 700;
+  border-color: var(--gold-dark);
+}
+
+.price-breakdown-box {
+  background: #250308;
+  color: #FFF;
+  border-radius: var(--radius-md);
+  padding: 1.25rem;
+  border: 1px solid var(--gold-primary);
+}
+
+.breakdown-title {
+  color: var(--gold-light);
+  font-size: 0.95rem;
+  margin-bottom: 0.85rem;
+  padding-bottom: 0.4rem;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.3);
+}
+
+.breakdown-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  margin-bottom: 0.45rem;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.breakdown-divider {
+  height: 1px;
+  background: rgba(212, 175, 55, 0.3);
+  margin: 0.75rem 0;
+}
+
+.breakdown-total-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.total-gold-price {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  color: var(--gold-light);
+  background: var(--gold-gradient);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.modal-footer {
+  padding: 1rem 1.5rem;
+  background: #FAF6F0;
+  border-top: 1px solid var(--border-light);
+}
+
+.full-width {
+  width: 100%;
+}

@@ -1,0 +1,197 @@
+.hero-carousel-section {
+  position: relative;
+  width: 100%;
+  background: var(--bg-maroon-dark, #2B050B);
+  color: #FFF;
+  overflow: hidden;
+  padding: 0;
+  margin: 0;
+}
+
+.hero-banner-container {
+  width: 100%;
+  max-width: 100%;
+  position: relative;
+  overflow: hidden;
+  background: #1C0306;
+  margin: 0 auto;
+}
+
+/* Desktop & Large Screens: Cover full remaining viewport screen height */
+@media (min-width: 992px) {
+  .hero-banner-container {
+    height: calc(100vh - 142px);
+    height: calc(100dvh - 142px);
+    min-height: 500px;
+    aspect-ratio: unset;
+  }
+}
+
+/* Tablet & Mobile Screens: Natural proportional aspect-ratio so banner is never cropped or zoomed */
+@media (max-width: 991px) {
+  .hero-banner-container {
+    width: 100%;
+    aspect-ratio: 1750 / 575;
+    height: auto;
+  }
+}
+
+.hero-banner-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition: opacity 0.8s ease-in-out;
+  display: block;
+}
+
+.carousel-controls {
+  position: absolute;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  z-index: 10;
+}
+
+.carousel-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 0;
+  outline: none;
+}
+
+.carousel-dot:hover {
+  background: rgba(255, 255, 255, 0.8);
+}
+
+.carousel-dot.active {
+  background: var(--gold-gradient, #D4AF37);
+  width: 28px;
+  border-radius: 6px;
+  border-color: #D4AF37;
+  box-shadow: 0 0 10px rgba(212, 175, 55, 0.6);
+}
+
+.shimmer {
+  background: #2a1a1f;
+  background-image: linear-gradient(
+    to right,
+    #2a1a1f 0%,
+    #4a2834 20%,
+    #2a1a1f 40%,
+    #2a1a1f 100%
+  );
+  background-repeat: no-repeat;
+  background-size: 800px 100%;
+  animation: shimmer-animation 1.4s infinite linear;
+}
+
+@keyframes shimmer-animation {
+  0% { background-position: -400px 0; }
+  100% { background-position: 800px 0; }
+}
+
+/* =========================================================
+   Responsive Media Queries for Controls & Layout Polish
+   ========================================================= */
+
+/* Extra Large Screens / Monitors (>= 1600px) */
+@media (min-width: 1600px) {
+  .carousel-controls {
+    bottom: 28px;
+    gap: 10px;
+  }
+  .carousel-dot {
+    width: 11px;
+    height: 11px;
+  }
+  .carousel-dot.active {
+    width: 32px;
+  }
+}
+
+/* Standard Desktops / Laptops (992px - 1599px) */
+@media (max-width: 1599px) and (min-width: 992px) {
+  .carousel-controls {
+    bottom: 22px;
+    gap: 8px;
+  }
+  .carousel-dot {
+    width: 10px;
+    height: 10px;
+  }
+  .carousel-dot.active {
+    width: 26px;
+  }
+}
+
+/* Tablets (769px - 991px) */
+@media (max-width: 991px) and (min-width: 769px) {
+  .carousel-controls {
+    bottom: 12px;
+    gap: 6px;
+  }
+  .carousel-dot {
+    width: 8px;
+    height: 8px;
+  }
+  .carousel-dot.active {
+    width: 20px;
+  }
+}
+
+/* Mobile Devices (481px - 768px) */
+@media (max-width: 768px) {
+  .carousel-controls {
+    bottom: 8px;
+    gap: 5px;
+  }
+  .carousel-dot {
+    width: 7px;
+    height: 7px;
+  }
+  .carousel-dot.active {
+    width: 16px;
+  }
+}
+
+/* Small Mobile Devices (361px - 480px) */
+@media (max-width: 480px) {
+  .carousel-controls {
+    bottom: 6px;
+    gap: 4px;
+  }
+  .carousel-dot {
+    width: 6px;
+    height: 6px;
+  }
+  .carousel-dot.active {
+    width: 13px;
+  }
+}
+
+/* Extra Small Mobile Devices (<= 360px) */
+@media (max-width: 360px) {
+  .carousel-controls {
+    bottom: 4px;
+    gap: 3px;
+  }
+  .carousel-dot {
+    width: 5px;
+    height: 5px;
+  }
+  .carousel-dot.active {
+    width: 11px;
+  }
+}
