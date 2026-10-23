@@ -21,8 +21,6 @@ const ContactUs = ({ siteSettings, isLoadingSettings }) => {
     const storeTiming = siteSettings?.store_timing || 'Mon - Sun: 10:00 AM - 9:00 PM';
 
     const rawDigits = String(storePhone).replace(/\D/g, '');
-    const whatsappDigits = rawDigits.length >= 10 ? (rawDigits.length === 10 ? `91${rawDigits}` : rawDigits) : '919843172314';
-    const whatsappUrl = `https://wa.me/${whatsappDigits}?text=${encodeURIComponent(`Hello ${shopName}, I would like to inquire about your jewellery collections.`)}`;
     const callUrl = `tel:${rawDigits}`;
 
     useEffect(() => {
@@ -150,8 +148,6 @@ const ContactUs = ({ siteSettings, isLoadingSettings }) => {
             </div>
         );
     }
-
-    const directionsUrl = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(mapQuery)}`;
 
     return (
         <div className="vj-contact-page">

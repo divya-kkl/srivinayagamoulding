@@ -5,7 +5,7 @@
 
 .categories-section {
   padding: 2.2rem 0;
-  background: #FAF8F5;
+  background: var(--cream-white, #F7F3E8);
   width: 100%;
   position: relative;
   overflow: hidden;
@@ -134,7 +134,7 @@
   border-radius: 50%;
   background: #FFFFFF;
   border: 1.5px solid #D4AF37;
-  color: #1A1105;
+  color: #003B2F;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -148,7 +148,7 @@
 
 .category-slider-arrow:hover {
   background: #D4AF37;
-  color: #FFFFFF;
+  color: #003B2F;
   transform: translateY(-50%) scale(1.1);
   box-shadow: 0 6px 20px rgba(212, 175, 55, 0.45);
 }

@@ -6,7 +6,6 @@ import HeroCarousel from './components/HeroCarousel';
 import Categories from './components/Categories';
 import ProductGrid from './components/ProductGrid';
 import GoldCalculatorModal from './components/GoldCalculatorModal';
-import WhyChooseUs from './components/WhyChooseUs';
 import Banner2Section from './components/Banner2Section';
 import BudgetDealsSection from './components/BudgetDealsSection';
 import Testimonials from './components/Testimonials';

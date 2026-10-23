@@ -73,10 +73,10 @@
 }
 
 .deals-cta-btn:hover {
-  background: #004D3E; /* Lighter theme green on hover */
+  background: #B8860B; /* Dark gold on hover */
   border-color: #D4AF37;
   transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(0, 59, 47, 0.38);
+  box-shadow: 0 8px 24px rgba(184, 134, 11, 0.4);
 }
 
 .deals-cta-btn:active {

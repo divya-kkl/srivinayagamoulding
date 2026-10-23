@@ -617,7 +617,7 @@
 .product-details-error button {
   margin-top: 20px;
   padding: 10px 20px;
-  background: #4a0a1f;
+  background: #003B2F;
   color: #fff;
   border: none;
   cursor: pointer;
@@ -970,14 +970,14 @@
 .product-main-img-container:hover .img-zoom-badge {
   transform: scale(1.1);
   background: var(--gold-primary, #d4af37);
-  color: #2b050b;
+  color: #003B2F;
 }
 
 .img-zoom-badge {
   position: absolute;
   bottom: 14px;
   right: 14px;
-  background: rgba(43, 5, 11, 0.85);
+  background: rgba(0, 59, 47, 0.85);
   color: #d4af37;
   border: 1px solid rgba(212, 175, 55, 0.5);
   border-radius: 50%;

@@ -12,13 +12,25 @@
   --font-brand: var(--font-family-global);
   --font-body: var(--font-family-global);
 
-  /* 2. Global Background Colors */
-  --bg-body: #FDFBF7;
-  --bg-cream-light: var(--bg-body);
-  --bg-cream-card: #FAF6F0;
-  --bg-maroon-dark: #2B050B;
-  --bg-maroon-main: #4A0E17;
-  --bg-maroon-light: #681522;
+  /* 2. Global Background Colors (Gold Moulding Palette) */
+  --primary-dark-green: #003B2F;
+  --primary-green: #003B2F;
+  --primary-green-dark: #002820;
+  --primary-green-light: #004D3E;
+
+  --cream-white: #F7F3E8;
+  --pure-white: #FFFFFF;
+  --charcoal-black: #1C2521;
+  --dark-gold: #B8860B;
+
+  --bg-body: #F7F3E8;
+  --bg-cream-light: #F7F3E8;
+  --bg-cream-card: #FFFFFF;
+
+  /* Theme backwards compatibility aliases mapped to brand colors */
+  --bg-maroon-dark: #002820;
+  --bg-maroon-main: #003B2F;
+  --bg-maroon-light: #004D3E;
 
   /* 3. Global Font Sizes */
   --font-size-base: 14.5px;
@@ -31,21 +43,21 @@
   /* 4. Luxury Gold & Text Accents */
   --gold-primary: #D4AF37;
   --gold-light: #F7E7AD;
-  --gold-dark: #A88321;
-  --gold-gradient: linear-gradient(135deg, #FFE89C 0%, #D4AF37 50%, #9E7412 100%);
+  --gold-dark: #B8860B;
+  --gold-gradient: linear-gradient(135deg, #FFE89C 0%, #D4AF37 50%, #B8860B 100%);
   --gold-glow: 0 0 20px rgba(212, 175, 55, 0.35);
 
-  --text-dark: #1E1715;
-  --text-muted: #665A57;
+  --text-dark: #1C2521;
+  --text-muted: #53625C;
   --text-gold: #D4AF37;
-  --text-light: #FDFBF7;
+  --text-light: #F7F3E8;
 
   --border-gold: rgba(212, 175, 55, 0.3);
   --border-light: rgba(0, 0, 0, 0.08);
 
   --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.05);
   --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.1);
-  --shadow-luxury: 0 15px 35px rgba(61, 9, 17, 0.18);
+  --shadow-luxury: 0 15px 35px rgba(0, 59, 47, 0.15);
 
   --radius-sm: 6px;
   --radius-md: 12px;

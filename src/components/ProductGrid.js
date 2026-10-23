@@ -3,7 +3,7 @@ import './ProductGrid.css';
 import { supabase } from '../supabaseClient';
 import { getProductsFromSupabase } from '../services/productService';
 import { getTagsFromSupabase } from '../services/tagService';
-import { calculateFinalPrice } from '../admin/product/ProductPriceCalculator';
+import { calculateFinalPrice, getProductWeightDisplay } from '../admin/product/ProductPriceCalculator';
 
 const ProductGrid = ({
   title = 'Featured Jewellery',

@@ -482,14 +482,14 @@
   gap: 6px;
   cursor: pointer;
   border-radius: 4px;
-  border: 1px solid #4a0a1f;
-  background: #4a0a1f;
+  border: 1px solid #003B2F;
+  background: #003B2F;
   color: #FFF;
   transition: all 0.3s;
 }
 
 .action-buttons button:hover {
-  background: #320715;
+  background: #B8860B;
 }
 
 .whatsapp-help {

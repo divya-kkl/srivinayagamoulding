@@ -132,8 +132,8 @@ const CategoryPage = ({ liveRates = [] }) => {
   return (
     <div className="category-page-container animate-fade-in" style={{ paddingTop: '20px' }}>
       {/* Breadcrumbs Navigation */}
-      <div className="container category-breadcrumbs" style={{ marginBottom: '14px', display: 'flex', alignItems: 'center', fontSize: '0.95rem', color: '#4a0a1f', fontWeight: '500', letterSpacing: '0.5px', flexWrap: 'wrap', gap: '6px' }}>
-        <a href="/" style={{ display: 'flex', alignItems: 'center', color: '#4a0a1f', textDecoration: 'none', cursor: 'pointer' }}>
+      <div className="container category-breadcrumbs" style={{ marginBottom: '14px', display: 'flex', alignItems: 'center', fontSize: '0.95rem', color: '#003B2F', fontWeight: '500', letterSpacing: '0.5px', flexWrap: 'wrap', gap: '6px' }}>
+        <a href="/" style={{ display: 'flex', alignItems: 'center', color: '#003B2F', textDecoration: 'none', cursor: 'pointer' }}>
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
             <polyline points="9 22 9 12 15 12 15 22"></polyline>
@@ -145,11 +145,11 @@ const CategoryPage = ({ liveRates = [] }) => {
             <React.Fragment key={crumb.id || idx}>
               <span style={{ color: '#888' }}>&gt;</span>
               {idx === breadcrumbs.length - 1 ? (
-                <span style={{ textTransform: 'uppercase', fontWeight: '700', color: '#4a0a1f' }}>{crumb.name}</span>
+                <span style={{ textTransform: 'uppercase', fontWeight: '700', color: '#003B2F' }}>{crumb.name}</span>
               ) : crumb.isMainCategory ? (
                 <span style={{ textTransform: 'uppercase', color: '#666' }}>{crumb.name}</span>
               ) : (
-                <a href={`/subcategory/${encodeURIComponent(crumb.name)}`} style={{ textTransform: 'uppercase', color: '#4a0a1f', textDecoration: 'none' }}>
+                <a href={`/subcategory/${encodeURIComponent(crumb.name)}`} style={{ textTransform: 'uppercase', color: '#003B2F', textDecoration: 'none' }}>
                   {crumb.name}
                 </a>
               )}
@@ -157,7 +157,7 @@ const CategoryPage = ({ liveRates = [] }) => {
           ))
         ) : (
           <>
-            <span style={{ margin: '0 6px', color: '#4a0a1f' }}>&gt;</span>
+            <span style={{ margin: '0 6px', color: '#003B2F' }}>&gt;</span>
             <span style={{ textTransform: 'uppercase' }}>{subcategoryName}</span>
           </>
         )}
@@ -277,12 +277,12 @@ const CategoryPage = ({ liveRates = [] }) => {
           {(minPrice !== '' || maxPrice !== '') && (
             <div className="active-filter-banner" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '8px', marginBottom: '16px', background: '#FFFDF5', border: '1px solid #E2D6BE', padding: '8px 14px', borderRadius: '8px' }}>
               <span style={{ fontSize: '0.86rem', color: '#444' }}>
-                Applied Price Filter: <strong style={{ color: '#4a0a1f' }}>₹{minPrice || '0'} - ₹{maxPrice || 'Any'}</strong> ({filteredProducts.length} items found)
+                Applied Price Filter: <strong style={{ color: '#003B2F' }}>₹{minPrice || '0'} - ₹{maxPrice || 'Any'}</strong> ({filteredProducts.length} items found)
               </span>
               <button
                 type="button"
                 onClick={handleClearPriceFilter}
-                style={{ background: '#4A0E17', color: '#fff', border: 'none', padding: '5px 12px', borderRadius: '6px', fontSize: '0.78rem', cursor: 'pointer', fontWeight: 'bold', display: 'inline-flex', alignItems: 'center', gap: '4px' }}
+                style={{ background: '#003B2F', color: '#fff', border: 'none', padding: '5px 12px', borderRadius: '6px', fontSize: '0.78rem', cursor: 'pointer', fontWeight: 'bold', display: 'inline-flex', alignItems: 'center', gap: '4px' }}
                 title="Remove Filter"
               >
                 ✕ Remove Filter
@@ -306,7 +306,7 @@ const CategoryPage = ({ liveRates = [] }) => {
           ) : filteredProducts.length === 0 ? (
             <div className="no-products-found" style={{ padding: '50px 0', textAlign: 'center' }}>
               <div style={{ fontSize: '3rem', marginBottom: '10px' }}>💎</div>
-              <h3 style={{ color: '#4a0a1f' }}>No products directly listed in {subcategoryName}</h3>
+              <h3 style={{ color: '#003B2F' }}>No products directly listed in {subcategoryName}</h3>
               {childCategories.length > 0 && (
                 <p style={{ color: '#666', marginTop: '8px' }}>
                   Please explore the Child Collections above to see related jewellery items.
@@ -365,7 +365,7 @@ const CategoryPage = ({ liveRates = [] }) => {
                       }}
                       style={{
                         width: '100%',
-                        backgroundColor: '#4a0a1f',
+                        backgroundColor: '#003B2F',
                         color: 'white',
                         border: 'none',
                         padding: '14px',

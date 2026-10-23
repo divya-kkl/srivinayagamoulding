@@ -19,7 +19,7 @@ const Banner2Section = () => {
   useEffect(() => {
     const fetchBanners = async () => {
       setIsLoading(true);
-      const { data, error } = await getBanner2FromSupabase(true);
+      const { data } = await getBanner2FromSupabase(true);
       if (data && data.length > 0) {
         setSlides(data);
       } else {

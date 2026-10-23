@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import './BudgetDealsSection.css';
 import { supabase } from '../supabaseClient';
 import { getProductsFromSupabase, resolveImageUrl } from '../services/productService';
@@ -41,7 +41,7 @@ const BudgetDealsSection = ({ liveRates = [] }) => {
   const [supabaseProductsList, setSupabaseProductsList] = useState([]);
 
   // Fetch products dynamically from Supabase
-  const loadDynamicProducts = async () => {
+  const loadDynamicProducts = useCallback(async () => {
     try {
       const { data: supabaseProducts } = await getProductsFromSupabase(true);
       const productList = supabaseProducts && supabaseProducts.length > 0 ? supabaseProducts : [];
@@ -79,7 +79,7 @@ const BudgetDealsSection = ({ liveRates = [] }) => {
     } catch (err) {
       console.error('Error loading dynamic deals products from Supabase:', err);
     }
-  };
+  }, [liveRates]);
 
   useEffect(() => {
     loadDynamicProducts();
@@ -99,7 +99,7 @@ const BudgetDealsSection = ({ liveRates = [] }) => {
     return () => {
       supabase.removeChannel(subscription);
     };
-  }, [liveRates]);
+  }, [loadDynamicProducts]);
 
   const handleCardClick = (tile) => {
     let url = '/all-products';
