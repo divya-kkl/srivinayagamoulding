@@ -131,7 +131,7 @@
   backdrop-filter: blur(6px);
   -webkit-backdrop-filter: blur(6px);
   border: 1px solid rgba(0, 0, 0, 0.08);
-  color: #1a0206;
+  color: var(--charcoal, #1C2521);
   width: 36px;
   height: 36px;
   border-radius: 50%;
@@ -148,8 +148,8 @@
 }
 
 .qv-main-nav-btn:hover {
-  background: #d4af37;
-  color: #1a0206;
+  background: var(--luxury-gold, #d4af37);
+  color: var(--primary-green, #003B2F);
   transform: translateY(-50%) scale(1.08);
 }
 
@@ -482,14 +482,15 @@
   gap: 6px;
   cursor: pointer;
   border-radius: 4px;
-  border: 1px solid #4a0a1f;
-  background: #4a0a1f;
+  border: 1px solid var(--primary-green, #003B2F);
+  background: var(--primary-green, #003B2F);
   color: #FFF;
   transition: all 0.3s;
 }
 
 .action-buttons button:hover {
-  background: #320715;
+  background: var(--dark-gold, #B8860B);
+  border-color: var(--dark-gold, #B8860B);
 }
 
 .whatsapp-help {

@@ -8,7 +8,7 @@ const RateHistoryModal = ({ isOpen, onClose, onOpenCalculator, liveRates = [] })
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const [selectedMetal, setSelectedMetal] = useState('22k');
-  const [viewMode, setViewMode] = useState('graph'); // 'graph', 'list', 'both'
+  const [viewMode] = useState('graph');
   const [hoveredPoint, setHoveredPoint] = useState(null);
 
   // Fetch 7-day rate history from Supabase when modal opens
@@ -503,9 +503,6 @@ const RateHistoryModal = ({ isOpen, onClose, onOpenCalculator, liveRates = [] })
                 <h3 className="rhm-title">Live Rate Graph & History</h3>
                 <span className="rhm-days-tag">Last 7 Days</span>
               </div>
-              <p className="rhm-subtitle">
-                Supabase Daily Market Trends (7 நாள் தங்கம் & வெள்ளி விலை வரைபடம்)
-              </p>
             </div>
           </div>
           <button
@@ -570,47 +567,6 @@ const RateHistoryModal = ({ isOpen, onClose, onOpenCalculator, liveRates = [] })
               </>
             )}
           </div>
-
-          {/* View Switcher: Graph | List | Both */}
-          <div className="rhm-view-switcher">
-            <button
-              type="button"
-              className={`rhm-view-btn ${viewMode === 'graph' ? 'active' : ''}`}
-              onClick={() => setViewMode('graph')}
-              title="Graph View"
-            >
-              📈 Graph
-            </button>
-            <button
-              type="button"
-              className={`rhm-view-btn ${viewMode === 'both' ? 'active' : ''}`}
-              onClick={() => setViewMode('both')}
-              title="Both Graph and List"
-            >
-              📊 Both
-            </button>
-            <button
-              type="button"
-              className={`rhm-view-btn ${viewMode === 'list' ? 'active' : ''}`}
-              onClick={() => setViewMode('list')}
-              title="Card List View"
-            >
-              📋 List
-            </button>
-
-            {onOpenCalculator && (
-              <button
-                type="button"
-                className="rhm-calc-link-btn"
-                onClick={() => {
-                  onClose();
-                  onOpenCalculator();
-                }}
-              >
-                <span>Calculate</span>
-              </button>
-            )}
-          </div>
         </div>
 
         {/* Content Body */}
@@ -618,7 +574,7 @@ const RateHistoryModal = ({ isOpen, onClose, onOpenCalculator, liveRates = [] })
           {isLoading ? (
             <div className="rhm-loading-state">
               <div className="custom-gold-spinner" style={{ width: '40px', height: '40px', margin: '0 auto 16px' }}></div>
-              <p>Fetching 7-day rate history & chart from Supabase...</p>
+              <p>Fetching 7-day rate history & chart...</p>
             </div>
           ) : error ? (
             <div className="rhm-error-state">
@@ -631,7 +587,7 @@ const RateHistoryModal = ({ isOpen, onClose, onOpenCalculator, liveRates = [] })
             </div>
           ) : history.length === 0 ? (
             <div className="rhm-empty-state">
-              <p>No rate records found in Supabase for the last 7 days.</p>
+              <p>No rate records found for the last 7 days.</p>
             </div>
           ) : (
             <>
@@ -661,11 +617,6 @@ const RateHistoryModal = ({ isOpen, onClose, onOpenCalculator, liveRates = [] })
                         <strong className="rhm-metric-val low">
                           ₹{chartMetrics.low.toLocaleString('en-IN')}
                         </strong>
-                      </div>
-
-                      <div className="rhm-metric-pill">
-                        <span className="rhm-metric-lbl">Overall Change:</span>
-                        {renderTrend(chartMetrics.overallChange)}
                       </div>
                     </div>
                   )}
@@ -808,7 +759,7 @@ const RateHistoryModal = ({ isOpen, onClose, onOpenCalculator, liveRates = [] })
           <div className="rhm-footer-info">
             <span className="rhm-info-dot"></span>
             <span>
-              Rates are updated daily directly in Supabase. Prices exclude Making Charges & GST unless specified.
+              Official market bullion rates updated daily. Prices exclude Making Charges & GST unless specified.
             </span>
           </div>
           <button type="button" className="rhm-footer-close-btn" onClick={onClose}>

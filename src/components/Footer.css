@@ -36,8 +36,8 @@
 }
 
 .social-icon:hover {
-  background: var(--gold-primary);
-  color: #250308;
+  background: var(--luxury-gold, #D4AF37);
+  color: var(--primary-green, #003B2F);
   font-weight: 700;
 }
 
@@ -149,7 +149,7 @@
 }
 
 .map-snippet-box {
-  background: #1A0306;
+  background: #002820;
   border: 1px solid var(--border-gold);
   border-radius: var(--radius-md);
   padding: 0.85rem;
@@ -214,14 +214,20 @@
 }
 
 .btn-gold-sm {
-  background: var(--gold-gradient);
-  color: #250308;
+  background: var(--luxury-gold, #D4AF37);
+  color: var(--primary-green, #003B2F);
   border: none;
   padding: 0.5rem 0.85rem;
   border-radius: var(--radius-sm);
   font-weight: 700;
   font-size: 0.78rem;
   cursor: pointer;
+  transition: var(--transition);
+}
+
+.btn-gold-sm:hover {
+  background: var(--dark-gold, #B8860B);
+  color: #FFFFFF;
 }
 
 .subscribed-success {

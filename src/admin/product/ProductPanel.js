@@ -290,8 +290,9 @@ const ProductPanel = () => {
                       <div style={{ fontSize: '0.8rem', color: '#666' }}>
                         {prod.tagName && <span style={{ background: '#d4af37', color: '#000', padding: '2px 6px', borderRadius: '4px', marginRight: '5px', fontSize: '0.7rem', fontWeight: 'bold' }}>{prod.tagName}</span>}
                         {prod.badge && <span style={{ background: '#5e0b15', color: '#fff', padding: '2px 6px', borderRadius: '4px', marginRight: '5px', fontSize: '0.7rem' }}>{prod.badge}</span>}
-                        {prod.purity && <span style={{ marginRight: '5px', color: '#b8860b' }}>{prod.purity}</span>}
-                        {prod.netWeight > 0 && <span>| ⚖ {prod.netWeight}g</span>}
+                        {(prod.netWeight > 0 || prod.grossWeight > 0 || prod.weight > 0) && (
+                          <span>| ⚖ {prod.netWeight > 0 ? `${prod.netWeight}g` : (prod.grossWeight > 0 ? `${prod.grossWeight}g` : `${prod.weight}g`)}</span>
+                        )}
                       </div>
                     </td>
                     <td>

@@ -30,7 +30,7 @@
 }
 
 .pd-breadcrumb a:hover {
-  color: #3e0716;
+  color: var(--primary-green, #003B2F);
 }
 
 .pd-breadcrumb-sep {
@@ -44,7 +44,7 @@
   position: fixed;
   top: 24px;
   right: 24px;
-  background: #3e0716;
+  background: var(--primary-green, #003B2F);
   color: #ffffff;
   padding: 12px 22px;
   border-radius: 6px;
@@ -317,7 +317,7 @@
 .price-breakup h4 {
   font-size: 0.9rem;
   font-weight: 800;
-  color: #3e0716;
+  color: var(--primary-green, #003B2F);
   letter-spacing: 0.6px;
   margin: 0 0 12px 0;
   text-transform: uppercase;
@@ -410,11 +410,11 @@
 }
 
 .pd-tab-btn:hover {
-  color: #3e0716;
+  color: var(--primary-green, #003B2F);
 }
 
 .pd-tab-btn.active {
-  color: #3e0716;
+  color: var(--primary-green, #003B2F);
 }
 
 .pd-tab-btn.active::after {
@@ -424,7 +424,7 @@
   left: 0;
   width: 100%;
   height: 3px;
-  background: #3e0716;
+  background: var(--luxury-gold, #D4AF37);
 }
 
 /* 2-Column Specs Key-Value Table */
@@ -478,25 +478,30 @@
 }
 
 .pd-policy-pill {
-  background: #ffffff;
-  border: 1px solid transparent;
-  color: #222222;
+  background: var(--pure-white, #ffffff);
+  border: 1px solid rgba(0, 59, 47, 0.15);
+  color: var(--charcoal, #1C2521);
   padding: 10px 18px;
-  border-radius: 4px;
+  border-radius: 6px;
   font-size: 0.9rem;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.2s ease;
   font-family: inherit;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 }
 
 .pd-policy-pill:hover {
-  background: #f5f5f5;
+  background: var(--cream-white, #F7F3E8);
+  border-color: var(--luxury-gold, #D4AF37);
+  color: var(--primary-green, #003B2F);
 }
 
 .pd-policy-pill.active {
-  background: #3e0716;
+  background: var(--primary-green, #003B2F);
   color: #ffffff;
+  border-color: var(--primary-green, #003B2F);
+  box-shadow: 0 4px 12px rgba(0, 59, 47, 0.25);
 }
 
 .pd-policy-content {
@@ -517,7 +522,7 @@
 .pd-rating-big {
   font-size: 2.5rem;
   font-weight: 800;
-  color: #3e0716;
+  color: var(--primary-green, #003B2F);
   line-height: 1;
 }
 
@@ -617,10 +622,11 @@
 .product-details-error button {
   margin-top: 20px;
   padding: 10px 20px;
-  background: #4a0a1f;
+  background: var(--primary-green, #003B2F);
   color: #fff;
   border: none;
   cursor: pointer;
+  border-radius: 4px;
 }
 
 
@@ -878,13 +884,13 @@
 }
 
 .pd-related-card:hover .pd-related-title {
-  color: #3e0716;
+  color: var(--primary-green, #003B2F);
 }
 
 .pd-related-price {
   font-size: 1.02rem;
   font-weight: 800;
-  color: #1a0206;
+  color: var(--primary-green, #003B2F);
   margin-top: auto;
   height: 22px;
   line-height: 22px;
@@ -946,21 +952,27 @@
   position: absolute;
   top: 14px;
   left: 14px;
-  background: rgba(43, 5, 11, 0.82);
-  color: var(--gold-light, #FFE082);
-  border: 1px solid rgba(212, 175, 55, 0.4);
-  font-size: 0.72rem;
-  font-weight: 600;
+  background: var(--primary-green, #003B2F);
+  color: var(--pure-white, #FFFFFF);
+  border: 1.5px solid var(--luxury-gold, #D4AF37);
+  font-size: 0.74rem;
+  font-weight: 700;
   letter-spacing: 0.5px;
-  padding: 4px 10px;
+  padding: 5px 12px;
   border-radius: 20px;
   display: flex;
   align-items: center;
-  gap: 5px;
+  gap: 6px;
   pointer-events: none;
   backdrop-filter: blur(6px);
+  box-shadow: 0 4px 14px rgba(0, 59, 47, 0.4);
   transition: opacity 0.2s ease;
   z-index: 5;
+}
+
+.zoom-hint-pill svg {
+  color: var(--luxury-gold, #D4AF37);
+  flex-shrink: 0;
 }
 
 .zoom-hint-pill.hidden {
@@ -970,15 +982,15 @@
 .product-main-img-container:hover .img-zoom-badge {
   transform: scale(1.1);
   background: var(--gold-primary, #d4af37);
-  color: #2b050b;
+  color: var(--primary-green, #003B2F);
 }
 
 .img-zoom-badge {
   position: absolute;
   bottom: 14px;
   right: 14px;
-  background: rgba(43, 5, 11, 0.85);
-  color: #d4af37;
+  background: rgba(0, 59, 47, 0.85);
+  color: var(--luxury-gold, #d4af37);
   border: 1px solid rgba(212, 175, 55, 0.5);
   border-radius: 50%;
   width: 40px;
@@ -1057,8 +1069,8 @@
 }
 
 .pd-lightbox-close:hover {
-  background: #d4af37;
-  color: #1a0206;
+  background: var(--luxury-gold, #d4af37);
+  color: var(--primary-green, #003B2F);
   transform: scale(1.08) rotate(90deg);
 }
 
@@ -1066,9 +1078,9 @@
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  background: rgba(30, 5, 10, 0.7);
+  background: rgba(0, 45, 36, 0.85);
   border: 1px solid rgba(212, 175, 55, 0.6);
-  color: #d4af37;
+  color: var(--luxury-gold, #d4af37);
   width: 48px;
   height: 48px;
   border-radius: 50%;
@@ -1083,8 +1095,8 @@
 }
 
 .pd-lightbox-nav:hover {
-  background: #d4af37;
-  color: #1a0206;
+  background: var(--luxury-gold, #d4af37);
+  color: var(--primary-green, #003B2F);
   transform: translateY(-50%) scale(1.1);
 }
 
@@ -1419,7 +1431,7 @@
     background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(6px);
     border: 1px solid rgba(0, 0, 0, 0.08);
-    color: #1a0206;
+    color: var(--charcoal, #1C2521);
     width: 38px;
     height: 38px;
     border-radius: 50%;
@@ -1526,7 +1538,7 @@
   .product-price {
     font-size: 1.65rem;
     font-weight: 800;
-    color: #3e0716;
+    color: var(--primary-green, #003B2F);
     margin-bottom: 1rem;
     letter-spacing: -0.3px;
   }
@@ -1600,7 +1612,7 @@
   .price-breakup h4 {
     font-size: 0.85rem;
     font-weight: 800;
-    color: #3e0716;
+    color: var(--primary-green, #003B2F);
     letter-spacing: 0.5px;
     margin-bottom: 10px;
   }
@@ -1688,8 +1700,8 @@
   }
 
   .pd-tab-btn.active {
-    color: #3e0716;
-    border-bottom-color: #3e0716;
+    color: var(--primary-green, #003B2F);
+    border-bottom-color: var(--primary-green, #003B2F);
   }
 
   .pd-info-table {

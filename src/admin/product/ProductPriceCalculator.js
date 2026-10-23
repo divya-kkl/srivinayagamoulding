@@ -1,7 +1,32 @@
 import React from 'react';
 
+export const getProductWeightDisplay = (product) => {
+  if (!product) return 'Weight: -';
+
+  const cleanNum = (val) => {
+    if (val === null || val === undefined || val === '') return null;
+    const num = parseFloat(String(val).replace(/[^0-9.]/g, ''));
+    return isNaN(num) || num <= 0 ? null : num;
+  };
+
+  const net = cleanNum(product.netWeight);
+  const gross = cleanNum(product.grossWeight);
+  const fallback = cleanNum(product.weight);
+
+  if (net && gross && net !== gross) {
+    return `Net: ${net}g • Gross: ${gross}g`;
+  }
+
+  const primaryWeight = net || gross || fallback;
+  if (primaryWeight) {
+    return `Weight: ${primaryWeight}g`;
+  }
+
+  return 'Weight: -';
+};
+
 export const calculateFinalPrice = (product, liveRates) => {
-  const netWt = parseFloat(product.netWeight) || parseFloat(product.grossWeight) || 0;
+  const netWt = parseFloat(product?.netWeight) || parseFloat(product?.grossWeight) || parseFloat(product?.weight) || 0;
   if (!netWt) return { finalPrice: 0, basePrice: 0, makingCharge: 0, hallmarkCharge: 0, gstRate: 0 };
 
   const purityStr = (product.purity || '').toLowerCase().replace(/\s+/g, '');

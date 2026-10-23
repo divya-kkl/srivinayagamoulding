@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './CategoryPage.css';
 import { getProductsFromSupabase } from '../services/productService';
 import { getTagsFromSupabase } from '../services/tagService';
-import { calculateFinalPrice } from '../admin/product/ProductPriceCalculator';
+import { calculateFinalPrice, getProductWeightDisplay } from '../admin/product/ProductPriceCalculator';
 import LoadMoreSection from './LoadMoreSection';
 import SortDropdown from './SortDropdown';
 
@@ -130,15 +130,15 @@ const FeaturedProductsPage = ({ liveRates = [] }) => {
   return (
     <div className="category-page-container animate-fade-in" style={{ paddingTop: '20px' }}>
       {/* Breadcrumbs Navigation */}
-      <div className="container category-breadcrumbs" style={{ marginBottom: '14px', display: 'flex', alignItems: 'center', fontSize: '0.95rem', color: '#4a0a1f', fontWeight: '500', letterSpacing: '0.5px' }}>
-        <a href="/" style={{ display: 'flex', alignItems: 'center', color: '#4a0a1f', textDecoration: 'none', cursor: 'pointer' }}>
+      <div className="container category-breadcrumbs" style={{ marginBottom: '14px', display: 'flex', alignItems: 'center', fontSize: '0.95rem', color: 'var(--primary-green, #003B2F)', fontWeight: '500', letterSpacing: '0.5px' }}>
+        <a href="/" style={{ display: 'flex', alignItems: 'center', color: 'var(--primary-green, #003B2F)', textDecoration: 'none', cursor: 'pointer' }}>
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
             <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
             <polyline points="9 22 9 12 15 12 15 22"></polyline>
           </svg>
         </a>
         <span style={{ margin: '0 10px', color: '#888' }}>&gt;</span>
-        <span style={{ textTransform: 'uppercase', fontWeight: '700', color: '#4a0a1f' }}>{tagTitle}</span>
+        <span style={{ textTransform: 'uppercase', fontWeight: '700', color: 'var(--primary-green, #003B2F)' }}>{tagTitle}</span>
       </div>
 
       {/* Mobile Show Filters Bar */}
@@ -208,12 +208,12 @@ const FeaturedProductsPage = ({ liveRates = [] }) => {
           {(minPrice !== '' || maxPrice !== '') && (
             <div className="active-filter-banner" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '8px', marginBottom: '16px', background: '#FFFDF5', border: '1px solid #E2D6BE', padding: '8px 14px', borderRadius: '8px' }}>
               <span style={{ fontSize: '0.86rem', color: '#444' }}>
-                Applied Price Filter: <strong style={{ color: '#4a0a1f' }}>₹{minPrice || '0'} - ₹{maxPrice || 'Any'}</strong> ({filteredProducts.length} items found)
+                Applied Price Filter: <strong style={{ color: 'var(--primary-green, #003B2F)' }}>₹{minPrice || '0'} - ₹{maxPrice || 'Any'}</strong> ({filteredProducts.length} items found)
               </span>
               <button
                 type="button"
                 onClick={handleClearPriceFilter}
-                style={{ background: '#4A0E17', color: '#fff', border: 'none', padding: '5px 12px', borderRadius: '6px', fontSize: '0.78rem', cursor: 'pointer', fontWeight: 'bold', display: 'inline-flex', alignItems: 'center', gap: '4px' }}
+                style={{ background: 'var(--primary-green, #003B2F)', color: '#fff', border: 'none', padding: '5px 12px', borderRadius: '6px', fontSize: '0.78rem', cursor: 'pointer', fontWeight: 'bold', display: 'inline-flex', alignItems: 'center', gap: '4px' }}
                 title="Remove Filter"
               >
                 ✕ Remove Filter
@@ -272,7 +272,7 @@ const FeaturedProductsPage = ({ liveRates = [] }) => {
                       </h3>
 
                       <div className="product-weight-purity" style={{ marginBottom: '12px', color: '#003366', fontSize: '0.9rem' }}>
-                        Weight: {product.netWeight > 0 ? `${product.netWeight}g` : '-'} • {product.purity || '-'}
+                        {getProductWeightDisplay(product)} • {product.purity ? product.purity.replace(/\s*gold/i, '').trim() || '22K' : '22K'}
                       </div>
 
                       {(() => {
@@ -295,7 +295,7 @@ const FeaturedProductsPage = ({ liveRates = [] }) => {
                       }}
                       style={{
                         width: '100%',
-                        backgroundColor: '#4a0a1f',
+                        backgroundColor: 'var(--primary-green, #003B2F)',
                         color: 'white',
                         border: 'none',
                         padding: '14px',

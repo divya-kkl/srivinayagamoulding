@@ -8,7 +8,7 @@
   bottom: 0 !important;
   width: 100vw !important;
   height: 100vh !important;
-  background: rgba(15, 3, 6, 0.82) !important;
+  background: rgba(0, 30, 24, 0.85) !important;
   backdrop-filter: blur(10px) !important;
   -webkit-backdrop-filter: blur(10px) !important;
   z-index: 99999999 !important;
@@ -49,7 +49,7 @@
 
 /* Header */
 .rhm-header {
-  background: linear-gradient(135deg, #2A040B 0%, #450A14 60%, #5E0E1B 100%);
+  background: linear-gradient(135deg, #002820 0%, #003B2F 60%, #004D3E 100%);
   color: #ffffff;
   padding: 1.15rem 1.6rem;
   display: flex;
@@ -95,7 +95,7 @@
 
 .rhm-days-tag {
   background: var(--gold-gradient, linear-gradient(135deg, #FFE89C 0%, #D4AF37 100%));
-  color: #250308;
+  color: var(--primary-green, #003B2F);
   font-size: 0.7rem;
   font-weight: 800;
   padding: 0.2rem 0.55rem;
@@ -137,7 +137,7 @@
 .rhm-filter-bar {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   padding: 0.75rem 1.6rem;
   background: #FAF6F0;
   border-bottom: 1px solid rgba(0, 0, 0, 0.07);
@@ -172,14 +172,14 @@
 
 .rhm-filter-btn:hover {
   border-color: var(--gold-primary, #D4AF37);
-  color: #2A040B;
+  color: var(--primary-green, #003B2F);
 }
 
 .rhm-filter-btn.active {
-  background: #2A040B;
+  background: var(--primary-green, #003B2F);
   color: #FFE89C;
-  border-color: #2A040B;
-  box-shadow: 0 2px 6px rgba(42, 4, 11, 0.25);
+  border-color: var(--primary-green, #003B2F);
+  box-shadow: 0 2px 6px rgba(0, 59, 47, 0.3);
 }
 
 /* View Switcher */
@@ -202,9 +202,9 @@
 }
 
 .rhm-view-btn.active {
-  background: #D4AF37;
-  color: #250308;
-  border-color: #B8860B;
+  background: var(--luxury-gold, #D4AF37);
+  color: var(--primary-green, #003B2F);
+  border-color: var(--dark-gold, #B8860B);
   box-shadow: 0 2px 6px rgba(212, 175, 55, 0.35);
 }
 
@@ -221,8 +221,8 @@
 }
 
 .rhm-calc-link-btn:hover {
-  background: #D4AF37;
-  color: #250308;
+  background: var(--luxury-gold, #D4AF37);
+  color: var(--primary-green, #003B2F);
 }
 
 /* Body */
@@ -230,7 +230,7 @@
   padding: 1.25rem 1.6rem;
   overflow-y: auto;
   flex: 1;
-  background: #FDFBF7;
+  background: var(--cream-white, #F7F3E8);
 }
 
 /* GRAPH SECTION */
@@ -243,7 +243,7 @@
 /* Metrics Bar */
 .rhm-metrics-bar {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   gap: 0.65rem;
 }
 
@@ -697,7 +697,7 @@
 }
 
 .rhm-footer-close-btn {
-  background: #2A040B;
+  background: var(--primary-green, #003B2F);
   color: #ffffff;
   border: none;
   padding: 0.5rem 1.25rem;
@@ -709,8 +709,8 @@
 }
 
 .rhm-footer-close-btn:hover {
-  background: #4A0E17;
-  box-shadow: 0 4px 12px rgba(42, 4, 11, 0.25);
+  background: var(--dark-gold, #B8860B);
+  box-shadow: 0 4px 12px rgba(0, 59, 47, 0.25);
 }
 
 /* Responsive adjustments */

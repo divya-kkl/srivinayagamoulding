@@ -4,7 +4,7 @@
   --theme-font-body: var(--font-body, 'Poppins', sans-serif);
   --theme-font-size-heading: var(--font-size-heading, 28px);
   --theme-font-size-body: var(--font-size-base, 14.5px);
-  --theme-bg-color: #FDFBF7;
+  --theme-bg-color: #F7F3E8;
 }
 
 .custom-gold-spinner {

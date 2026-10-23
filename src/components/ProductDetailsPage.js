@@ -520,7 +520,11 @@ const ProductDetailsPage = ({ liveRates = [], wishlist = [], onToggleWishlist })
   const gstAmount = finalPrice - (basePrice + makingCharge);
 
   // Wastage / Making Charge display calculation
-  const netWt = parseFloat(product.netWeight) > 0 ? parseFloat(product.netWeight) : 0;
+  const netWt = parseFloat(product.netWeight) > 0
+    ? parseFloat(product.netWeight)
+    : (parseFloat(product.grossWeight) > 0
+      ? parseFloat(product.grossWeight)
+      : (parseFloat(product.weight) || 0));
   const mcPercent =
     parseFloat(product.makingChargePercent) || (product.mcType === 'percent' ? parseFloat(product.makingCharge) : 0);
   let wastageDisplay = '0';
@@ -766,6 +770,12 @@ const ProductDetailsPage = ({ liveRates = [], wishlist = [], onToggleWishlist })
                 <div className="spec-item">
                   <span>NET WEIGHT:</span>
                   <strong>{product.netWeight} g</strong>
+                </div>
+              )}
+              {!(parseFloat(product.grossWeight) > 0 || parseFloat(product.netWeight) > 0) && product.weight && parseFloat(product.weight) > 0 && (
+                <div className="spec-item">
+                  <span>WEIGHT:</span>
+                  <strong>{product.weight} g</strong>
                 </div>
               )}
               {product.purity && product.purity !== '-' && (

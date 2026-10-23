@@ -3,7 +3,7 @@
 .hero-carousel-section {
   position: relative;
   width: 100%;
-  background: #0A0604;
+  background: var(--primary-green, #003B2F);
   color: #FFF;
   overflow: hidden;
   padding: 0;
@@ -15,7 +15,7 @@
   max-width: 100%;
   position: relative;
   overflow: hidden;
-  background: #080402;
+  background: #002820;
   margin: 0 auto;
   height: clamp(640px, 88vh, 850px);
   min-height: 640px;
@@ -154,11 +154,41 @@
   box-shadow: 0 0 10px rgba(212, 175, 55, 0.6);
 }
 
-/* RESPONSIVE DESIGN FOR HERO BANNER */
-@media (max-width: 1200px) {
-  .hero-banner-container {
-    height: clamp(540px, 75vh, 700px);
-    min-height: 540px;
+.shimmer {
+  background: #002820;
+  background-image: linear-gradient(
+    to right,
+    #002820 0%,
+    #004838 20%,
+    #002820 40%,
+    #002820 100%
+  );
+  background-repeat: no-repeat;
+  background-size: 800px 100%;
+  animation: shimmer-animation 1.4s infinite linear;
+}
+
+@keyframes shimmer-animation {
+  0% { background-position: -400px 0; }
+  100% { background-position: 800px 0; }
+}
+
+/* =========================================================
+   Responsive Media Queries for Controls & Layout Polish
+   ========================================================= */
+
+/* Extra Large Screens / Monitors (>= 1600px) */
+@media (min-width: 1600px) {
+  .carousel-controls {
+    bottom: 28px;
+    gap: 10px;
+  }
+  .carousel-dot {
+    width: 11px;
+    height: 11px;
+  }
+  .carousel-dot.active {
+    width: 32px;
   }
 }
 

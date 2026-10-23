@@ -1,6 +1,6 @@
 .gold-ticker-wrapper {
-  background: #250308;
-  color: #FDFBF7;
+  background: var(--primary-green-dark, #002820);
+  color: var(--pure-white, #FFFFFF);
   font-size: 0.82rem;
   padding: 0.45rem 0;
   border-bottom: 1px solid rgba(212, 175, 55, 0.25);
@@ -23,8 +23,8 @@
 }
 
 .live-badge {
-  background: var(--gold-gradient);
-  color: #250308;
+  background: var(--luxury-gold, #D4AF37);
+  color: var(--primary-green, #003B2F);
   font-weight: 800;
   font-size: 0.7rem;
   padding: 0.15rem 0.55rem;
@@ -85,12 +85,12 @@
 }
 
 .ticker-item-shimmer {
-  background: #3a2228;
+  background: #002820;
   background-image: linear-gradient(to right,
-      #3a2228 0%,
-      #4f2f38 20%,
-      #3a2228 40%,
-      #3a2228 100%);
+      #002820 0%,
+      #004838 20%,
+      #002820 40%,
+      #002820 100%);
   background-repeat: no-repeat;
   background-size: 800px 100%;
   animation: ticker-shimmer-anim 1.4s infinite linear;

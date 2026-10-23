@@ -3,7 +3,8 @@ import './ProductGrid.css';
 import { supabase } from '../supabaseClient';
 import { getProductsFromSupabase } from '../services/productService';
 import { getTagsFromSupabase } from '../services/tagService';
-import { calculateFinalPrice } from '../admin/product/ProductPriceCalculator';
+import { calculateFinalPrice, getProductWeightDisplay } from '../admin/product/ProductPriceCalculator';
+import { doesProductMatchQuery } from '../utils/tamilSearchHelper';
 
 const ProductGrid = ({
   title = 'Featured Jewellery',
@@ -107,11 +108,7 @@ const ProductGrid = ({
     }
 
     if (searchQuery) {
-      const q = searchQuery.toLowerCase().trim();
-      return (
-        (item.name && item.name.toLowerCase().includes(q)) ||
-        (item.productCode && item.productCode.toLowerCase().includes(q))
-      );
+      return doesProductMatchQuery(item, searchQuery);
     }
     return true;
   });

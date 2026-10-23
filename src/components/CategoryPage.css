@@ -87,9 +87,9 @@
 }
 
 .price-simple-x-btn {
-  background: rgba(74, 14, 23, 0.08);
-  border: 1px solid rgba(74, 14, 23, 0.25);
-  color: var(--bg-maroon-main, #4A0E17);
+  background: rgba(0, 59, 47, 0.08);
+  border: 1px solid rgba(0, 59, 47, 0.25);
+  color: var(--primary-green, #003B2F);
   width: 26px;
   height: 26px;
   border-radius: 50%;
@@ -105,11 +105,11 @@
 }
 
 .price-simple-x-btn:hover {
-  background: var(--bg-maroon-main, #4A0E17);
+  background: var(--primary-green, #003B2F);
   color: var(--gold-light, #F7E7AD);
-  border-color: var(--gold-primary, #D4AF37);
+  border-color: var(--luxury-gold, #D4AF37);
   transform: scale(1.12);
-  box-shadow: 0 2px 8px rgba(74, 14, 23, 0.35);
+  box-shadow: 0 2px 8px rgba(0, 59, 47, 0.35);
 }
 
 .price-range-label {
@@ -173,9 +173,9 @@
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  background: rgba(74, 10, 31, 0.08);
-  border: 1px solid rgba(74, 10, 31, 0.2);
-  color: var(--bg-maroon-main);
+  background: rgba(0, 59, 47, 0.08);
+  border: 1px solid rgba(0, 59, 47, 0.2);
+  color: var(--primary-green, #003B2F);
   padding: 5px 10px;
   border-radius: 6px;
   font-size: 0.78rem;
@@ -251,8 +251,8 @@
 }
 
 .sort-box select:focus {
-  border-color: #4a0a1f;
-  box-shadow: 0 0 0 3px rgba(74, 10, 31, 0.1);
+  border-color: var(--primary-green, #003B2F);
+  box-shadow: 0 0 0 3px rgba(0, 59, 47, 0.15);
 }
 
 .items-count {
@@ -491,9 +491,9 @@
 }
 
 .load-more-btn {
-  background: #4a0a1f;
-  color: #f7e7ce;
-  border: 1px solid var(--gold-primary, #d4af37);
+  background: var(--primary-green, #003B2F);
+  color: var(--cream-white, #F7F3E8);
+  border: 1px solid var(--luxury-gold, #d4af37);
   padding: 0.9rem 2.8rem;
   border-radius: var(--radius-full);
   font-family: var(--font-brand);
@@ -503,18 +503,18 @@
   text-transform: uppercase;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  box-shadow: 0 4px 15px rgba(74, 10, 31, 0.2);
+  box-shadow: 0 4px 15px rgba(0, 59, 47, 0.25);
   display: flex;
   align-items: center;
   gap: 10px;
 }
 
 .load-more-btn:hover {
-  background: #680f2c;
+  background: var(--dark-gold, #B8860B);
   color: #ffffff;
   transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(74, 10, 31, 0.35);
-  border-color: #ffd700;
+  box-shadow: 0 8px 24px rgba(184, 134, 11, 0.35);
+  border-color: var(--luxury-gold, #ffd700);
 }
 
 .load-more-btn:active {

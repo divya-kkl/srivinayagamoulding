@@ -275,10 +275,24 @@ const QuickViewModal = ({ product, onClose, onAddToCart, liveRates = [] }) => {
                   <strong>{product.productCode}</strong>
                 </div>
               )}
-              <div className="spec-item">
-                <span>GROSS WEIGHT:</span>
-                <strong>{product.grossWeight || product.netWeight || '-'} g</strong>
-              </div>
+              {product.grossWeight && parseFloat(product.grossWeight) > 0 && (
+                <div className="spec-item">
+                  <span>GROSS WEIGHT:</span>
+                  <strong>{product.grossWeight} g</strong>
+                </div>
+              )}
+              {product.netWeight && parseFloat(product.netWeight) > 0 && (
+                <div className="spec-item">
+                  <span>NET WEIGHT:</span>
+                  <strong>{product.netWeight} g</strong>
+                </div>
+              )}
+              {!(parseFloat(product.grossWeight) > 0 || parseFloat(product.netWeight) > 0) && (
+                <div className="spec-item">
+                  <span>WEIGHT:</span>
+                  <strong>{product.weight || '-'} g</strong>
+                </div>
+              )}
               <div className="spec-item">
                 <span>PURITY:</span>
                 <strong>{product.purity || '-'}</strong>
