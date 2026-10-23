@@ -3,7 +3,7 @@
 .hero-carousel-section {
   position: relative;
   width: 100%;
-  background: #0A0604;
+  background: var(--primary-dark-green, #003B2F);
   color: #FFF;
   overflow: hidden;
   padding: 0;
@@ -15,7 +15,7 @@
   max-width: 100%;
   position: relative;
   overflow: hidden;
-  background: #080402;
+  background: var(--primary-green-dark, #002820);
   margin: 0 auto;
   height: clamp(640px, 88vh, 850px);
   min-height: 640px;

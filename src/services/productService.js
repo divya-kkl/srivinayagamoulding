@@ -92,6 +92,7 @@ export async function searchProductsInSupabase(searchQuery) {
     if (!searchQuery || !searchQuery.trim()) {
       return { data: [], error: null };
     }
+    const cleanQ = searchQuery.trim().toLowerCase();
 
     // Fetch active products from Supabase
     const { data, error } = await getProductsFromSupabase(true);

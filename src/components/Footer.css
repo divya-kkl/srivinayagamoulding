@@ -1,5 +1,5 @@
 .main-footer-section {
-  background: var(--bg-maroon-dark);
+  background: var(--primary-dark-green, #003B2F);
   color: #FFF;
   padding: 4.5rem 0 1.5rem 0;
   border-top: 3px solid var(--gold-primary);
@@ -37,7 +37,7 @@
 
 .social-icon:hover {
   background: var(--gold-primary);
-  color: #250308;
+  color: #003B2F;
   font-weight: 700;
 }
 
@@ -215,7 +215,7 @@
 
 .btn-gold-sm {
   background: var(--gold-gradient);
-  color: #250308;
+  color: #003B2F;
   border: none;
   padding: 0.5rem 0.85rem;
   border-radius: var(--radius-sm);

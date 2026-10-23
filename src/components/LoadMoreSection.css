@@ -29,13 +29,13 @@
 
 .auto-load-more-fill {
   height: 100%;
-  background-color: #4a0a1f;
+  background-color: #003B2F;
   border-radius: 2px;
   transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .auto-load-more-btn {
-  background-color: #4a0a1f;
+  background-color: #003B2F;
   color: #ffffff;
   width: 135px;
   height: 42px;
@@ -46,13 +46,13 @@
   justify-content: center;
   cursor: pointer;
   transition: all 0.2s ease;
-  box-shadow: 0 4px 12px rgba(74, 10, 31, 0.2);
+  box-shadow: 0 4px 12px rgba(0, 59, 47, 0.2);
 }
 
 .auto-load-more-btn:hover {
-  background-color: #5d0c27;
+  background-color: #B8860B;
   transform: translateY(-1px);
-  box-shadow: 0 6px 16px rgba(74, 10, 31, 0.28);
+  box-shadow: 0 6px 16px rgba(0, 59, 47, 0.28);
 }
 
 .auto-load-more-btn:active {

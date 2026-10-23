@@ -95,7 +95,7 @@
 
 .rhm-days-tag {
   background: var(--gold-gradient, linear-gradient(135deg, #FFE89C 0%, #D4AF37 100%));
-  color: #250308;
+  color: #003B2F;
   font-size: 0.7rem;
   font-weight: 800;
   padding: 0.2rem 0.55rem;
@@ -203,7 +203,7 @@
 
 .rhm-view-btn.active {
   background: #D4AF37;
-  color: #250308;
+  color: #003B2F;
   border-color: #B8860B;
   box-shadow: 0 2px 6px rgba(212, 175, 55, 0.35);
 }
@@ -222,7 +222,7 @@
 
 .rhm-calc-link-btn:hover {
   background: #D4AF37;
-  color: #250308;
+  color: #003B2F;
 }
 
 /* Body */
@@ -709,8 +709,8 @@
 }
 
 .rhm-footer-close-btn:hover {
-  background: #4A0E17;
-  box-shadow: 0 4px 12px rgba(42, 4, 11, 0.25);
+  background: #003B2F;
+  box-shadow: 0 4px 12px rgba(0, 59, 47, 0.25);
 }
 
 /* Responsive adjustments */

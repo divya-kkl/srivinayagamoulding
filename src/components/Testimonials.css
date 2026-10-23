@@ -194,8 +194,8 @@
 }
 
 .insta-brand-pill:hover {
-  background: var(--primary-green, #003B2F);
-  color: #D4AF37;
+  background: #B8860B;
+  color: #FFFFFF;
   border-color: #D4AF37;
 }
 

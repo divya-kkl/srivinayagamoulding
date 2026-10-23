@@ -1,6 +1,6 @@
 .gold-ticker-wrapper {
-  background: #250308;
-  color: #FDFBF7;
+  background: #003B2F;
+  color: #F7F3E8;
   font-size: 0.82rem;
   padding: 0.45rem 0;
   border-bottom: 1px solid rgba(212, 175, 55, 0.25);
@@ -24,7 +24,7 @@
 
 .live-badge {
   background: var(--gold-gradient);
-  color: #250308;
+  color: #003B2F;
   font-weight: 800;
   font-size: 0.7rem;
   padding: 0.15rem 0.55rem;
@@ -85,12 +85,12 @@
 }
 
 .ticker-item-shimmer {
-  background: #3a2228;
+  background: #002820;
   background-image: linear-gradient(to right,
-      #3a2228 0%,
-      #4f2f38 20%,
-      #3a2228 40%,
-      #3a2228 100%);
+      #002820 0%,
+      #004D3E 20%,
+      #002820 40%,
+      #002820 100%);
   background-repeat: no-repeat;
   background-size: 800px 100%;
   animation: ticker-shimmer-anim 1.4s infinite linear;
@@ -203,7 +203,7 @@
     white-space: nowrap;
     flex-shrink: 0;
     z-index: 2;
-    box-shadow: 2px 0 8px rgba(37, 3, 8, 0.9);
+    box-shadow: 2px 0 8px rgba(0, 59, 47, 0.9);
   }
 
   /* Marquee scrolling container on mobile */
@@ -282,7 +282,7 @@
     color: var(--gold-primary);
     flex-shrink: 0;
     text-decoration: none;
-    box-shadow: -2px 0 8px rgba(37, 3, 8, 0.9);
+    box-shadow: -2px 0 8px rgba(0, 59, 47, 0.9);
   }
 
   .phone-contact svg {
