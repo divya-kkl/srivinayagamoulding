@@ -12,6 +12,7 @@ import {
 import DashboardPanel from './dashboard/DashboardPanel';
 import CategoryPanel from './category/CategoryPanel';
 import BannerPanel from './banner/BannerPanel';
+import Banner2Panel from './banner/Banner2Panel';
 import SubcategoryPanel from './subcategory/SubcategoryPanel';
 import ChildCategoryPanel from './childcategory/ChildCategoryPanel';
 import ProductPanel from './product/ProductPanel';
@@ -103,7 +104,7 @@ const AdminPanel = ({ onClose }) => {
           Admin
         </div>
         <div className="admin-menu">
-          {['Dashboard', 'Banners', 'Live Rates', 'Rate Types', 'Categories', 'Subcategories', 'Child Categories', 'Tags', 'Products', 'Testimonials', 'Shop Details'].map((menu) => (
+          {['Dashboard', 'Banners', 'Banner 2', 'Live Rates', 'Rate Types', 'Categories', 'Subcategories', 'Child Categories', 'Tags', 'Products', 'Testimonials', 'Shop Details'].map((menu) => (
             <div
               key={menu}
               className={`admin-menu-item ${activeMenu === menu ? 'active' : ''}`}
@@ -175,6 +176,8 @@ const AdminPanel = ({ onClose }) => {
             <RateTypePanel />
           ) : activeMenu === 'Banners' ? (
             <BannerPanel />
+          ) : activeMenu === 'Banner 2' ? (
+            <Banner2Panel />
           ) : activeMenu === 'Categories' ? (
             <CategoryPanel />
           ) : activeMenu === 'Subcategories' ? (

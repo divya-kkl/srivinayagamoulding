@@ -54,9 +54,21 @@ const FeaturedProductsPage = ({ liveRates = [] }) => {
             return (p.tagName && p.tagName.toLowerCase() === targetTagName.toLowerCase()) || p.tagId === targetTagName;
           });
         } else {
-          setTagTitle('Featured Jewellery Collection');
-          // All products with tags
-          matched = allProducts.filter(p => p.tagId || p.tagName);
+          setTagTitle('All Jewellery Collections');
+          // Show all products when viewing all-products or favorites
+          matched = allProducts;
+        }
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const urlMin = urlParams.get('min');
+        const urlMax = urlParams.get('max');
+        if (urlMin) {
+          setMinPrice(urlMin);
+          setInputMinPrice(urlMin);
+        }
+        if (urlMax) {
+          setMaxPrice(urlMax);
+          setInputMaxPrice(urlMax);
         }
 
         setProducts(matched);

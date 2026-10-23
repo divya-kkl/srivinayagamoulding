@@ -80,9 +80,9 @@ export async function getProductsFromSupabase(activeOnly = false) {
       return { data: [], error: null, isEmpty: true };
     }
 
-    return { 
-      data: data.map(normalizeProduct), 
-      error: null 
+    return {
+      data: data.map(normalizeProduct),
+      error: null
     };
   } catch (err) {
     console.error('Error fetching products:', err);
@@ -110,9 +110,9 @@ export async function searchProductsInSupabase(searchQuery) {
     // Filter products with bilingual Tamil <-> English support
     const matches = filterProductsBilingual(data, searchQuery);
 
-    return { 
-      data: matches, 
-      error: null 
+    return {
+      data: matches,
+      error: null
     };
   } catch (err) {
     console.error('Error searching products:', err);
@@ -144,8 +144,8 @@ export const prepareImageUrl = (images) => {
 
 export async function createProductInSupabase(product) {
   try {
-    const rawImages = product.images && product.images.length > 0 
-      ? product.images 
+    const rawImages = product.images && product.images.length > 0
+      ? product.images
       : [product.image || FALLBACK_IMAGE];
 
     const insertPayload = {
@@ -187,13 +187,13 @@ export async function updateProductInSupabase(dbId, updates) {
     if (updates.productCode !== undefined) updatePayload.product_code = updates.productCode.trim();
     if (updates.name !== undefined) updatePayload.name = updates.name.trim();
     if (updates.description !== undefined) updatePayload.description = updates.description.trim();
-    
+
     if (updates.images !== undefined) {
       updatePayload.image_url = prepareImageUrl(updates.images);
     } else if (updates.image !== undefined) {
       updatePayload.image_url = prepareImageUrl([updates.image.trim()]);
     }
-    
+
     if (updates.badge !== undefined) updatePayload.badge = updates.badge.trim();
     if (updates.purity !== undefined) updatePayload.purity = updates.purity;
     if (updates.grossWeight !== undefined) updatePayload.gross_weight = parseFloat(updates.grossWeight) || 0;

@@ -18,7 +18,7 @@ const POLICY_PILLS = [
 
 const POLICY_TEXTS = {
   'best-quality':
-    'A one-stop-shop for the most supreme ornaments and articles, backed by the quality revolution. Having pioneered the quality revolution by educating customers about various Government-certified quality aspects, God Jewellery is one of the first institutions to offer only BIS 916-hallmarked jewellery in the market. Home to sophisticated machinery that accurately determines the quality and carat value of jewellery, the measurements obtained at God Jewellery are scientific and tamper proof, thereby giving the customer an assurance with regards to the quality of jewellery offered.',
+    'A one-stop-shop for the most supreme ornaments and articles, backed by the quality revolution. Having pioneered the quality revolution by educating customers about various Government-certified quality aspects, Sri vinayaga Moulding is one of the first institutions to offer only BIS 916-hallmarked jewellery in the market. Home to sophisticated machinery that accurately determines the quality and carat value of jewellery, the measurements obtained at Sri vinayaga Moulding are scientific and tamper proof, thereby giving the customer an assurance with regards to the quality of jewellery offered.',
   'best-price':
     'We provide complete transparency in our pricing structure with daily live gold and silver rates, minimal wastage, fair making charges, and zero hidden costs on all our exquisite collections.',
   'secured-shipping':
@@ -168,7 +168,7 @@ const ProductDetailsPage = ({ liveRates = [], wishlist = [], onToggleWishlist })
         // Deduplicate and prioritize same-type items (e.g. Bangles first)
         const seenIds = new Set();
         const uniqueRelated = [];
-        
+
         // 1. Add same-type products first (Bangles)
         for (const p of sameTypeProducts) {
           const key = p.dbId || p.id || p.name;
@@ -404,7 +404,7 @@ const ProductDetailsPage = ({ liveRates = [], wishlist = [], onToggleWishlist })
   const handleShare = async () => {
     if (!product) return;
     const productUrl = window.location.href;
-    const shareText = `Check out ${product.name}${product.productCode ? ` (#${product.productCode})` : ''} at God Jewellery!`;
+    const shareText = `Check out ${product.name}${product.productCode ? ` (#${product.productCode})` : ''} at Sri vinayaga Moulding!`;
 
     if (navigator.share) {
       try {
@@ -822,13 +822,13 @@ const ProductDetailsPage = ({ liveRates = [], wishlist = [], onToggleWishlist })
           >
             MORE INFORMATION
           </button>
-          <button
+          {/* <button
             type="button"
             className={`pd-tab-btn ${activeTab === 'reviews' ? 'active' : ''}`}
             onClick={() => setActiveTab('reviews')}
           >
             REVIEWS
-          </button>
+          </button> */}
         </div>
 
         {activeTab === 'more_info' && (

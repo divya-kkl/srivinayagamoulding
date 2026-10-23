@@ -1,0 +1,211 @@
+/* ==========================================================
+   BANNER 2 (PROMOTIONAL MIDDLE BANNER) SECTION
+   Full Width Edge-to-Edge Cover Layout
+   ========================================================== */
+
+.banner2-section {
+  padding: 0;
+  margin: 3rem 0;
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  background: #081A12;
+}
+
+.banner2-fullwidth-container {
+  width: 100%;
+  max-width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+.banner2-card-wrapper {
+  width: 100%;
+  max-width: 100%;
+  position: relative;
+  overflow: hidden;
+  background: #081A12;
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.15);
+  border-top: 1.5px solid rgba(212, 175, 55, 0.35);
+  border-bottom: 1.5px solid rgba(212, 175, 55, 0.35);
+}
+
+/* Slider Container with Exact 1920:660 Landscape Aspect Ratio */
+.banner2-slider-container {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1920 / 660;
+  min-height: 240px;
+  overflow: hidden;
+}
+
+.banner2-slide {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+}
+
+.banner2-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+  display: block;
+}
+
+/* Glass Navigation Arrows */
+.banner2-nav-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: rgba(10, 26, 18, 0.65);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1.5px solid #D4AF37;
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.3);
+  transition: all 0.25s ease;
+  outline: none;
+  padding: 0;
+}
+
+.banner2-nav-arrow:hover {
+  background: #D4AF37;
+  color: #0A1A12;
+  transform: translateY(-50%) scale(1.1);
+}
+
+.banner2-nav-arrow.prev {
+  left: 24px;
+}
+
+.banner2-nav-arrow.next {
+  right: 24px;
+}
+
+/* Indicator Dots */
+.banner2-dots {
+  position: absolute;
+  bottom: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  z-index: 10;
+  padding: 4px 14px;
+  background: rgba(8, 26, 18, 0.5);
+  backdrop-filter: blur(6px);
+  border-radius: 16px;
+  border: 1px solid rgba(212, 175, 55, 0.3);
+}
+
+.banner2-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.45);
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: all 0.3s ease;
+}
+
+.banner2-dot.active {
+  width: 24px;
+  border-radius: 6px;
+  background: #D4AF37;
+  box-shadow: 0 0 10px rgba(212, 175, 55, 0.6);
+}
+
+/* Shimmer Loading Box */
+.banner2-shimmer-box {
+  width: 100%;
+  aspect-ratio: 1920 / 660;
+  min-height: 240px;
+  background: linear-gradient(
+    90deg,
+    #0A1D14 0%,
+    #133324 50%,
+    #0A1D14 100%
+  );
+  background-size: 200% 100%;
+  animation: b2Shimmer 1.5s infinite ease-in-out;
+}
+
+@keyframes b2Shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+  .banner2-section {
+    margin: 2rem 0;
+  }
+  .banner2-nav-arrow {
+    width: 36px;
+    height: 36px;
+  }
+  .banner2-nav-arrow.prev {
+    left: 14px;
+  }
+  .banner2-nav-arrow.next {
+    right: 14px;
+  }
+}
+
+@media (max-width: 768px) {
+  .banner2-section {
+    margin: 1.5rem 0;
+  }
+  .banner2-slider-container,
+  .banner2-shimmer-box {
+    aspect-ratio: auto;
+    height: clamp(190px, 50vw, 280px);
+    min-height: 190px;
+  }
+  .banner2-image {
+    object-position: center center;
+  }
+  .banner2-nav-arrow {
+    width: 30px;
+    height: 30px;
+  }
+  .banner2-nav-arrow svg {
+    width: 15px;
+    height: 15px;
+  }
+  .banner2-nav-arrow.prev {
+    left: 8px;
+  }
+  .banner2-nav-arrow.next {
+    right: 8px;
+  }
+  .banner2-dots {
+    bottom: 10px;
+    padding: 3px 8px;
+  }
+  .banner2-dot {
+    width: 5px;
+    height: 5px;
+  }
+  .banner2-dot.active {
+    width: 16px;
+  }
+}

@@ -1,108 +1,249 @@
+/* ==========================================================
+   TESTIMONIALS & REVIEWS SECTION
+   - Professional 3-container grid layout
+   - Luxury gold accents, quotes, and verified buyer badges
+   ========================================================== */
+
 .testimonials-section {
-  padding: 4rem 0 5rem 0;
-  background: var(--bg-cream-light);
+  padding: 4.5rem 0 5.5rem 0;
+  background: var(--bg-cream-light, #FAF7F2);
+  width: 100%;
+  position: relative;
 }
 
+/* 3-Container Professional Grid */
 .testimonials-grid {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  /* Exactly 3 cards in the row */
   gap: 2rem;
+  margin-top: 2.2rem;
   margin-bottom: 2rem;
+  width: 100%;
 }
 
+/* Individual Luxury Review Card */
 .testimonial-card {
   width: 100%;
-  max-width: 380px;
-  background: #FFF;
-  border-radius: var(--radius-md);
-  padding: 2rem;
-  border: 1px solid var(--border-light);
-  box-shadow: var(--shadow-sm);
+  background: #FFFFFF;
+  border-radius: 18px;
+  padding: 2.2rem 2rem;
+  border: 1px solid rgba(212, 175, 55, 0.22);
+  box-shadow: 0 10px 30px rgba(0, 59, 47, 0.06);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  transition: var(--transition);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  box-sizing: border-box;
 }
 
 .testimonial-card:hover {
-  transform: translateY(-6px);
-  box-shadow: var(--shadow-luxury);
-  border-color: var(--border-gold);
+  transform: translateY(-8px);
+  box-shadow: 0 18px 40px rgba(0, 59, 47, 0.13);
+  border-color: rgba(212, 175, 55, 0.55);
+}
+
+/* Card Header with Stars and Quote Mark */
+.testi-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.25rem;
 }
 
 .stars-row {
-  color: #F57F17;
-  font-size: 1.1rem;
-  margin-bottom: 0.85rem;
+  display: flex;
+  align-items: center;
+  gap: 4px;
 }
 
+.quote-mark-icon {
+  color: rgba(212, 175, 55, 0.3);
+  transition: color 0.3s ease;
+}
+
+.testimonial-card:hover .quote-mark-icon {
+  color: rgba(212, 175, 55, 0.75);
+}
+
+/* Review Quote Text */
 .testimonial-quote {
+  font-family: 'Poppins', 'Inter', -apple-system, sans-serif;
+  font-size: 0.98rem;
+  color: #2D3A34;
+  line-height: 1.7;
   font-style: italic;
-  color: var(--text-dark);
-  font-size: 0.95rem;
-  line-height: 1.6;
-  margin-bottom: 1.5rem;
+  margin: 0 0 1.8rem 0;
+  flex-grow: 1;
 }
 
+/* Customer Profile Row */
 .customer-profile-row {
   display: flex;
   align-items: center;
-  gap: 0.85rem;
-  padding-top: 1rem;
-  border-top: 1px solid rgba(0, 0, 0, 0.06);
+  gap: 1rem;
+  padding-top: 1.2rem;
+  border-top: 1px solid rgba(0, 59, 47, 0.08);
 }
 
 .customer-avatar {
-  width: 48px;
-  height: 48px;
+  width: 50px;
+  height: 50px;
   border-radius: 50%;
   object-fit: cover;
-  border: 2px solid var(--gold-primary);
+  border: 2px solid #D4AF37;
+  box-shadow: 0 4px 10px rgba(212, 175, 55, 0.2);
+  flex-shrink: 0;
+}
+
+.customer-avatar-initials {
+  background: linear-gradient(135deg, #003B2F 0%, #002820 100%);
+  color: #D4AF37;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1.2rem;
+  letter-spacing: 0.5px;
+}
+
+.customer-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  flex: 1;
+  min-width: 0;
 }
 
 .customer-name {
-  font-family: var(--font-heading);
-  font-size: 1rem;
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.05rem;
   font-weight: 700;
-  color: var(--bg-maroon-dark);
+  color: #003B2F;
+  margin: 0;
+  text-transform: capitalize;
+}
+
+.customer-sub-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
 }
 
 .customer-location {
-  font-size: 0.78rem;
-  color: var(--text-muted);
+  font-size: 0.82rem;
+  color: #53625C;
+  font-weight: 500;
 }
 
 .verified-badge {
-  color: #2E7D32;
-  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: #E8F5E9;
+  color: #1B5E20;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 0.72rem;
+  font-weight: 600;
 }
 
-/* Insta Gallery */
+/* Shimmer placeholder */
+.testi-shimmer {
+  background: linear-gradient(90deg, #f0ede6 25%, #f8f6f0 50%, #f0ede6 75%);
+  background-size: 200% 100%;
+  animation: shimmerAnim 1.5s infinite;
+}
+
+@keyframes shimmerAnim {
+  0% {
+    background-position: 200% 0;
+  }
+
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* Instagram Showcase */
+.social-showcase-wrapper {
+  margin-top: 1.5rem;
+}
+
+.insta-brand-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(0, 59, 47, 0.08);
+  border: 1px solid rgba(212, 175, 55, 0.4);
+  color: var(--primary-green, #003B2F);
+  padding: 6px 16px;
+  border-radius: 30px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-bottom: 0.8rem;
+  transition: all 0.3s ease;
+}
+
+.insta-brand-pill svg {
+  color: #D4AF37;
+}
+
+.insta-brand-pill:hover {
+  background: var(--primary-green, #003B2F);
+  color: #D4AF37;
+  border-color: #D4AF37;
+}
+
+.insta-gallery-subtitle {
+  color: #666;
+  font-size: 0.95rem;
+  max-width: 620px;
+  margin: 0.5rem auto 0 auto;
+  line-height: 1.5;
+}
+
 .insta-gallery-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-  gap: 1.25rem;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 1.1rem;
+  margin-top: 2.2rem;
 }
 
 .insta-post-card {
   position: relative;
-  height: 220px;
-  border-radius: var(--radius-md);
+  aspect-ratio: 1 / 1;
+  height: auto;
+  border-radius: 14px;
   overflow: hidden;
-  box-shadow: var(--shadow-sm);
+  border: 1px solid rgba(212, 175, 55, 0.25);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
   cursor: pointer;
+  display: block;
+  background: #f8f6f0;
+  transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
 .insta-post-card img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  display: block;
   transition: transform 0.5s ease;
 }
 
+.insta-post-card:hover {
+  border-color: #D4AF37;
+  box-shadow: 0 12px 28px rgba(0, 36, 28, 0.22);
+  transform: translateY(-5px);
+}
+
 .insta-post-card:hover img {
-  transform: scale(1.1);
+  transform: scale(1.08);
 }
 
 .insta-overlay {
@@ -112,58 +253,125 @@
   width: 100%;
   height: 100%;
   background: rgba(0, 59, 47, 0.85);
+  inset: 0;
+  background: linear-gradient(to top, rgba(0, 36, 28, 0.92) 0%, rgba(0, 36, 28, 0.45) 55%, rgba(0, 36, 28, 0.2) 100%);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  color: #FFF;
+  gap: 6px;
   opacity: 0;
-  transition: var(--transition);
+  padding: 10px;
+  text-align: center;
+  transition: all 0.3s ease;
 }
 
 .insta-post-card:hover .insta-overlay {
   opacity: 1;
 }
 
-.likes-count {
-  font-weight: 700;
-  font-size: 1rem;
-  margin-bottom: 0.25rem;
+.insta-icon-badge {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(4px);
+  border: 1px solid rgba(212, 175, 55, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 2px;
+  transform: scale(0.8);
+  transition: transform 0.3s ease;
 }
 
-.insta-tag {
-  color: var(--gold-light);
+.insta-post-card:hover .insta-icon-badge {
+  transform: scale(1);
+}
+
+.insta-likes {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: #fff;
   font-size: 0.8rem;
   font-weight: 600;
+  letter-spacing: 0.5px;
 }
 
-.testi-shimmer {
-  background: #e0e0e0;
-  background-image: linear-gradient(
-    to right,
-    #e0e0e0 0%,
-    #f8f8f8 20%,
-    #e0e0e0 40%,
-    #e0e0e0 100%
-  );
-  background-repeat: no-repeat;
-  background-size: 800px 100%;
-  animation: testi-shimmer-animation 1.4s infinite linear;
+.insta-post-tag {
+  color: #D4AF37;
+  font-size: 0.72rem;
+  font-weight: 500;
+  max-width: 90%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
-@keyframes testi-shimmer-animation {
-  0% { background-position: -400px 0; }
-  100% { background-position: 800px 0; }
+/* Luxury Instagram Follow Button */
+.insta-cta-row {
+  margin-top: 2.2rem;
+  text-align: center;
 }
 
-@media (min-width: 1200px) {
+.insta-follow-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+  color: #ffffff !important;
+  font-weight: 700;
+  font-size: 0.92rem;
+  letter-spacing: 0.6px;
+  padding: 11px 26px;
+  border-radius: 30px;
+  text-decoration: none;
+  box-shadow: 0 4px 16px rgba(220, 39, 67, 0.3);
+  transition: all 0.3s ease;
+}
+
+.insta-follow-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(220, 39, 67, 0.45);
+  filter: brightness(1.08);
+}
+
+.insta-btn-icon {
+  flex-shrink: 0;
+}
+
+/* Responsive Breakpoints */
+@media (max-width: 1100px) {
+  .insta-gallery-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+  }
+}
+
+@media (max-width: 992px) {
   .testimonials-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: 1.5rem;
   }
-  .testimonials-grid .testimonial-card {
-    max-width: none;
-    width: 100%;
+}
+
+@media (max-width: 650px) {
+  .testimonials-section {
+    padding: 3rem 0 4rem 0;
+  }
+
+  .testimonials-grid {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  .testimonial-card {
+    padding: 1.6rem 1.4rem;
+  }
+
+  .insta-gallery-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
   }
 }
