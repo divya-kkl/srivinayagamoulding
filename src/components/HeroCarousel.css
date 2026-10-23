@@ -1,7 +1,9 @@
+
+
 .hero-carousel-section {
   position: relative;
   width: 100%;
-  background: var(--bg-maroon-dark, #2B050B);
+  background: #0A0604;
   color: #FFF;
   overflow: hidden;
   padding: 0;
@@ -13,42 +15,106 @@
   max-width: 100%;
   position: relative;
   overflow: hidden;
-  background: #1C0306;
+  background: #080402;
   margin: 0 auto;
+  height: clamp(640px, 88vh, 850px);
+  min-height: 640px;
 }
 
-/* Desktop & Large Screens: Cover full remaining viewport screen height */
-@media (min-width: 992px) {
-  .hero-banner-container {
-    height: calc(100vh - 142px);
-    height: calc(100dvh - 142px);
-    min-height: 500px;
-    aspect-ratio: unset;
-  }
-}
-
-/* Tablet & Mobile Screens: Natural proportional aspect-ratio so banner is never cropped or zoomed */
-@media (max-width: 991px) {
-  .hero-banner-container {
-    width: 100%;
-    aspect-ratio: 1750 / 575;
-    height: auto;
-  }
+/* Banner Slide Items */
+.hero-slide-item {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .hero-banner-image {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center center;
-  position: absolute;
-  top: 0;
-  left: 0;
-  transition: opacity 0.8s ease-in-out;
+  object-position: center 30%;
   display: block;
 }
 
-.carousel-controls {
+/* Banner Shimmer Loading Placeholder */
+.hero-banner-shimmer-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #0B0705;
+}
+
+.hero-banner-shimmer {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    rgba(14, 9, 6, 0.95) 0%,
+    rgba(32, 22, 16, 0.85) 50%,
+    rgba(14, 9, 6, 0.95) 100%
+  );
+  background-size: 200% 100%;
+  animation: vjHeroShimmer 1.5s infinite ease-in-out;
+}
+
+@keyframes vjHeroShimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+.hero-left-vignette {
+  display: none;
+}
+
+/* 2. LUXURY NAVIGATION ARROWS */
+.hero-nav-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: rgba(18, 12, 8, 0.45);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(226, 189, 85, 0.35);
+  color: #FFFFFF;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 12;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+  padding: 0;
+  outline: none;
+}
+
+.hero-nav-arrow:hover {
+  background: rgba(226, 189, 85, 0.85);
+  color: #120A05;
+  border-color: #E2BD55;
+  transform: translateY(-50%) scale(1.1);
+  box-shadow: 0 6px 20px rgba(226, 189, 85, 0.4);
+}
+
+.hero-nav-arrow.prev {
+  left: 28px;
+}
+
+.hero-nav-arrow.next {
+  right: 28px;
+}
+
+/* 3. BOTTOM CENTER SLIDE DOTS */
+.hero-slide-dots {
   position: absolute;
   bottom: 24px;
   left: 50%;
@@ -57,141 +123,115 @@
   align-items: center;
   gap: 10px;
   z-index: 10;
+  padding: 6px 14px;
+  background: rgba(10, 6, 4, 0.4);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.carousel-dot {
-  width: 10px;
-  height: 10px;
+.hero-dot-btn {
+  width: 9px;
+  height: 9px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.45);
-  border: 1px solid rgba(255, 255, 255, 0.85);
+  background: rgba(255, 255, 255, 0.4);
+  border: none;
   cursor: pointer;
-  transition: all 0.3s ease;
   padding: 0;
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
   outline: none;
 }
 
-.carousel-dot:hover {
-  background: rgba(255, 255, 255, 0.8);
+.hero-dot-btn:hover {
+  background: rgba(255, 255, 255, 0.9);
 }
 
-.carousel-dot.active {
-  background: var(--gold-gradient, #D4AF37);
-  width: 28px;
-  border-radius: 6px;
-  border-color: #D4AF37;
+.hero-dot-btn.active {
+  background: linear-gradient(90deg, #D4AF37 0%, #FFE082 100%);
+  width: 26px;
+  border-radius: 8px;
   box-shadow: 0 0 10px rgba(212, 175, 55, 0.6);
 }
 
-.shimmer {
-  background: #2a1a1f;
-  background-image: linear-gradient(
-    to right,
-    #2a1a1f 0%,
-    #4a2834 20%,
-    #2a1a1f 40%,
-    #2a1a1f 100%
-  );
-  background-repeat: no-repeat;
-  background-size: 800px 100%;
-  animation: shimmer-animation 1.4s infinite linear;
-}
-
-@keyframes shimmer-animation {
-  0% { background-position: -400px 0; }
-  100% { background-position: 800px 0; }
-}
-
-/* =========================================================
-   Responsive Media Queries for Controls & Layout Polish
-   ========================================================= */
-
-/* Extra Large Screens / Monitors (>= 1600px) */
-@media (min-width: 1600px) {
-  .carousel-controls {
-    bottom: 28px;
-    gap: 10px;
-  }
-  .carousel-dot {
-    width: 11px;
-    height: 11px;
-  }
-  .carousel-dot.active {
-    width: 32px;
+/* RESPONSIVE DESIGN FOR HERO BANNER */
+@media (max-width: 1200px) {
+  .hero-banner-container {
+    height: clamp(540px, 75vh, 700px);
+    min-height: 540px;
   }
 }
 
-/* Standard Desktops / Laptops (992px - 1599px) */
-@media (max-width: 1599px) and (min-width: 992px) {
-  .carousel-controls {
-    bottom: 22px;
-    gap: 8px;
-  }
-  .carousel-dot {
-    width: 10px;
-    height: 10px;
-  }
-  .carousel-dot.active {
-    width: 26px;
+@media (max-width: 992px) {
+  .hero-banner-container {
+    height: clamp(440px, 58vw, 600px);
+    min-height: 440px;
   }
 }
 
-/* Tablets (769px - 991px) */
-@media (max-width: 991px) and (min-width: 769px) {
-  .carousel-controls {
-    bottom: 12px;
-    gap: 6px;
-  }
-  .carousel-dot {
-    width: 8px;
-    height: 8px;
-  }
-  .carousel-dot.active {
-    width: 20px;
-  }
-}
-
-/* Mobile Devices (481px - 768px) */
 @media (max-width: 768px) {
-  .carousel-controls {
-    bottom: 8px;
+  .hero-banner-container {
+    height: clamp(240px, 62vw, 360px);
+    min-height: 240px;
+  }
+  .hero-banner-image {
+    object-position: 65% center;
+  }
+  .hero-nav-arrow {
+    width: 32px;
+    height: 32px;
+    background: rgba(14, 10, 8, 0.45);
+    border: 1px solid rgba(226, 189, 85, 0.4);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  }
+  .hero-nav-arrow.prev {
+    left: 8px;
+  }
+  .hero-nav-arrow.next {
+    right: 8px;
+  }
+  .hero-nav-arrow svg {
+    width: 16px;
+    height: 16px;
+  }
+  .hero-slide-dots {
+    bottom: 10px;
+    padding: 3px 8px;
     gap: 5px;
   }
-  .carousel-dot {
-    width: 7px;
-    height: 7px;
+  .hero-dot-btn {
+    width: 6px;
+    height: 6px;
   }
-  .carousel-dot.active {
+  .hero-dot-btn.active {
     width: 16px;
   }
 }
 
-/* Small Mobile Devices (361px - 480px) */
 @media (max-width: 480px) {
-  .carousel-controls {
-    bottom: 6px;
-    gap: 4px;
+  .hero-banner-container {
+    height: clamp(210px, 58vw, 290px);
+    min-height: 210px;
   }
-  .carousel-dot {
-    width: 6px;
-    height: 6px;
+  .hero-banner-image {
+    object-position: 68% center;
   }
-  .carousel-dot.active {
-    width: 13px;
+  .hero-nav-arrow {
+    width: 28px;
+    height: 28px;
   }
-}
-
-/* Extra Small Mobile Devices (<= 360px) */
-@media (max-width: 360px) {
-  .carousel-controls {
-    bottom: 4px;
-    gap: 3px;
+  .hero-nav-arrow.prev {
+    left: 6px;
   }
-  .carousel-dot {
-    width: 5px;
-    height: 5px;
+  .hero-nav-arrow.next {
+    right: 6px;
   }
-  .carousel-dot.active {
-    width: 11px;
+  .hero-nav-arrow svg {
+    width: 14px;
+    height: 14px;
+  }
+  .hero-slide-dots {
+    bottom: 8px;
+    padding: 2px 6px;
   }
 }

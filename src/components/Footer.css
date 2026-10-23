@@ -297,3 +297,6 @@
     text-align: center;
   }
 }
+.brand-text {
+  display: flex;
+}

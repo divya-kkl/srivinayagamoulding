@@ -12,16 +12,10 @@ const normalizeBanner = (row) => ({
 
 export async function getBannersFromSupabase(activeOnly = false) {
   try {
-    let query = supabase
+    const { data, error } = await supabase
       .from('banners')
       .select('*')
       .order('created_at', { ascending: false });
-
-    if (activeOnly) {
-      query = query.eq('status', 'ACTIVE');
-    }
-
-    const { data, error } = await query;
 
     if (error) {
       console.warn('Supabase fetch banners error:', error.message);
@@ -32,7 +26,12 @@ export async function getBannersFromSupabase(activeOnly = false) {
       return { data: [], error: null, isEmpty: true };
     }
 
-    return { data: data.map(normalizeBanner), error: null };
+    const mapped = data.map(normalizeBanner);
+    const result = activeOnly
+      ? mapped.filter(b => !b.status || b.status.toUpperCase() === 'ACTIVE')
+      : mapped;
+
+    return { data: result, error: null };
   } catch (err) {
     console.error('Error fetching banners from Supabase:', err);
     return { data: null, error: err.message || 'Unknown network error' };

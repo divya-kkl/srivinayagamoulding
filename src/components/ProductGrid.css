@@ -8,6 +8,46 @@
   font-family: inherit;
 }
 
+/* Center Aligned Section Header ("EXQUISITE CRAFTSMANSHIP" & "Featured Jewellery") */
+.product-grid-section .section-header {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 2.2rem auto;
+  width: 100%;
+}
+
+.product-grid-section .section-subtitle {
+  display: block;
+  text-align: center;
+  font-size: 0.85rem;
+  letter-spacing: 2.2px;
+  text-transform: uppercase;
+  color: var(--luxury-gold, #D4AF37);
+  font-weight: 600;
+  margin-bottom: 0.45rem;
+}
+
+.product-grid-section .section-title {
+  text-align: center;
+  font-family: 'Playfair Display', var(--font-heading, 'Poppins', sans-serif);
+  font-size: 2.25rem;
+  font-weight: 700;
+  color: var(--primary-green, #003B2F);
+  margin: 0 0 0.8rem 0;
+  line-height: 1.25;
+}
+
+.product-grid-section .gold-divider {
+  width: 70px;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, #D4AF37, transparent);
+  margin: 0.2rem auto 1.5rem auto;
+  border-radius: 2px;
+}
+
 .filter-tabs-bar {
   display: flex;
   align-items: center;

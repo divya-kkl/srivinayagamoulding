@@ -7,6 +7,8 @@ import Categories from './components/Categories';
 import ProductGrid from './components/ProductGrid';
 import GoldCalculatorModal from './components/GoldCalculatorModal';
 import WhyChooseUs from './components/WhyChooseUs';
+import Banner2Section from './components/Banner2Section';
+import BudgetDealsSection from './components/BudgetDealsSection';
 import Testimonials from './components/Testimonials';
 
 import QuickViewModal from './components/QuickViewModal';
@@ -15,6 +17,7 @@ import CategoryPage from './components/CategoryPage';
 import SearchPage from './components/SearchPage';
 import FeaturedProductsPage from './components/FeaturedProductsPage';
 import Footer from './components/Footer';
+import ContactUs from './components/ContactUs';
 import AdminPanel from './admin/AdminPanel';
 
 import { PRODUCTS } from './data/jewelleryData';
@@ -71,9 +74,9 @@ function App() {
       if (data) {
         setSiteSettings(data);
       } else {
-        setSiteSettings({ shop_name: 'GOD JEWELLERY' });
+        setSiteSettings({ shop_name: 'Sri vinayaga Moulding' });
       }
-      
+
       const hasShimmered = sessionStorage.getItem('appShimmerDone');
       if (hasShimmered) {
         setIsLoadingSettings(false);
@@ -100,10 +103,11 @@ function App() {
   const isProductRoute = window.location.pathname.startsWith('/product/');
   const isSubcategoryRoute = window.location.pathname.startsWith('/subcategory/');
   const isSearchRoute = window.location.pathname.startsWith('/search');
-  const isFeaturedRoute = window.location.pathname === '/featured' || 
-                          window.location.pathname === '/products' || 
-                          window.location.pathname === '/all-products' ||
-                          window.location.pathname.startsWith('/tag/');
+  const isContactRoute = window.location.pathname === '/contact' || window.location.pathname === '/contact-us';
+  const isFeaturedRoute = window.location.pathname === '/featured' ||
+    window.location.pathname === '/products' ||
+    window.location.pathname === '/all-products' ||
+    window.location.pathname.startsWith('/tag/');
 
   if (isAdminRoute) {
     return (
@@ -117,7 +121,7 @@ function App() {
 
   return (
     <div className="god-jewellery-app">
-  
+
       <GoldRateTicker
         rates={goldRates}
         isLoadingRates={isLoadingRates}
@@ -126,22 +130,27 @@ function App() {
         isLoadingSettings={isLoadingSettings}
       />
 
-      {/* 2. Main Royal Navigation Bar */}
-      <Navbar
-        activeCategory={activeCategory}
-        setActiveCategory={setActiveCategory}
-        searchQuery={searchQuery}
-        setSearchQuery={setSearchQuery}
-        wishlistCount={currentWishlist.length}
-        onOpenWishlist={() => { }}
-        onOpenCalculator={() => setIsCalculatorOpen(true)}
-        logoUrl={siteSettings?.logo_url}
-        shopName={siteSettings?.shop_name}
-        isLoadingSettings={isLoadingSettings}
-        liveRates={currentRates}
-      />
+      {/* 2. Main Royal Navigation Bar on non-home pages */}
+      {(isProductRoute || isSubcategoryRoute || isSearchRoute || isFeaturedRoute || isContactRoute) && (
+        <Navbar
+          activeCategory={isContactRoute ? 'contact' : activeCategory}
+          setActiveCategory={setActiveCategory}
+          searchQuery={searchQuery}
+          setSearchQuery={setSearchQuery}
+          wishlistCount={currentWishlist.length}
+          onOpenWishlist={() => { }}
+          onOpenCalculator={() => setIsCalculatorOpen(true)}
+          logoUrl={siteSettings?.logo_url}
+          shopName={siteSettings?.shop_name}
+          isLoadingSettings={isLoadingSettings}
+          liveRates={currentRates}
+          isOverlay={false}
+        />
+      )}
 
-      {isProductRoute ? (
+      {isContactRoute ? (
+        <ContactUs siteSettings={siteSettings} isLoadingSettings={isLoadingSettings} />
+      ) : isProductRoute ? (
         <ProductDetailsPage
           key={window.location.pathname}
           liveRates={currentRates}
@@ -156,18 +165,35 @@ function App() {
         <FeaturedProductsPage liveRates={currentRates} />
       ) : (
         <>
-         
-          <HeroCarousel
-            onSelectCategory={(catId) => {
-              if (catId === 'scheme') {
-                const el = document.getElementById('gold-savings-scheme');
-                if (el) el.scrollIntoView({ behavior: 'smooth' });
-              } else {
-                setActiveCategory(catId);
-              }
-            }}
-            onOpenCalculator={() => setIsCalculatorOpen(true)}
-          />
+          {/* Seamless Transparent Overlay Navbar directly over Bridal Hero Banner */}
+          <div className="vj-hero-with-navbar-wrapper">
+            <Navbar
+              activeCategory={activeCategory}
+              setActiveCategory={setActiveCategory}
+              searchQuery={searchQuery}
+              setSearchQuery={setSearchQuery}
+              wishlistCount={currentWishlist.length}
+              onOpenWishlist={() => { }}
+              onOpenCalculator={() => setIsCalculatorOpen(true)}
+              logoUrl={siteSettings?.logo_url}
+              shopName={siteSettings?.shop_name}
+              isLoadingSettings={isLoadingSettings}
+              liveRates={currentRates}
+              isOverlay={true}
+            />
+
+            <HeroCarousel
+              onSelectCategory={(catId) => {
+                if (catId === 'scheme') {
+                  const el = document.getElementById('gold-savings-scheme');
+                  if (el) el.scrollIntoView({ behavior: 'smooth' });
+                } else {
+                  setActiveCategory(catId);
+                }
+              }}
+              onOpenCalculator={() => setIsCalculatorOpen(true)}
+            />
+          </div>
 
           <Categories
             activeCategory="all"
@@ -178,6 +204,10 @@ function App() {
           />
 
           <ProductGrid
+            title="Featured Jewellery"
+            subtitle="EXQUISITE CRAFTSMANSHIP"
+            targetTag="Featured Jewellery"
+            sectionId="featured-products"
             products={products}
             activeCategory={activeCategory}
             onSelectCategory={setActiveCategory}
@@ -188,7 +218,25 @@ function App() {
             liveRates={currentRates}
           />
 
-          <WhyChooseUs shopName={siteSettings?.shop_name} isLoadingSettings={isLoadingSettings} />
+          <Banner2Section />
+          <BudgetDealsSection liveRates={currentRates} />
+
+          {/* God Moulding Product Section */}
+          <ProductGrid
+            title="God Moulding"
+            subtitle="DIVINE CRAFTSMANSHIP"
+            targetTag="God Moulding"
+            sectionId="god-moulding-section"
+            products={products}
+            activeCategory={activeCategory}
+            onSelectCategory={setActiveCategory}
+            searchQuery={searchQuery}
+            wishlist={currentWishlist}
+            onToggleWishlist={handleToggleWishlist}
+            onQuickView={(product) => setQuickViewProduct(product)}
+            liveRates={currentRates}
+          />
+
           <Testimonials shopName={siteSettings?.shop_name} isLoadingSettings={isLoadingSettings} />
         </>
       )}

@@ -1,16 +1,16 @@
 import React from 'react';
 import './Footer.css';
 
-const Footer = ({ onSelectCategory, onOpenCalculator, logoUrl, shopName = 'GOD JEWELLERY', siteSettings = {}, isLoadingSettings }) => {
+const Footer = ({ onSelectCategory, onOpenCalculator, logoUrl, shopName = 'Sri vinayaga Moulding', siteSettings = {}, isLoadingSettings }) => {
   return (
     <footer className="main-footer-section">
       <div className="container">
         <div className="footer-top-grid">
-       
+
           <div className="footer-brand-col">
             <div className="brand-logo-wrapper" style={{ marginBottom: '1rem', cursor: 'pointer' }} onClick={() => { if (typeof onSelectCategory === 'function') onSelectCategory('all'); if (window.location.pathname !== '/') window.location.href = '/'; }}>
               {logoUrl ? (
-                <img src={logoUrl} alt={shopName} style={{maxHeight: '45px', objectFit: 'contain', marginRight: '10px'}} />
+                <img src={logoUrl} alt={shopName} style={{ maxHeight: '45px', objectFit: 'contain', marginRight: '10px' }} />
               ) : (
                 <div className="brand-emblem">
                   <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="url(#goldGradient2)" strokeWidth="1.5">
@@ -34,7 +34,7 @@ const Footer = ({ onSelectCategory, onOpenCalculator, logoUrl, shopName = 'GOD J
                 ) : (
                   <>
                     <span className="brand-title brand-font">{shopName?.toUpperCase() || ''}</span>
-                    <span className="brand-subtitle">EXQUISITE GOLD & DIAMONDS</span>
+                    {/* <span className="brand-subtitle">EXQUISITE GOLD & DIAMONDS</span> */}
                   </>
                 )}
               </div>
@@ -65,11 +65,7 @@ const Footer = ({ onSelectCategory, onOpenCalculator, logoUrl, shopName = 'GOD J
             <h4 className="footer-col-title">Quick Links</h4>
             <ul className="footer-links-list">
               <li onClick={() => { if (typeof onSelectCategory === 'function') onSelectCategory('all'); if (window.location.pathname !== '/') window.location.href = '/'; }}>Home</li>
-              {/* <li onClick={() => onSelectCategory('necklaces')}>Gold Collections</li>
-              <li onClick={() => onSelectCategory('rings')}>Diamond Solitaires</li>
-              <li onClick={() => onSelectCategory('earrings')}>Temple Antiques</li>
-              <li onClick={() => onSelectCategory('scheme')}>Golden Harvest Scheme</li> */}
-              {/* <li onClick={onOpenCalculator}>Live Gold Rate Calculator</li> */}
+              <li onClick={() => { window.location.href = '/contact'; }}>Contact Us</li>
             </ul>
           </div>
 
@@ -79,7 +75,7 @@ const Footer = ({ onSelectCategory, onOpenCalculator, logoUrl, shopName = 'GOD J
             <ul className="footer-contact-list">
               <li>
                 <span className="c-icon">📍</span>
-                <span>{isLoadingSettings ? <div className="nav-shimmer" style={{ display: 'inline-block', width: '200px', height: '14px', borderRadius: '4px' }}></div> : (siteSettings?.store_address || 'God Jewellery Flagship Store, No. 42, Cathedral Road, T. Nagar, Chennai - 600017')}</span>
+                <span>{isLoadingSettings ? <div className="nav-shimmer" style={{ display: 'inline-block', width: '200px', height: '14px', borderRadius: '4px' }}></div> : (siteSettings?.store_address || 'Sri vinayaga Moulding Flagship Store, No. 42, Cathedral Road, T. Nagar, Chennai - 600017')}</span>
               </li>
               <li>
                 <span className="c-icon">📞</span>
@@ -131,6 +127,8 @@ const Footer = ({ onSelectCategory, onOpenCalculator, logoUrl, shopName = 'GOD J
             </div>
           </div>
 
+          
+
           <div className="footer-map-col">
             <h4 className="footer-col-title">Store Location</h4>
             <div className="map-snippet-box">
@@ -179,7 +177,7 @@ const Footer = ({ onSelectCategory, onOpenCalculator, logoUrl, shopName = 'GOD J
               Designed &amp; Developed by Kitzo Technologies
             </a>
           </div>
-{/* 
+          {/* 
           <div className="payment-badges-row">
             <span className="p-badge">BIS 916 Hallmark</span>
             <span className="p-badge">IGI Diamond Certified</span>

@@ -5,7 +5,7 @@ import { getSiteSettings, updateSiteSettings, uploadLogoToSupabase } from '../..
 const SettingsPanel = () => {
   const [settings, setSettings] = useState({
     logo_url: '',
-    shop_name: 'God Jewellery',
+    shop_name: 'Sri vinayaga Moulding',
     store_address: '',
     store_phone: '',
     store_email: '',
@@ -44,7 +44,7 @@ const SettingsPanel = () => {
   const openForm = () => {
     setFormData({
       logo_url: settings.logo_url || '',
-      shop_name: settings.shop_name || 'God Jewellery',
+      shop_name: settings.shop_name || 'Sri vinayaga Moulding',
       store_address: settings.store_address || '',
       store_phone: settings.store_phone || '',
       store_email: settings.store_email || '',
@@ -60,10 +60,11 @@ const SettingsPanel = () => {
     if (window.confirm("Are you sure you want to delete the logo and reset settings to default?")) {
       const { success, error } = await updateSiteSettings({
         logo_url: null,
-        shop_name: 'God Jewellery'
+        shop_name: 'Sri vinayaga Moulding'
       });
       if (success) {
         loadSettings();
+        window.dispatchEvent(new Event('siteSettingsUpdated'));
         alert("Logo deleted and settings reset!");
       } else {
         alert("Error: " + error);
@@ -101,6 +102,7 @@ const SettingsPanel = () => {
     if (success) {
       loadSettings();
       setIsFormOpen(false);
+      window.dispatchEvent(new Event('siteSettingsUpdated'));
     } else {
       alert("Error saving settings: " + error);
     }
@@ -183,7 +185,7 @@ const SettingsPanel = () => {
                     required
                     value={formData.shop_name}
                     onChange={e => setFormData({ ...formData, shop_name: e.target.value })}
-                    placeholder="e.g. God Jewellery"
+                    placeholder="e.g. Sri vinayaga Moulding"
                   />
                 </div>
 
@@ -192,7 +194,7 @@ const SettingsPanel = () => {
                   <textarea
                     value={formData.store_address}
                     onChange={e => setFormData({ ...formData, store_address: e.target.value })}
-                    placeholder="e.g. God Jewellery Flagship Store, No. 42, Cathedral Road..."
+                    placeholder="e.g. Sri vinayaga Moulding Flagship Store, No. 42, Cathedral Road..."
                     rows={2}
                   />
                 </div>
