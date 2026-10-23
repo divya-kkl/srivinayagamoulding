@@ -317,7 +317,6 @@ export const expandTermWithConcepts = (term) => {
   const cleanTerm = (term || '').trim().toLowerCase();
   if (!cleanTerm) return [];
 
-  const normTerm = normalizePhonetic(cleanTerm);
   const expansions = new Set([cleanTerm]);
 
   // English plurals (e.g. rings -> ring, bangles -> bangle)
