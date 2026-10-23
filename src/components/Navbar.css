@@ -119,17 +119,26 @@
 
 .vj-luxury-navbar.vj-scrolled .vj-dropdown-menu {
   background: #FFFFFF;
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+  border: 1.5px solid #D4AF37;
+  border-radius: 10px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+}
+
+.vj-luxury-navbar.vj-scrolled .vj-dropdown-menu::before {
+  background: #FFFFFF;
+  border-left: 1.5px solid #D4AF37;
+  border-top: 1.5px solid #D4AF37;
 }
 
 .vj-luxury-navbar.vj-scrolled .vj-dropdown-item {
-  color: #2D2319;
+  color: #1C2521;
+  text-transform: capitalize;
 }
 
 .vj-luxury-navbar.vj-scrolled .vj-dropdown-item:hover {
-  background: #FAF6EF;
-  color: #B38728;
+  background: #F7F3E8;
+  color: #B8860B;
+  box-shadow: inset 3px 0 0 #D4AF37;
 }
 
 .vj-luxury-navbar.vj-scrolled .vj-cat-shimmer-pill {
@@ -216,14 +225,7 @@
   z-index: 5;
 }
 
-.brand-logo-wrapper img {
-  transition: max-height 0.3s ease;
-}
-
-.brand-emblem {
-  background: radial-gradient(circle, rgba(212, 175, 55, 0.25) 0%, rgba(0, 59, 47, 0) 70%);
-  padding: 0.25rem;
-  border-radius: 50%;
+.vj-brand-identity {
   display: flex;
   align-items: center;
   gap: 12px;
@@ -412,20 +414,34 @@
 /* Dropdown Menu for Subcategories */
 .vj-dropdown-menu {
   position: absolute;
-  top: calc(100% + 10px);
+  top: calc(100% + 12px);
   left: 50%;
-  transform: translateX(-50%) translateY(10px);
-  background: rgba(18, 12, 8, 0.98);
-  border: 1px solid rgba(212, 175, 55, 0.3);
-  border-radius: 6px;
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+  transform: translateX(-50%) translateY(8px);
+  background: linear-gradient(180deg, #003B2F 0%, #00261E 100%);
+  border: 1.5px solid #D4AF37;
+  border-radius: 10px;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.45), 0 0 18px rgba(212, 175, 55, 0.2);
   min-width: 200px;
-  padding: 8px 0;
+  padding: 6px;
   opacity: 0;
   visibility: hidden;
-  transition: all 0.25s ease;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
   z-index: 1000;
-  backdrop-filter: blur(12px);
+  backdrop-filter: blur(14px);
+}
+
+/* Little golden pointer arrow pointing to the category */
+.vj-dropdown-menu::before {
+  content: '';
+  position: absolute;
+  top: -6px;
+  left: 50%;
+  transform: translateX(-50%) rotate(45deg);
+  width: 10px;
+  height: 10px;
+  background: #003B2F;
+  border-left: 1.5px solid #D4AF37;
+  border-top: 1.5px solid #D4AF37;
 }
 
 .vj-dropdown-menu.show,
@@ -436,19 +452,27 @@
 }
 
 .vj-dropdown-item {
-  padding: 10px 18px;
-  color: #E2E8F0;
-  font-size: 0.82rem;
-  font-weight: 500;
+  padding: 10px 16px;
+  color: #FFFFFF;
+  font-size: 0.88rem;
+  font-weight: 600;
   cursor: pointer;
   letter-spacing: 0.5px;
+  text-transform: capitalize;
+  border-radius: 6px;
   transition: all 0.2s ease;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+}
+
+.vj-dropdown-item:last-child {
+  border-bottom: none;
 }
 
 .vj-dropdown-item:hover {
-  background: rgba(212, 175, 55, 0.15);
+  background: rgba(212, 175, 55, 0.18);
   color: #D4AF37;
-  padding-left: 22px;
+  padding-left: 20px;
+  box-shadow: inset 3px 0 0 #D4AF37;
 }
 
 /* 3. RIGHT ACTIONS */
@@ -847,71 +871,56 @@
 .vj-drawer-links {
   display: flex;
   flex-direction: column;
-  gap: 0.4rem;
-  font-size: 0.82rem;
-  font-weight: 600;
-  border: 1px solid var(--gold-primary);
-  background: linear-gradient(135deg, rgba(212, 175, 55, 0.2) 0%, rgba(0, 59, 47, 0.4) 100%);
+  gap: 0.35rem;
+  overflow-y: auto;
+  overflow-x: hidden !important;
+  padding-right: 4px;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
 
-.action-badge {
-  position: absolute;
-  top: -4px;
-  right: -4px;
-  background: var(--luxury-gold, #D4AF37);
-  color: var(--primary-green, #003B2F);
-  font-size: 0.68rem;
-  font-weight: 800;
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
+.vj-drawer-links::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+.vj-drawer-item-group {
+  display: flex;
+  flex-direction: column;
+  border-bottom: 1px solid rgba(212, 175, 55, 0.15);
+  overflow-x: hidden !important;
+}
+
+.vj-drawer-link-row {
   display: flex;
   align-items: center;
   justify-content: space-between;
   width: 100%;
 }
 
-.cart-badge {
-  background: #E53935;
-  color: #FFF;
-}
-
-
-.category-nav-bar {
-  background: var(--category-bar-bg, var(--primary-green, #003B2F));
-  border-top: 1px solid rgba(212, 175, 55, 0.18);
-  padding: 0.2rem 0;
-}
-
-.nav-links-flex {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 1.8rem;
-  white-space: nowrap;
-  flex-wrap: wrap; 
-  
-}
-
-.nav-category-link {
-  background: transparent;
-  border: none;
-  outline: none;
+.vj-drawer-link {
+  background: transparent !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
   -webkit-tap-highlight-color: transparent;
   text-align: left;
-  color: #FFFFFF;
+  color: #FFFFFF !important;
   font-size: 0.95rem;
   font-weight: 600;
   letter-spacing: 0.8px;
-  padding: 12px 0;
+  padding: 13px 4px;
   cursor: pointer;
   flex: 1;
-  transition: color 0.2s ease;
+  text-transform: uppercase;
+  transition: all 0.2s ease;
 }
 
 .vj-drawer-link:hover,
 .vj-drawer-link.active {
-  color: #FFE082;
+  color: #D4AF37 !important;
+  padding-left: 6px;
 }
 
 .vj-drawer-chevron-btn {
@@ -927,6 +936,36 @@
   align-items: center;
   justify-content: center;
   transition: transform 0.25s ease;
+}
+
+.vj-drawer-chevron-btn.rotated {
+  transform: rotate(180deg);
+}
+
+.vj-drawer-subcats {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 4px 0 12px 14px;
+  overflow: hidden !important;
+  scrollbar-width: none;
+}
+
+.vj-drawer-subcat-link {
+  color: #CBD5E0;
+  font-size: 0.88rem;
+  font-weight: 500;
+  padding: 8px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-transform: capitalize;
+}
+
+.vj-drawer-subcat-link:hover {
+  color: #D4AF37;
+  background: rgba(212, 175, 55, 0.12);
+  padding-left: 14px;
 }
 
 /* =========================================================
@@ -1440,7 +1479,9 @@
   }
 
   .vj-mobile-menu-btn {
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .vj-nav-container {
@@ -1450,86 +1491,111 @@
 
 @media (max-width: 768px) {
   .vj-nav-container {
-    padding: 0.45rem 0.8rem;
-    gap: 0.5rem;
+    padding: 0.5rem 0.85rem;
+    gap: 0.65rem;
+    display: flex;
+    align-items: center;
     justify-content: space-between;
+    height: 56px;
   }
 
   .vj-mobile-menu-btn {
     flex-shrink: 0;
     padding: 4px;
-    width: 32px;
-    height: 32px;
+    width: 36px;
+    height: 36px;
     display: flex;
     align-items: center;
     justify-content: center;
+    color: #D4AF37;
+  }
+
+  .vj-mobile-menu-btn svg {
+    width: 22px;
+    height: 22px;
   }
 
   .vj-brand-wrapper {
     flex: 1;
     min-width: 0;
-    margin: 0 6px;
-    overflow: hidden;
+    margin: 0;
+    display: flex;
+    align-items: center;
   }
 
   .vj-brand-identity {
-    gap: 8px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
     min-width: 0;
     max-width: 100%;
-    overflow: hidden;
   }
 
   .vj-shop-logo-img {
-    height: 32px;
-    max-height: 32px;
-    max-width: 34px;
+    height: 34px;
+    max-height: 34px;
+    max-width: 36px;
     border-radius: 4px;
     flex-shrink: 0;
+    object-fit: contain;
   }
 
   .vj-shop-brand-name {
-    font-size: 0.88rem;
-    letter-spacing: 0.3px;
+    font-size: 0.92rem;
+    font-weight: 700;
+    letter-spacing: 0.4px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     min-width: 0;
     flex: 1;
-    line-height: 1.2;
+    line-height: 1;
+    margin: 0;
   }
 
   .vj-right-actions {
     flex-shrink: 0;
     margin-left: auto;
+    display: flex;
+    align-items: center;
   }
 
   .vj-search-icon-btn {
     padding: 4px;
-    width: 32px;
-    height: 32px;
+    width: 36px;
+    height: 36px;
     flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #D4AF37;
   }
 
   .vj-search-icon-btn svg {
-    width: 18px;
-    height: 18px;
+    width: 20px;
+    height: 20px;
   }
 }
 
 @media (max-width: 420px) {
   .vj-nav-container {
-    padding: 0.4rem 0.5rem;
-    gap: 0.35rem;
+    padding: 0.4rem 0.65rem;
+    gap: 0.45rem;
+    height: 52px;
+  }
+
+  .vj-brand-identity {
+    gap: 8px;
   }
 
   .vj-shop-logo-img {
-    height: 28px;
-    max-height: 28px;
-    max-width: 30px;
+    height: 30px;
+    max-height: 30px;
+    max-width: 32px;
   }
 
   .vj-shop-brand-name {
-    font-size: 0.8rem;
+    font-size: 0.82rem;
     letter-spacing: 0.2px;
   }
 }

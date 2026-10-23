@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import './BudgetDealsSection.css';
 import { supabase } from '../supabaseClient';
 import { getProductsFromSupabase, resolveImageUrl } from '../services/productService';
@@ -38,14 +38,12 @@ const DEFAULT_TILES = [
 const BudgetDealsSection = ({ liveRates = [] }) => {
   const scrollRef = useRef(null);
   const [dealCards, setDealCards] = useState(DEFAULT_TILES);
-  const [supabaseProductsList, setSupabaseProductsList] = useState([]);
 
   // Fetch products dynamically from Supabase
-  const loadDynamicProducts = async () => {
+  const loadDynamicProducts = useCallback(async () => {
     try {
       const { data: supabaseProducts } = await getProductsFromSupabase(true);
       const productList = supabaseProducts && supabaseProducts.length > 0 ? supabaseProducts : [];
-      setSupabaseProductsList(productList);
 
       // Map each budget tile dynamically to products from Supabase
       const updatedTiles = DEFAULT_TILES.map((tile, index) => {
@@ -58,7 +56,7 @@ const BudgetDealsSection = ({ liveRates = [] }) => {
           });
         }
 
-      const productForCard = matchedProduct || productList[index % productList.length] || productList[0];
+        const productForCard = matchedProduct || productList[index % productList.length] || productList[0];
 
         let imageUrl = '';
         if (productForCard && productForCard.image) {
@@ -79,7 +77,7 @@ const BudgetDealsSection = ({ liveRates = [] }) => {
     } catch (err) {
       console.error('Error loading dynamic deals products from Supabase:', err);
     }
-  };
+  }, [liveRates]);
 
   useEffect(() => {
     loadDynamicProducts();
@@ -99,7 +97,7 @@ const BudgetDealsSection = ({ liveRates = [] }) => {
     return () => {
       supabase.removeChannel(subscription);
     };
-  }, [liveRates]);
+  }, [loadDynamicProducts]);
 
   const handleCardClick = (tile) => {
     let url = '/all-products';

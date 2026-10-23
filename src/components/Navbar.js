@@ -291,7 +291,7 @@ const Navbar = ({
                             window.location.href = `/subcategory/${encodeURIComponent(sub.name.toLowerCase())}`;
                           }}
                         >
-                          {sub.name}
+                          {(sub.name || '').replace(/[-_]/g, ' ')}
                         </div>
                       ))}
                     </div>
