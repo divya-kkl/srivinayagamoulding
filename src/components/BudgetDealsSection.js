@@ -38,12 +38,14 @@ const DEFAULT_TILES = [
 const BudgetDealsSection = ({ liveRates = [] }) => {
   const scrollRef = useRef(null);
   const [dealCards, setDealCards] = useState(DEFAULT_TILES);
+  const [supabaseProductsList, setSupabaseProductsList] = useState([]);
 
   // Fetch products dynamically from Supabase
   const loadDynamicProducts = useCallback(async () => {
     try {
       const { data: supabaseProducts } = await getProductsFromSupabase(true);
       const productList = supabaseProducts && supabaseProducts.length > 0 ? supabaseProducts : [];
+      setSupabaseProductsList(productList);
 
       // Map each budget tile dynamically to products from Supabase
       const updatedTiles = DEFAULT_TILES.map((tile, index) => {
@@ -117,8 +119,9 @@ const BudgetDealsSection = ({ liveRates = [] }) => {
 
   const handleImageError = (e, index) => {
     e.target.onerror = null;
-    // Fallback to another product from Supabase if available
-    const backupProduct = supabaseProductsList[(index + 1) % supabaseProductsList.length];
+    const backupProduct = (supabaseProductsList && supabaseProductsList.length > 0)
+      ? supabaseProductsList[(index + 1) % supabaseProductsList.length]
+      : null;
     if (backupProduct && backupProduct.image) {
       e.target.src = resolveImageUrl(backupProduct.image);
     }
