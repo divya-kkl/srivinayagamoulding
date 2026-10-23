@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import './ProductGrid.css';
 import { getProductsFromSupabase } from '../services/productService';
 import { getTagsFromSupabase } from '../services/tagService';
-import { calculateFinalPrice } from '../admin/product/ProductPriceCalculator';
+import { calculateFinalPrice, getProductWeightDisplay } from '../admin/product/ProductPriceCalculator';
+import { doesProductMatchQuery } from '../utils/tamilSearchHelper';
 
 const ProductGrid = ({
   activeCategory,
@@ -51,11 +52,7 @@ const ProductGrid = ({
     }
 
     if (searchQuery) {
-      const q = searchQuery.toLowerCase().trim();
-      return (
-        (item.name && item.name.toLowerCase().includes(q)) ||
-        (item.productCode && item.productCode.toLowerCase().includes(q))
-      );
+      return doesProductMatchQuery(item, searchQuery);
     }
     return true;
   });
@@ -151,7 +148,7 @@ const ProductGrid = ({
                     </h3>
 
                     <div className="product-weight-purity" style={{ marginBottom: '12px', color: '#003366', fontSize: '0.9rem' }}>
-                      Weight: {product.netWeight > 0 ? `${product.netWeight}g` : '-'} • {product.purity || '-'}
+                      {getProductWeightDisplay(product)} • {product.purity ? product.purity.replace(/\s*gold/i, '').trim() || '22K' : '22K'}
                     </div>
 
                     {(() => {
@@ -173,7 +170,7 @@ const ProductGrid = ({
                     }}
                     style={{
                       width: '100%',
-                      backgroundColor: '#4a0a1f',
+                      backgroundColor: 'var(--primary-green, #003B2F)',
                       color: 'white',
                       border: 'none',
                       padding: '14px',

@@ -1,7 +1,7 @@
 .hero-carousel-section {
   position: relative;
   width: 100%;
-  background: var(--bg-maroon-dark, #2B050B);
+  background: var(--primary-green, #003B2F);
   color: #FFF;
   overflow: hidden;
   padding: 0;
@@ -13,7 +13,7 @@
   max-width: 100%;
   position: relative;
   overflow: hidden;
-  background: #1C0306;
+  background: #002820;
   margin: 0 auto;
 }
 
@@ -84,13 +84,13 @@
 }
 
 .shimmer {
-  background: #2a1a1f;
+  background: #002820;
   background-image: linear-gradient(
     to right,
-    #2a1a1f 0%,
-    #4a2834 20%,
-    #2a1a1f 40%,
-    #2a1a1f 100%
+    #002820 0%,
+    #004838 20%,
+    #002820 40%,
+    #002820 100%
   );
   background-repeat: no-repeat;
   background-size: 800px 100%;

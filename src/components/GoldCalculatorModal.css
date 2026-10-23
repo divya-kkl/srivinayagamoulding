@@ -171,7 +171,7 @@
 }
 
 .price-breakdown-box {
-  background: #250308;
+  background: var(--primary-green-dark, #002820);
   color: #FFF;
   border-radius: var(--radius-md);
   padding: 1.25rem;

@@ -1,4 +1,5 @@
 import { supabase } from '../supabaseClient';
+import { filterProductsBilingual } from '../utils/tamilSearchHelper';
 
 const FALLBACK_IMAGE = 'https://via.placeholder.com/150?text=No+Image';
 
@@ -44,9 +45,11 @@ const normalizeProduct = (row) => {
     images: imagesArray,
     grossWeight: row.gross_weight || '',
     netWeight: row.net_weight || '',
+    weight: row.weight || row.net_weight || row.gross_weight || '',
     makingCharge: row.making_charge_per_gram || '',
     makingChargePercent: row.making_charge_percent || '',
     purity: row.purity || '22K Gold',
+    badge: row.badge || '',
     status: row.status ? row.status.toUpperCase() : 'ACTIVE',
     createdAt: row.created_at,
     categoryName: row.categories ? row.categories.name : 'Unknown',
@@ -105,13 +108,8 @@ export async function searchProductsInSupabase(searchQuery) {
       return { data: [], error: null, isEmpty: true };
     }
 
-    // Filter primarily by product name and product code
-    const matches = data.filter((item) => {
-      const nameStr = String(item.name || '').toLowerCase().trim();
-      const codeStr = String(item.productCode || '').toLowerCase().trim();
-
-      return nameStr.includes(cleanQ) || codeStr.includes(cleanQ);
-    });
+    // Filter products with bilingual Tamil <-> English support
+    const matches = filterProductsBilingual(data, searchQuery);
 
     return { 
       data: matches, 

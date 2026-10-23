@@ -272,7 +272,7 @@ const Navbar = ({
                               <span className="search-item-title">{item.name}</span>
                             </div>
                             <div className="search-item-sub">
-                              {item.categoryName} • {item.purity || '22K'} {item.netWeight ? `• ${item.netWeight}g` : ''}
+                              {item.categoryName} • {item.purity || '22K'} {(item.netWeight || item.grossWeight || item.weight) ? `• ${item.netWeight || item.grossWeight || item.weight}g` : ''}
                             </div>
                           </div>
                           {finalPrice > 0 && (

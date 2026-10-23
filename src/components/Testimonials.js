@@ -94,13 +94,23 @@ const Testimonials = ({ shopName = 'God Jewellery', isLoadingSettings }) => {
               ))
             ) : (
               INSTAGRAM_POSTS.map((post) => (
-                <div key={post.id} className="insta-post-card">
-                  <img src={post.image} alt="Customer wearing jewellery" />
-                  <div className="insta-overlay">
-                    <span className="likes-count">❤️ {post.likes}</span>
-                    <span className="insta-tag">{post.tag}</span>
-                  </div>
-                </div>
+                <a
+                  key={post.id}
+                  href={post.url || "https://www.instagram.com/"}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="insta-post-card"
+                  title="View on Instagram"
+                >
+                  <img
+                    src={post.image}
+                    alt="Customer wearing jewellery"
+                    loading="lazy"
+                    onError={(e) => {
+                      e.currentTarget.src = "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=400&q=80";
+                    }}
+                  />
+                </a>
               ))
             )}
           </div>

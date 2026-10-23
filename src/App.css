@@ -85,10 +85,10 @@
   right: 31px;
   width: 46px;
   height: 46px;
-  background-color: #4A0A1F;
-  background: linear-gradient(135deg, #5C0B1B 0%, #3D040E 100%);
+  background-color: var(--primary-green, #003B2F);
+  background: linear-gradient(135deg, #004D3E 0%, #002820 100%);
   color: #FFFFFF;
-  border: 1.5px solid rgba(212, 175, 55, 0.45);
+  border: 1.5px solid var(--luxury-gold, #D4AF37);
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -102,11 +102,11 @@
 }
 
 .floating-scroll-top-btn:hover {
-  background: linear-gradient(135deg, #700D22 0%, #4A0A1F 100%);
-  border-color: #D4AF37;
+  background: linear-gradient(135deg, #006652 0%, #003B2F 100%);
+  border-color: var(--luxury-gold, #D4AF37);
   color: #FFE082;
   transform: translateY(-3px) scale(1.08);
-  box-shadow: 0 8px 24px rgba(74, 10, 31, 0.5), 0 0 14px rgba(212, 175, 55, 0.4);
+  box-shadow: 0 8px 24px rgba(0, 59, 47, 0.5), 0 0 14px rgba(212, 175, 55, 0.4);
 }
 
 .floating-scroll-top-btn:active {
