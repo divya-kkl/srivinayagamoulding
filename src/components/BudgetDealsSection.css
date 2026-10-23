@@ -1,0 +1,249 @@
+
+
+.deals-section {
+  padding: 3rem 0;
+  background: transparent; /* Background color removed */
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+}
+
+.deals-container {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.deals-layout-grid {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  width: 100%;
+}
+
+/* 1. Left Text Block & Action Button */
+.deals-header-card {
+  flex-shrink: 0;
+  width: 260px;
+  max-width: 280px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.deals-title {
+  font-family: 'Playfair Display', 'Poppins', Georgia, serif;
+  font-size: 1.85rem;
+  font-weight: 700;
+  color: #003B2F; /* Store Brand Theme Primary Green */
+  margin: 0 0 0.5rem 0;
+  line-height: 1.25;
+  letter-spacing: -0.3px;
+}
+
+.deals-subtitle {
+  font-family: 'Poppins', 'Inter', -apple-system, sans-serif;
+  font-size: 0.95rem;
+  color: #53625C; /* Store Theme Muted Green-Charcoal */
+  line-height: 1.45;
+  margin: 0 0 1.6rem 0;
+}
+
+/* Brand Theme Pill CTA Button (Primary Green + Gold Accent) */
+.deals-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: #003B2F; /* Brand Primary Green */
+  color: #FFFFFF;
+  border: 1px solid rgba(212, 175, 55, 0.45); /* Luxury Gold Border */
+  padding: 0.85rem 1.6rem;
+  border-radius: 35px;
+  font-family: 'Poppins', 'Inter', -apple-system, sans-serif;
+  font-size: 0.92rem;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(0, 59, 47, 0.25);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  text-decoration: none;
+}
+
+.deals-cta-btn:hover {
+  background: #004D3E; /* Lighter theme green on hover */
+  border-color: #D4AF37;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 59, 47, 0.38);
+}
+
+.deals-cta-btn:active {
+  transform: translateY(0);
+}
+
+.deals-cta-btn svg {
+  color: #D4AF37; /* Luxury Gold arrow */
+  transition: transform 0.25s ease;
+}
+
+.deals-cta-btn:hover svg {
+  transform: translateX(4px);
+}
+
+/* 2. Right Price-Range Cards Grid - 4 Columns Full Width */
+.deals-track-wrapper {
+  flex: 1;
+  min-width: 0;
+  width: 100%;
+}
+
+.deals-cards-track {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4 equal columns covering 100% of available space */
+  gap: 18px;
+  width: 100%;
+}
+
+/* Individual Price-Range Tile Card - Full Cover with Aspect Ratio 1/1 */
+.deals-tile-card {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: 18px;
+  overflow: hidden;
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease, border-color 0.35s ease;
+  background: #002820;
+  border: 1px solid rgba(212, 175, 55, 0.18);
+}
+
+.deals-tile-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 14px 30px rgba(0, 59, 47, 0.25);
+  border-color: rgba(212, 175, 55, 0.5);
+}
+
+.deals-tile-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.deals-tile-card:hover .deals-tile-img {
+  transform: scale(1.08);
+}
+
+.deals-tile-placeholder {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #002820 0%, #003B2F 50%, #002820 100%);
+}
+
+/* Bottom Dark Vignette for Crisp White Text */
+.deals-tile-vignette {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 55%;
+  background: linear-gradient(
+    0deg,
+    rgba(0, 24, 19, 0.9) 0%,
+    rgba(0, 24, 19, 0.5) 50%,
+    transparent 100%
+  );
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Bold White Price Badge matching screenshot (e.g. UNDER ₹5000) */
+.deals-tile-badge {
+  position: absolute;
+  bottom: 14px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  z-index: 3;
+  color: #FFFFFF;
+  font-family: 'Poppins', 'Inter', -apple-system, sans-serif;
+  font-size: 1.05rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.85);
+  pointer-events: none;
+  text-transform: uppercase;
+}
+
+/* Responsive Breakpoints */
+@media (max-width: 1100px) {
+  .deals-layout-grid {
+    gap: 1.5rem;
+  }
+  .deals-header-card {
+    width: 220px;
+  }
+  .deals-title {
+    font-size: 1.6rem;
+  }
+  .deals-cards-track {
+    gap: 12px;
+  }
+  .deals-tile-badge {
+    font-size: 0.92rem;
+    bottom: 10px;
+  }
+}
+
+@media (max-width: 900px) {
+  .deals-layout-grid {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.8rem;
+  }
+  .deals-header-card {
+    width: 100%;
+    max-width: 100%;
+  }
+  .deals-cards-track {
+    grid-template-columns: repeat(4, 1fr);
+    overflow-x: auto;
+    gap: 14px;
+    padding-bottom: 8px;
+  }
+}
+
+@media (max-width: 600px) {
+  .deals-section {
+    padding: 2rem 0;
+  }
+  .deals-container {
+    padding: 0 1rem;
+  }
+  .deals-title {
+    font-size: 1.4rem;
+  }
+  .deals-subtitle {
+    font-size: 0.88rem;
+    margin-bottom: 1.2rem;
+  }
+  .deals-cta-btn {
+    padding: 0.75rem 1.4rem;
+    font-size: 0.86rem;
+  }
+  .deals-cards-track {
+    grid-template-columns: repeat(2, 1fr); /* 2x2 grid on mobile for perfect full cover */
+    gap: 12px;
+  }
+  .deals-tile-card {
+    border-radius: 14px;
+  }
+  .deals-tile-badge {
+    font-size: 0.82rem;
+    bottom: 8px;
+  }
+}

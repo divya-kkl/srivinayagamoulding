@@ -37,7 +37,7 @@ const CartDrawer = ({ isOpen, onClose, cart, onUpdateQuantity, onRemoveItem }) =
             <h2>Order Confirmed!</h2>
             <p className="order-id">Order ID: #GOD-{Math.floor(100000 + Math.random() * 900000)}</p>
             <p className="success-msg">
-              Thank you for choosing God Jewellery. Your 100% BIS Hallmarked jewellery is packed with transit insurance and will be delivered shortly.
+              Thank you for choosing Sri vinayaga Moulding. Your 100% BIS Hallmarked jewellery is packed with transit insurance and will be delivered shortly.
             </p>
             <button className="btn-gold" onClick={() => { setOrderSuccess(false); setIsCheckoutStep(false); onClose(); }}>
               CONTINUE SHOPPING
@@ -46,7 +46,7 @@ const CartDrawer = ({ isOpen, onClose, cart, onUpdateQuantity, onRemoveItem }) =
         ) : isCheckoutStep ? (
           <form className="checkout-form-container" onSubmit={handlePlaceOrder}>
             <div className="form-section-title">Shipping & Contact Details</div>
-            
+
             <div className="form-group">
               <label>Full Name *</label>
               <input type="text" placeholder="e.g. Ananya Sundaram" required />

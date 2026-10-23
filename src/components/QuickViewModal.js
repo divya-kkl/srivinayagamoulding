@@ -16,8 +16,8 @@ const QuickViewModal = ({ product, onClose, onAddToCart, liveRates = [] }) => {
   // Touch swipe on main image
   const touchStartXRef = useRef(0);
 
-  const images = product?.images && product.images.length > 0 
-    ? product.images 
+  const images = product?.images && product.images.length > 0
+    ? product.images
     : (product?.image ? [product.image] : []);
 
   useEffect(() => {
@@ -109,7 +109,7 @@ const QuickViewModal = ({ product, onClose, onAddToCart, liveRates = [] }) => {
 
   const handleShare = async () => {
     const productUrl = `${window.location.origin}/product/${encodeURIComponent(product.name.toLowerCase())}`;
-    const shareText = `Check out ${product.name}${product.productCode ? ` (#${product.productCode})` : ''} at God Jewellery!`;
+    const shareText = `Check out ${product.name}${product.productCode ? ` (#${product.productCode})` : ''} at Sri vinayaga Moulding!`;
 
     if (navigator.share) {
       try {

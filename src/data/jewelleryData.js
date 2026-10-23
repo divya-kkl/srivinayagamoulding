@@ -237,7 +237,7 @@ export const TESTIMONIALS = [
     name: "Priya Sundaram",
     location: "Chennai",
     rating: 5,
-    comment: "Bought my wedding bridal haram from God Jewellery. The purity, BIS hallmark certificate, and zero hidden making charges made me trust them completely. Truly royal craftsmanship!",
+    comment: "Bought my wedding bridal haram from Sri vinayaga Moulding. The purity, BIS hallmark certificate, and zero hidden making charges made me trust them completely. Truly royal craftsmanship!",
     image: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80"
   },
   {
@@ -245,7 +245,7 @@ export const TESTIMONIALS = [
     name: "Rajesh Kumar",
     location: "Coimbatore",
     rating: 5,
-    comment: "The Golden Harvest Scheme is fantastic! Paying 11 installments and getting the 12th month free helped me buy my wife's diamond ring effortless. Highly recommend God Jewellery.",
+    comment: "The Golden Harvest Scheme is fantastic! Paying 11 installments and getting the 12th month free helped me buy my wife's diamond ring effortless. Highly recommend Sri vinayaga Moulding.",
     image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80"
   },
   {
@@ -261,37 +261,37 @@ export const TESTIMONIALS = [
 export const INSTAGRAM_POSTS = [
   {
     id: 1,
-    image: "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=400&q=80",
+    image: "https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?auto=format&fit=crop&w=600&q=80",
     likes: "2.4k",
     tag: "@godjewellery_official"
   },
   {
     id: 2,
-    image: "https://images.unsplash.com/photo-1630019852942-f89202989a59?auto=format&fit=crop&w=400&q=80",
+    image: "https://images.unsplash.com/photo-1630019852942-f89202989a59?auto=format&fit=crop&w=600&q=80",
     likes: "1.9k",
     tag: "#BridalGlamour"
   },
   {
     id: 3,
-    image: "https://images.unsplash.com/photo-1605100804763-247f67b3557e?auto=format&fit=crop&w=400&q=80",
+    image: "https://images.unsplash.com/photo-1605100804763-247f67b3557e?auto=format&fit=crop&w=600&q=80",
     likes: "3.1k",
     tag: "#SolitaireLove"
   },
   {
     id: 4,
-    image: "https://images.unsplash.com/photo-1611591475281-b1c970877940?auto=format&fit=crop&w=400&q=80",
+    image: "https://images.unsplash.com/photo-1601121141461-9d6647bca1ed?auto=format&fit=crop&w=600&q=80",
     likes: "4.2k",
     tag: "#TempleJewellery"
   },
   {
     id: 5,
-    image: "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=400&q=80",
+    image: "https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=600&q=80",
     likes: "1.5k",
     tag: "#GoldChains"
   },
   {
     id: 6,
-    image: "https://images.unsplash.com/photo-1602751584552-8ba73aad10e1?auto=format&fit=crop&w=400&q=80",
+    image: "https://images.unsplash.com/photo-1602751584552-8ba73aad10e1?auto=format&fit=crop&w=600&q=80",
     likes: "2.8k",
     tag: "#GodJewellery"
   }

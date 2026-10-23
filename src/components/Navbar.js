@@ -1,39 +1,86 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { createPortal } from 'react-dom';
 import './Navbar.css';
 import { getCategoriesFromSupabase } from '../services/categoryService';
 import { getSubcategoriesFromSupabase } from '../services/subcategoryService';
 import { searchProductsInSupabase } from '../services/productService';
 import { calculateFinalPrice } from '../admin/product/ProductPriceCalculator';
+import { getSiteSettings } from '../services/settingService';
 
 const Navbar = ({
   activeCategory,
   setActiveCategory,
   searchQuery,
   setSearchQuery,
-  cartCount,
-  wishlistCount,
-  onOpenCart,
-  onOpenWishlist,
-  onOpenCalculator,
   logoUrl,
-  shopName = 'GOD JEWELLERY',
+  shopName = '',
   isLoadingSettings,
-  liveRates = []
+  liveRates = [],
+  isOverlay = false
 }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [mobileExpandedCat, setMobileExpandedCat] = useState(null);
   const [dynamicCategories, setDynamicCategories] = useState([]);
   const [dynamicSubcategories, setDynamicSubcategories] = useState([]);
   const [isLoadingCats, setIsLoadingCats] = useState(true);
 
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isMobileMenuOpen]);
+
+  // Automatically close mobile menu when exiting responsive view to desktop
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth > 1080) {
+        setIsMobileMenuOpen(false);
+      }
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  // Dynamic Shop Details from Admin Panel (logo and shop name)
+  const [currentLogo, setCurrentLogo] = useState(logoUrl || null);
+  const [currentShopName, setCurrentShopName] = useState(shopName || '');
+
+  useEffect(() => {
+    if (logoUrl !== undefined) setCurrentLogo(logoUrl);
+  }, [logoUrl]);
+
+  useEffect(() => {
+    if (shopName) setCurrentShopName(shopName);
+  }, [shopName]);
+
+  useEffect(() => {
+    const fetchFreshSettings = async () => {
+      const { data } = await getSiteSettings();
+      if (data) {
+        setCurrentLogo(data.logo_url || null);
+        setCurrentShopName(data.shop_name || '');
+      }
+    };
+    fetchFreshSettings();
+
+    window.addEventListener('siteSettingsUpdated', fetchFreshSettings);
+    return () => window.removeEventListener('siteSettingsUpdated', fetchFreshSettings);
+  }, []);
+
   // Live Search States
   const [searchResults, setSearchResults] = useState([]);
   const [isSearching, setIsSearching] = useState(false);
-  const [isSearchDropdownOpen, setIsSearchDropdownOpen] = useState(false);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [openDropdownId, setOpenDropdownId] = useState(null);
   const [isScrolled, setIsScrolled] = useState(false);
   const searchBarRef = useRef(null);
 
-  // Detect window scroll on all pages to shrink navbar smoothly
+  // Detect scroll to style navbar smoothly
   useEffect(() => {
     const handleScroll = () => {
       const scrollY = window.pageYOffset || document.documentElement.scrollTop || window.scrollY || 0;
@@ -41,22 +88,17 @@ const Navbar = ({
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
-    document.addEventListener('scroll', handleScroll, { passive: true });
     handleScroll();
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-      document.removeEventListener('scroll', handleScroll);
-    };
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Close dropdown when clicked outside
+  // Close search/dropdown when clicked outside
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (searchBarRef.current && !searchBarRef.current.contains(e.target)) {
-        setIsSearchDropdownOpen(false);
+        setIsSearchOpen(false);
       }
-      if (!e.target.closest('.nav-dropdown-container')) {
+      if (!e.target.closest('.vj-nav-item-wrapper')) {
         setOpenDropdownId(null);
       }
     };
@@ -64,52 +106,56 @@ const Navbar = ({
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  // Fetch search results with 250ms debounce
+  // Local Search Input State with 350ms Debounce
+  const [searchTerm, setSearchTerm] = useState(searchQuery || '');
+
+  // Fetch search results with debounced query
   useEffect(() => {
-    if (!searchQuery || !searchQuery.trim()) {
+    const trimmed = searchTerm.trim();
+    if (!trimmed) {
       setSearchResults([]);
-      setIsSearchDropdownOpen(false);
       setIsSearching(false);
+      if (setSearchQuery) setSearchQuery('');
       return;
     }
 
     setIsSearching(true);
-    setIsSearchDropdownOpen(true);
-
     const timer = setTimeout(async () => {
-      const { data } = await searchProductsInSupabase(searchQuery);
-      setSearchResults(data || []);
-      setIsSearching(false);
-    }, 250);
+      try {
+        const { data } = await searchProductsInSupabase(trimmed);
+        setSearchResults(data || []);
+        if (setSearchQuery) setSearchQuery(trimmed);
+      } catch (err) {
+        console.error('Debounced search error:', err);
+      } finally {
+        setIsSearching(false);
+      }
+    }, 350);
 
     return () => clearTimeout(timer);
-  }, [searchQuery]);
+  }, [searchTerm, setSearchQuery]);
 
+  // Fetch categories & subcategories from Supabase
   useEffect(() => {
     const fetchCats = async () => {
       const { data } = await getCategoriesFromSupabase(true);
-      if (data) setDynamicCategories(data);
+      if (data && data.length > 0) {
+        setDynamicCategories(data);
+      }
 
       const subcatRes = await getSubcategoriesFromSupabase();
       if (subcatRes.data) {
-
-        setDynamicSubcategories(subcatRes.data.filter(s => s.status === 'ACTIVE'));
+        setDynamicSubcategories(subcatRes.data.filter((s) => s.status === 'ACTIVE'));
       }
-
-      const hasShimmered = sessionStorage.getItem('appShimmerDone');
-      if (hasShimmered) {
-        setIsLoadingCats(false);
-      } else {
-        setTimeout(() => {
-          setIsLoadingCats(false);
-        }, 1500);
-      }
+      setIsLoadingCats(false);
     };
     fetchCats();
   }, []);
 
   useEffect(() => {
-    if (window.location.pathname.startsWith('/subcategory/')) {
+    if (window.location.pathname === '/contact' || window.location.pathname === '/contact-us') {
+      setActiveCategory('contact');
+    } else if (window.location.pathname.startsWith('/subcategory/')) {
       const pathParts = window.location.pathname.split('/');
       const subName = decodeURIComponent(pathParts[pathParts.length - 1] || '').toLowerCase();
       const matchedSub = dynamicSubcategories.find(s => s.name?.toLowerCase() === subName);
@@ -119,27 +165,23 @@ const Navbar = ({
     }
   }, [dynamicSubcategories, setActiveCategory]);
 
+  // Purely Dynamic Categories from Supabase + Contact Link
   const navLinks = [
-    { id: 'all', label: 'Home' },
-    ...dynamicCategories.map(cat => ({ id: cat.id, label: cat.name })),
+    { id: 'all', label: 'HOME' },
+    ...dynamicCategories.map((cat) => ({
+      id: cat.id,
+      label: (cat.name || '').toUpperCase()
+    })),
+    { id: 'contact', label: 'CONTACT' }
   ];
 
-  const [activeDrawerTab, setActiveDrawerTab] = useState('menu');
-  const [expandedCategories, setExpandedCategories] = useState({});
-
-  const toggleCategoryExpand = (catId) => {
-    setExpandedCategories(prev => ({
-      ...prev,
-      [catId]: !prev[catId]
-    }));
-  };
-
   return (
-    <header className={`main-navbar-header ${isScrolled ? 'scrolled-compact' : ''}`}>
-      <div className="container nav-main-container">
+    <header className={`vj-luxury-navbar ${isOverlay ? 'vj-overlay-navbar' : ''} ${isScrolled ? 'vj-scrolled' : ''}`}>
+      <div className="vj-nav-container">
 
+        {/* Mobile Hamburger Button */}
         <button
-          className="mobile-hamburger-btn"
+          className="vj-mobile-menu-btn"
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           aria-label="Toggle Navigation Menu"
         >
@@ -152,212 +194,103 @@ const Navbar = ({
           </svg>
         </button>
 
-        <div className="brand-logo-wrapper" onClick={() => { setActiveCategory('all'); if (window.location.pathname !== '/') window.location.href = '/'; }} style={{ cursor: 'pointer' }}>
-          {logoUrl ? (
-            <img src={logoUrl} alt={shopName} style={{ maxHeight: '45px', objectFit: 'contain', marginRight: '10px' }} />
+        {/* 1. Left: Dynamic Shop Logo and Name from Admin Panel */}
+        <div
+          className="vj-brand-wrapper"
+          onClick={() => {
+            setActiveCategory('all');
+            if (window.location.pathname !== '/') window.location.href = '/';
+          }}
+          style={{ cursor: 'pointer' }}
+          title={currentShopName || 'Home'}
+        >
+          {isLoadingSettings && !currentShopName && !currentLogo ? (
+            <div className="vj-brand-shimmer-box" />
           ) : (
-            <div className="brand-emblem">
-              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="url(#goldGradient)" strokeWidth="1.5">
-                <defs>
-                  <linearGradient id="goldGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                    <stop offset="0%" stopColor="#FFE082" />
-                    <stop offset="50%" stopColor="#D4AF37" />
-                    <stop offset="100%" stopColor="#9E7412" />
-                  </linearGradient>
-                </defs>
-                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
-              </svg>
-            </div>
-          )}
-          <div className="brand-text">
-            {isLoadingSettings ? (
-              <>
-                <div className="nav-shimmer" style={{ width: '150px', height: '24px', marginBottom: '4px', borderRadius: '4px' }}></div>
-                <div className="nav-shimmer brand-subtitle-shimmer" style={{ width: '180px', height: '12px', borderRadius: '4px' }}></div>
-              </>
-            ) : (
-              <>
-                <span className="brand-title brand-font">{shopName?.toUpperCase() || ''}</span>
-                <span className="brand-subtitle">EXQUISITE GOLD & DIAMONDS</span>
-              </>
-            )}
-          </div>
-        </div>
-
-        <div className="nav-search-bar" ref={searchBarRef}>
-          <svg className="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <circle cx="11" cy="11" r="8" />
-            <line x1="21" y1="21" x2="16.65" y2="16.65" />
-          </svg>
-          <input
-            type="text"
-            placeholder="Search by product name..."
-            value={searchQuery}
-            onFocus={() => {
-              if (searchQuery.trim()) setIsSearchDropdownOpen(true);
-            }}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            onKeyDown={(e) => {
-              if (e.key === 'Enter' && searchQuery.trim()) {
-                setIsSearchDropdownOpen(false);
-                window.location.href = `/search?q=${encodeURIComponent(searchQuery.trim())}`;
-              } else if (e.key === 'Escape') {
-                setIsSearchDropdownOpen(false);
-              }
-            }}
-          />
-          {isSearching && (
-            <div className="search-loading-spinner" title="Searching Supabase..."></div>
-          )}
-          {searchQuery && !isSearching && (
-            <button
-              className="clear-search-btn"
-              onClick={() => {
-                setSearchQuery('');
-                setIsSearchDropdownOpen(false);
-              }}
-            >
-              ×
-            </button>
-          )}
-
-          {/* Live Search Results Dropdown */}
-          {isSearchDropdownOpen && searchQuery.trim() && (
-            <div className="search-dropdown-menu animate-fade-in">
-              <div className="search-dropdown-header">
-                <span>
-                  {isSearching ? 'Searching Supabase...' : `Found ${searchResults.length} Product${searchResults.length === 1 ? '' : 's'}`}
-                </span>
-                {searchResults.length > 0 && (
-                  <span className="search-dropdown-hint">Press Enter to view all</span>
-                )}
-              </div>
-
-              {isSearching ? (
-                <div className="search-dropdown-loading">
-                  <div className="search-item-shimmer"></div>
-                  <div className="search-item-shimmer"></div>
-                </div>
-              ) : searchResults.length === 0 ? (
-                <div className="search-dropdown-empty">
-                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="var(--gold-primary)" strokeWidth="1.5">
-                    <circle cx="11" cy="11" r="8" />
-                    <line x1="21" y1="21" x2="16.65" y2="16.65" />
-                  </svg>
-                  <p>No jewellery found for <strong>"{searchQuery}"</strong></p>
-                  <span className="search-empty-sub">Try searching by jewellery name or category</span>
-                </div>
-              ) : (
-                <>
-                  <div className="search-dropdown-list">
-                    {searchResults.slice(0, 6).map((item) => {
-                      const { finalPrice } = calculateFinalPrice(item, liveRates);
-                      return (
-                        <div
-                          key={item.id}
-                          className="search-dropdown-item"
-                          onClick={() => {
-                            setIsSearchDropdownOpen(false);
-                            window.location.href = `/product/${encodeURIComponent(item.name.toLowerCase())}`;
-                          }}
-                        >
-                          <img
-                            src={item.image}
-                            alt={item.name}
-                            className="search-item-thumb"
-                            onError={(e) => { e.target.src = 'https://via.placeholder.com/50?text=Jewel'; }}
-                          />
-                          <div className="search-item-details">
-                            <div className="search-item-title-row">
-                              <span className="search-item-title">{item.name}</span>
-                            </div>
-                            <div className="search-item-sub">
-                              {item.categoryName} • {item.purity || '22K'} {item.netWeight ? `• ${item.netWeight}g` : ''}
-                            </div>
-                          </div>
-                          {finalPrice > 0 && (
-                            <div className="search-item-price">
-                              ₹{finalPrice.toLocaleString('en-IN')}
-                            </div>
-                          )}
-                        </div>
-                      );
-                    })}
-                  </div>
-
-                  <div
-                    className="search-dropdown-footer"
-                    onClick={() => {
-                      setIsSearchDropdownOpen(false);
-                      window.location.href = `/search?q=${encodeURIComponent(searchQuery.trim())}`;
-                    }}
-                  >
-                    <span>View all {searchResults.length} results</span>
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                      <polyline points="9 18 15 12 9 6" />
-                    </svg>
-                  </div>
-                </>
+            <div className="vj-brand-identity">
+              {currentLogo && (
+                <img
+                  src={currentLogo}
+                  alt={currentShopName || 'Shop Logo'}
+                  className="vj-shop-logo-img"
+                />
+              )}
+              {currentShopName && (
+                <span className="vj-shop-brand-name">{currentShopName}</span>
               )}
             </div>
           )}
+
+          
         </div>
 
-      </div>
-
-      {/* Desktop Horizontal Category Bar */}
-      <nav className="category-nav-bar desktop-only">
-        <div className="container nav-links-flex">
+        {/* 2. Center: Dynamic Categories Navigation Links */}
+        <nav className="vj-center-navigation desktop-only">
           {isLoadingCats ? (
-            <>
-              <div className="nav-shimmer" style={{ width: '60px', height: '18px', margin: '0.6rem 0' }}></div>
-              <div className="nav-shimmer" style={{ width: '80px', height: '18px', margin: '0.6rem 0' }}></div>
-              <div className="nav-shimmer" style={{ width: '100px', height: '18px', margin: '0.6rem 0' }}></div>
-              <div className="nav-shimmer" style={{ width: '70px', height: '18px', margin: '0.6rem 0' }}></div>
-            </>
+            <div className="vj-nav-shimmer-row">
+              <span className="vj-cat-shimmer-pill" style={{ width: '110px' }} />
+              <span className="vj-cat-shimmer-pill" style={{ width: '80px' }} />
+              <span className="vj-cat-shimmer-pill" style={{ width: '75px' }} />
+              <span className="vj-cat-shimmer-pill" style={{ width: '90px' }} />
+            </div>
           ) : (
             navLinks.map((link) => {
-              const categorySubcats = dynamicSubcategories.filter(s => s.categoryId === link.id && !s.subcategoryId);
+              const categorySubcats = dynamicSubcategories.filter(
+                (s) => s.categoryId === link.id && !s.subcategoryId
+              );
               const hasDropdown = categorySubcats.length > 0;
-
               const isOpen = openDropdownId === link.id;
 
               return (
-                <div key={link.id} className="nav-dropdown-container">
+                <div key={link.id} className="vj-nav-item-wrapper">
                   <button
-                    className={`nav-category-link ${activeCategory === link.id ? 'active' : ''}`}
+                    type="button"
+                    className={`vj-category-link ${activeCategory === link.id ? 'active' : ''}`}
                     onClick={(e) => {
                       if (link.id === 'all') {
                         setActiveCategory('all');
                         setOpenDropdownId(null);
-                        if (window.location.pathname !== '/') {
-                          window.location.href = '/';
-                        }
+                        if (window.location.pathname !== '/') window.location.href = '/';
+                      } else if (link.id === 'contact') {
+                        setActiveCategory('contact');
+                        setOpenDropdownId(null);
+                        if (window.location.pathname !== '/contact') window.location.href = '/contact';
                       } else if (hasDropdown) {
                         e.preventDefault();
-                        e.stopPropagation();
-                        // ONLY show/toggle subcategory dropdown!
-                        setOpenDropdownId(prev => prev === link.id ? null : link.id);
+                        setOpenDropdownId((prev) => (prev === link.id ? null : link.id));
                       } else {
                         window.location.href = `/subcategory/${encodeURIComponent((link.label || '').toLowerCase())}`;
                       }
                     }}
                   >
-                    {link.label}
+                    <span>{link.label}</span>
                     {hasDropdown && (
-                      <svg className={`nav-dropdown-arrow ${isOpen ? 'rotated' : ''}`} width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <polyline points="6 9 12 15 18 9"></polyline>
+                      <svg
+                        className={`vj-nav-chevron ${isOpen ? 'rotated' : ''}`}
+                        width="10"
+                        height="10"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2.5"
+                      >
+                        <polyline points="6 9 12 15 18 9" />
                       </svg>
                     )}
                   </button>
+
                   {hasDropdown && (
-                    <div className={`nav-dropdown-menu ${isOpen ? 'open' : ''}`}>
-                      {categorySubcats.map(sub => (
-                        <div key={sub.dbId} className="nav-dropdown-item" onClick={() => {
-                          setActiveCategory(link.id);
-                          setOpenDropdownId(null);
-                          window.location.href = `/subcategory/${encodeURIComponent(sub.name.toLowerCase())}`;
-                        }}>
+                    <div className={`vj-dropdown-menu ${isOpen ? 'show' : ''}`}>
+                      {categorySubcats.map((sub) => (
+                        <div
+                          key={sub.dbId}
+                          className="vj-dropdown-item"
+                          onClick={() => {
+                            setActiveCategory(link.id);
+                            setOpenDropdownId(null);
+                            window.location.href = `/subcategory/${encodeURIComponent(sub.name.toLowerCase())}`;
+                          }}
+                        >
                           {sub.name}
                         </div>
                       ))}
@@ -367,171 +300,247 @@ const Navbar = ({
               );
             })
           )}
-        </div>
-      </nav>
+        </nav>
 
-      {/* Mobile Slide-in Drawer Overlay */}
-      <div
-        className={`mobile-drawer-overlay ${isMobileMenuOpen ? 'open' : ''}`}
-        onClick={() => setIsMobileMenuOpen(false)}
-      />
-
-      {/* Mobile Side Drawer Menu */}
-      <aside className={`mobile-drawer ${isMobileMenuOpen ? 'open' : ''}`}>
-        {/* Top 2 Tabs Header: Menu | Account */}
-        <div className="drawer-tabs-header">
+        {/* 3. Right: Search Icon */}
+        <div className="vj-right-actions">
+          {/* Search Icon Trigger */}
           <button
-            className={`drawer-tab ${activeDrawerTab === 'menu' ? 'active' : ''}`}
-            onClick={() => setActiveDrawerTab('menu')}
+            type="button"
+            className={`vj-search-icon-btn ${isSearchOpen ? 'active' : ''}`}
+            onClick={() => setIsSearchOpen(!isSearchOpen)}
+            title="Search by jewellery name "
+            aria-label="Search"
           >
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <line x1="3" y1="12" x2="21" y2="12" />
-              <line x1="3" y1="6" x2="21" y2="6" />
-              <line x1="3" y1="18" x2="21" y2="18" />
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2">
+              <circle cx="11" cy="11" r="8" />
+              <line x1="21" y1="21" x2="16.65" y2="16.65" />
             </svg>
-            <span>Menu</span>
-          </button>
-          <button
-            className={`drawer-tab account-tab ${activeDrawerTab === 'account' ? 'active' : ''}`}
-            onClick={() => setActiveDrawerTab('account')}
-          >
-            <span>Account</span>
           </button>
         </div>
+      </div>
 
-        {/* Drawer Body Content */}
-        {activeDrawerTab === 'menu' ? (
-          <div className="drawer-menu-list">
-            {/* Home Row */}
-            <div className="drawer-item-wrapper">
+      {/* Compact Professional Floating Search Card */}
+      {isSearchOpen && (
+        <div className="vj-search-floating-card animate-fade-in" ref={searchBarRef}>
+          <div className="vj-search-input-wrapper">
+            <svg className="vj-search-input-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" strokeWidth="2.2">
+              <circle cx="11" cy="11" r="8" />
+              <line x1="21" y1="21" x2="16.65" y2="16.65" />
+            </svg>
+            <input
+              type="text"
+              autoFocus
+              className="vj-search-floating-input"
+              placeholder="Search By Product"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' && searchTerm.trim()) {
+                  setIsSearchOpen(false);
+                  window.location.href = `/search?q=${encodeURIComponent(searchTerm.trim())}`;
+                } else if (e.key === 'Escape') {
+                  setIsSearchOpen(false);
+                }
+              }}
+            />
+            {isSearching && <div className="vj-search-spinner" />}
+            {searchTerm && (
               <button
-                className={`drawer-menu-row ${activeCategory === 'all' ? 'active' : ''}`}
+                type="button"
+                className="vj-search-clear-btn"
+                onClick={() => {
+                  setSearchTerm('');
+                  setSearchResults([]);
+                  if (setSearchQuery) setSearchQuery('');
+                }}
+                title="Clear input"
+              >
+                ×
+              </button>
+            )}
+            <button
+              type="button"
+              className="vj-search-close-icon-btn"
+              onClick={() => setIsSearchOpen(false)}
+              title="Close search"
+              aria-label="Close"
+            >
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+              </svg>
+            </button>
+          </div>
+
+          {/* Bilingual Live Search Suggestions Dropdown */}
+          {searchTerm.trim() && (
+            <div className="vj-floating-search-results">
+              <div className="vj-search-header-row">
+                <span>
+                  {isSearching ? 'Searching Jewellery...' : `Found ${searchResults.length} Products`}
+                </span>
+                <span className="vj-search-hint">Press Enter ↵</span>
+              </div>
+
+              {searchResults.length === 0 && !isSearching ? (
+                <div className="vj-search-empty-state">
+                  <p>No jewellery found for <strong>"{searchTerm}"</strong></p>
+                  <span>  </span>
+                </div>
+              ) : (
+                <div className="vj-floating-results-list">
+                  {searchResults.slice(0, 5).map((item) => {
+                    const { finalPrice } = calculateFinalPrice(item, liveRates);
+                    return (
+                      <div
+                        key={item.id}
+                        className="vj-search-result-row"
+                        onClick={() => {
+                          setIsSearchOpen(false);
+                          window.location.href = `/product/${encodeURIComponent(item.name.toLowerCase())}`;
+                        }}
+                      >
+                        <img src={item.image} alt={item.name} className="vj-result-thumb" />
+                        <div className="vj-result-info">
+                          <span className="vj-result-name">{item.name}</span>
+                          <span className="vj-result-sub">
+                            {item.categoryName || 'Jewellery'} {item.purity ? `• ${item.purity}` : ''} {item.netWeight ? `• ${item.netWeight}g` : ''}
+                          </span>
+                        </div>
+                        {finalPrice > 0 && (
+                          <strong className="vj-result-price">₹{finalPrice.toLocaleString('en-IN')}</strong>
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
+              )}
+
+              {searchResults.length > 0 && (
+                <div
+                  className="vj-search-footer-action"
+                  onClick={() => {
+                    setIsSearchOpen(false);
+                    window.location.href = `/search?q=${encodeURIComponent(searchTerm.trim())}`;
+                  }}
+                >
+                  View all {searchResults.length} results →
+                </div>
+              )}
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* Mobile Side Drawer Menu (Portaled to document.body) */}
+      {typeof document !== 'undefined' && createPortal(
+        <>
+          <div
+            className={`vj-mobile-drawer-overlay ${isMobileMenuOpen ? 'open' : ''}`}
+            onClick={() => setIsMobileMenuOpen(false)}
+          />
+          <aside className={`vj-mobile-drawer ${isMobileMenuOpen ? 'open' : ''}`}>
+            <div className="vj-drawer-header">
+              <div
+                className="vj-drawer-brand-identity"
                 onClick={() => {
                   setActiveCategory('all');
                   setIsMobileMenuOpen(false);
-                  if (window.location.pathname !== '/') {
-                    window.location.href = '/';
-                  }
+                  if (window.location.pathname !== '/') window.location.href = '/';
                 }}
               >
-                <span>HOME</span>
+                {currentLogo && (
+                  <img
+                    src={currentLogo}
+                    alt={currentShopName || 'Shop Logo'}
+                    className="vj-drawer-logo-img"
+                  />
+                )}
+                <span className="vj-drawer-shop-name">
+                  {currentShopName || 'Sri Vinayaga Moulding'}
+                </span>
+              </div>
+              <button
+                type="button"
+                className="vj-drawer-close"
+                onClick={() => setIsMobileMenuOpen(false)}
+                aria-label="Close menu"
+              >
+                ×
               </button>
             </div>
+            <div className="vj-drawer-links">
+              {navLinks.map((link) => {
+                const categorySubcats = dynamicSubcategories.filter(
+                  (s) => s.categoryId === link.id && !s.subcategoryId
+                );
+                const hasSubcats = categorySubcats.length > 0;
+                const isExpanded = mobileExpandedCat === link.id;
 
-            {/* Dynamic Categories */}
-            {dynamicCategories.map((cat) => {
-              const categorySubcats = dynamicSubcategories.filter(s => s.categoryId === cat.id && !s.subcategoryId);
-              const hasDropdown = categorySubcats.length > 0;
-              const isExpanded = !!expandedCategories[cat.id];
-
-              return (
-                <div key={cat.id} className="drawer-item-wrapper">
-                  <div
-                    className={`drawer-menu-row ${activeCategory === cat.id ? 'active' : ''}`}
-                    onClick={() => {
-                      if (hasDropdown) {
-                        toggleCategoryExpand(cat.id);
-                      } else {
-                        setActiveCategory(cat.id);
-                        setIsMobileMenuOpen(false);
-                        if (window.location.pathname !== '/') {
-                          window.location.href = '/';
-                        }
-                      }
-                    }}
-                  >
-                    <span>{cat.name.toUpperCase()}</span>
-                    {hasDropdown && (
-                      <svg
-                        className={`drawer-chevron ${isExpanded ? 'rotated' : ''}`}
-                        width="16"
-                        height="16"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
+                return (
+                  <div key={link.id} className="vj-drawer-item-group">
+                    <div className="vj-drawer-link-row">
+                      <button
+                        type="button"
+                        className={`vj-drawer-link ${activeCategory === link.id ? 'active' : ''}`}
+                        onClick={() => {
+                          setActiveCategory(link.id);
+                          setIsMobileMenuOpen(false);
+                          if (link.id === 'all') {
+                            if (window.location.pathname !== '/') window.location.href = '/';
+                          } else if (link.id === 'contact') {
+                            if (window.location.pathname !== '/contact') window.location.href = '/contact';
+                          } else {
+                            window.location.href = `/subcategory/${encodeURIComponent((link.label || '').toLowerCase())}`;
+                          }
+                        }}
                       >
-                        <polyline points="6 9 12 15 18 9" />
-                      </svg>
+                        {link.label}
+                      </button>
+                      {hasSubcats && (
+                        <button
+                          type="button"
+                          className={`vj-drawer-chevron-btn ${isExpanded ? 'rotated' : ''}`}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setMobileExpandedCat(isExpanded ? null : link.id);
+                          }}
+                          aria-label="Toggle Subcategories"
+                        >
+                          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                            <polyline points="6 9 12 15 18 9" />
+                          </svg>
+                        </button>
+                      )}
+                    </div>
+                    {hasSubcats && isExpanded && (
+                      <div className="vj-drawer-subcats">
+                        {categorySubcats.map((sub) => (
+                          <div
+                            key={sub.dbId}
+                            className="vj-drawer-subcat-link"
+                            onClick={() => {
+                              setActiveCategory(link.id);
+                              setIsMobileMenuOpen(false);
+                              window.location.href = `/subcategory/${encodeURIComponent(sub.name.toLowerCase())}`;
+                            }}
+                          >
+                            {sub.name}
+                          </div>
+                        ))}
+                      </div>
                     )}
                   </div>
-
-
-                  {hasDropdown && isExpanded && (
-                    <div className="drawer-accordion">
-                      {categorySubcats.map((sub) => (
-                        <button
-                          key={sub.dbId}
-                          className="drawer-sub-item"
-                          onClick={() => {
-                            setIsMobileMenuOpen(false);
-                            window.location.href = `/subcategory/${encodeURIComponent(sub.name.toLowerCase())}`;
-                          }}
-                        >
-                          {sub.name}
-                        </button>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              );
-            })}
-
-
-            <div className="drawer-item-wrapper">
-              <button
-                className="drawer-menu-row"
-                onClick={() => {
-                  setIsMobileMenuOpen(false);
-                  window.open('https://wa.me/917305555550', '_blank');
-                }}
-              >
-                <span>CONTACT</span>
-              </button>
+                );
+              })}
             </div>
-          </div>
-        ) : (
-
-          <div className="drawer-menu-list">
-            <div className="drawer-item-wrapper">
-              <button
-                className="drawer-menu-row"
-                onClick={() => {
-                  setIsMobileMenuOpen(false);
-                  window.location.href = '/admin';
-                }}
-              >
-                <span>ADMIN PANEL</span>
-              </button>
-            </div>
-            <div className="drawer-item-wrapper">
-              <button
-                className="drawer-menu-row"
-                onClick={() => {
-                  setIsMobileMenuOpen(false);
-                  window.open('https://wa.me/917305555550', '_blank');
-                }}
-              >
-                <span>WHATSAPP SUPPORT</span>
-              </button>
-            </div>
-            <div className="drawer-item-wrapper">
-              <button
-                className="drawer-menu-row"
-                onClick={() => {
-                  setIsMobileMenuOpen(false);
-                  window.location.href = 'tel:9843172314';
-                }}
-              >
-                <span>CALL SHOWROOM</span>
-              </button>
-            </div>
-          </div>
-        )}
-      </aside>
+          </aside>
+        </>,
+        document.body
+      )}
     </header>
   );
 };
 
 export default Navbar;
-

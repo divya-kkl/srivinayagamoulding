@@ -5,7 +5,7 @@ const GoldScheme = ({ onSelectCategory }) => {
   const [monthlyAmount, setMonthlyAmount] = useState(5000);
 
   const customerTotalPaid = monthlyAmount * 11;
-  const companyBonus = monthlyAmount; 
+  const companyBonus = monthlyAmount;
   const totalSchemeValue = customerTotalPaid + companyBonus;
 
   return (
@@ -16,14 +16,14 @@ const GoldScheme = ({ onSelectCategory }) => {
             <span className="scheme-top-badge brand-font">GOLDEN HARVEST SCHEME</span>
             <h2 className="scheme-title">Save Monthly, Wear Royal Gold!</h2>
             <p className="scheme-desc">
-              Plan your future weddings, anniversaries, or gold investments smartly. Pay 11 monthly installments and get the 12th month installment completely FREE from God Jewellery!
+              Plan your future weddings, anniversaries, or gold investments smartly. Pay 11 monthly installments and get the 12th month installment completely FREE from Sri vinayaga Moulding!
             </p>
 
             <ul className="scheme-benefits-list">
               <li>
                 <span className="check-icon">✓</span>
                 <div>
-                  <strong>100% 12th Month Bonus:</strong> God Jewellery pays your final month installment.
+                  <strong>100% 12th Month Bonus:</strong> Sri vinayaga Moulding pays your final month installment.
                 </div>
               </li>
               <li>
@@ -43,7 +43,7 @@ const GoldScheme = ({ onSelectCategory }) => {
 
           <div className="scheme-calc-card">
             <h3 className="calc-card-header">Interactive Scheme Calculator</h3>
-            
+
             <div className="calc-amount-selector">
               <label>Monthly Savings Amount:</label>
               <div className="amount-val-display">₹{monthlyAmount.toLocaleString('en-IN')} / month</div>
@@ -75,7 +75,7 @@ const GoldScheme = ({ onSelectCategory }) => {
                 <span>₹{customerTotalPaid.toLocaleString('en-IN')}</span>
               </div>
               <div className="result-row bonus-row">
-                <span>God Jewellery Bonus (12th Month):</span>
+                <span>Sri vinayaga Moulding Bonus (12th Month):</span>
                 <span className="bonus-val">+ ₹{companyBonus.toLocaleString('en-IN')} (FREE)</span>
               </div>
               <div className="result-divider"></div>

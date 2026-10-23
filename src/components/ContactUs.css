@@ -1,0 +1,617 @@
+/* ==========================================================
+   SRI VINAYAGA MOULDING - LUXURY JEWELLERY CONTACT US PAGE
+   High-end Editorial Jewellery Theme (Emerald Green & Gold)
+   ========================================================== */
+
+.vj-contact-page {
+    min-height: 100vh;
+    background-color: var(--cream-white, #F7F3E8);
+    font-family: 'Poppins', 'Inter', -apple-system, sans-serif;
+    color: #1C2521;
+}
+
+/* ── Hero Banner Section ── */
+.vj-contact-hero-banner {
+    background: linear-gradient(135deg, #002820 0%, #003B2F 60%, #001A14 100%);
+    padding: 4rem 1.5rem 5rem 1.5rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    border-bottom: 2px solid rgba(212, 175, 55, 0.4);
+}
+
+.vj-contact-hero-banner::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 50% 30%, rgba(212, 175, 55, 0.15) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+.vj-contact-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(212, 175, 55, 0.15);
+    border: 1px solid #D4AF37;
+    color: #FFE082;
+    padding: 6px 20px;
+    border-radius: 30px;
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+}
+
+.vj-contact-hero-title {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 3rem;
+    font-weight: 800;
+    color: #FFFFFF;
+    margin: 0 0 0.8rem 0;
+    letter-spacing: 0.5px;
+    line-height: 1.2;
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.6);
+}
+
+.vj-gold-text {
+    background: linear-gradient(135deg, #FFE89C 0%, #D4AF37 50%, #B8860B 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.vj-contact-hero-divider {
+    width: 80px;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, #D4AF37, transparent);
+    margin: 0.8rem auto 1.2rem auto;
+    border-radius: 2px;
+}
+
+.vj-contact-hero-subtitle {
+    color: #E2E8F0;
+    font-size: 1.05rem;
+    max-width: 650px;
+    margin: 0 auto;
+    line-height: 1.6;
+    opacity: 0.9;
+}
+
+/* ── Main Layout Container ── */
+.vj-contact-main-wrapper {
+    max-width: 1240px;
+    margin: -2.5rem auto 4rem auto;
+    padding: 0 1.5rem;
+    position: relative;
+    z-index: 10;
+}
+
+.vj-contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1.35fr;
+    gap: 2.5rem;
+    align-items: start;
+}
+
+/* ══════════════════════════════════════════
+   LEFT COLUMN: Showroom Info Cards
+══════════════════════════════════════════ */
+.vj-contact-info-col {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.vj-info-card {
+    background: #FFFFFF;
+    border-radius: 16px;
+    padding: 1.6rem 1.8rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 1.25rem;
+    box-shadow: 0 10px 30px rgba(0, 59, 47, 0.06);
+    border: 1px solid rgba(212, 175, 55, 0.25);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.vj-info-card:hover {
+    transform: translateY(-4px);
+    border-color: #D4AF37;
+    box-shadow: 0 14px 35px rgba(0, 59, 47, 0.12);
+}
+
+.vj-info-icon-box {
+    width: 50px;
+    height: 50px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, rgba(0, 59, 47, 0.1) 0%, rgba(212, 175, 55, 0.2) 100%);
+    border: 1px solid rgba(212, 175, 55, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary-green, #003B2F);
+    font-size: 1.4rem;
+    flex-shrink: 0;
+}
+
+.vj-info-body {
+    flex: 1;
+}
+
+.vj-info-label {
+    font-size: 0.76rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #B8860B;
+    margin: 0 0 4px 0;
+}
+
+.vj-info-title {
+    font-size: 1.12rem;
+    font-weight: 700;
+    color: var(--primary-green, #003B2F);
+    margin: 0 0 6px 0;
+}
+
+.vj-info-desc {
+    color: #4A5568;
+    font-size: 0.94rem;
+    line-height: 1.55;
+    margin: 0;
+}
+
+.vj-info-desc a {
+    color: var(--primary-green, #003B2F);
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.2s ease;
+}
+
+.vj-info-desc a:hover {
+    color: #B8860B;
+    text-decoration: underline;
+}
+
+/* Quick Action Buttons */
+.vj-contact-actions-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-top: 0.4rem;
+}
+
+.vj-action-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 14px 18px;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+}
+
+.vj-action-btn.whatsapp {
+    background: #25D366;
+    color: #FFFFFF;
+}
+
+.vj-action-btn.whatsapp:hover {
+    background: #1EBE5D;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(37, 211, 102, 0.35);
+}
+
+.vj-action-btn.call {
+    background: linear-gradient(135deg, #004D3E 0%, #002820 100%);
+    color: #FFE082;
+    border: 1px solid #D4AF37;
+}
+
+.vj-action-btn.call:hover {
+    background: linear-gradient(135deg, #003B2F 0%, #001A14 100%);
+    color: #FFFFFF;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(0, 59, 47, 0.3);
+}
+
+/* Hallmarked Assurance Box */
+.vj-assurance-card {
+    background: linear-gradient(135deg, rgba(212, 175, 55, 0.12) 0%, rgba(0, 59, 47, 0.05) 100%);
+    border: 1.5px dashed rgba(212, 175, 55, 0.5);
+    border-radius: 14px;
+    padding: 1.25rem 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.vj-assurance-icon {
+    font-size: 1.8rem;
+    flex-shrink: 0;
+}
+
+.vj-assurance-text h4 {
+    margin: 0 0 2px 0;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--primary-green, #003B2F);
+}
+
+.vj-assurance-text p {
+    margin: 0;
+    font-size: 0.82rem;
+    color: #666;
+    line-height: 1.4;
+}
+
+/* ══════════════════════════════════════════
+   RIGHT COLUMN: Professional Jewellery Form
+══════════════════════════════════════════ */
+.vj-contact-form-card {
+    background: #FFFFFF;
+    border-radius: 20px;
+    padding: 2.8rem 2.5rem;
+    box-shadow: 0 15px 45px rgba(0, 59, 47, 0.08);
+    border: 1px solid rgba(212, 175, 55, 0.3);
+    position: relative;
+}
+
+.vj-form-header {
+    margin-bottom: 2rem;
+}
+
+.vj-form-title {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 1.85rem;
+    font-weight: 700;
+    color: var(--primary-green, #003B2F);
+    margin: 0 0 6px 0;
+}
+
+.vj-form-subtitle {
+    color: #666;
+    font-size: 0.95rem;
+    margin: 0;
+    line-height: 1.5;
+}
+
+.vj-contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.4rem;
+}
+
+.vj-form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.25rem;
+}
+
+.vj-form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.vj-form-group label {
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--primary-green, #003B2F);
+}
+
+.vj-form-group label .req {
+    color: #DC2626;
+    margin-left: 2px;
+}
+
+.vj-form-group input,
+.vj-form-group select,
+.vj-form-group textarea {
+    width: 100%;
+    padding: 13px 16px;
+    border: 1.5px solid rgba(0, 59, 47, 0.18);
+    border-radius: 10px;
+    font-size: 0.95rem;
+    font-family: inherit;
+    color: #1A202C;
+    background-color: #FAF8F5;
+    transition: all 0.25s ease;
+    outline: none;
+    box-sizing: border-box;
+}
+
+.vj-form-group input:focus,
+.vj-form-group select:focus,
+.vj-form-group textarea:focus {
+    border-color: #D4AF37;
+    background-color: #FFFFFF;
+    box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.18);
+}
+
+.vj-form-group textarea {
+    min-height: 130px;
+    resize: vertical;
+}
+
+.vj-form-submit-btn {
+    background: linear-gradient(135deg, #004D3E 0%, #002820 100%);
+    color: #FFE082;
+    border: 1.5px solid #D4AF37;
+    padding: 15px 36px;
+    border-radius: 12px;
+    font-size: 1.05rem;
+    font-weight: 700;
+    letter-spacing: 0.6px;
+    cursor: pointer;
+    width: 100%;
+    transition: all 0.3s ease;
+    margin-top: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    box-shadow: 0 6px 20px rgba(0, 59, 47, 0.2);
+}
+
+.vj-form-submit-btn:hover:not(:disabled) {
+    background: linear-gradient(135deg, #003B2F 0%, #001A14 100%);
+    color: #FFFFFF;
+    transform: translateY(-2px);
+    box-shadow: 0 10px 28px rgba(0, 59, 47, 0.35);
+}
+
+.vj-form-submit-btn:disabled {
+    opacity: 0.8;
+    cursor: not-allowed;
+}
+
+.vj-btn-spinner {
+    width: 18px;
+    height: 18px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-top-color: #FFE082;
+    border-radius: 50%;
+    animation: vjSpin 0.7s linear infinite;
+    display: inline-block;
+}
+
+@keyframes vjSpin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.vj-submit-alert-success {
+    background: #ECFDF5;
+    border: 1.5px solid #10B981;
+    color: #065F46;
+    padding: 14px 18px;
+    border-radius: 12px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    line-height: 1.5;
+    animation: vjFadeIn 0.35s ease;
+}
+
+@keyframes vjFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-6px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ══════════════════════════════════════════
+   BOTTOM SECTION: Showroom Map & Visit CTA
+══════════════════════════════════════════ */
+.vj-contact-map-section {
+    margin-top: 3.5rem;
+    background: #FFFFFF;
+    border-radius: 20px;
+    padding: 2rem;
+    box-shadow: 0 12px 35px rgba(0, 59, 47, 0.06);
+    border: 1px solid rgba(212, 175, 55, 0.3);
+}
+
+.vj-map-section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.vj-map-section-header h3 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 1.5rem;
+    color: var(--primary-green, #003B2F);
+    margin: 0;
+    font-weight: 700;
+}
+
+.vj-map-directions-btn {
+    background: var(--primary-green, #003B2F);
+    color: #FFFFFF;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.88rem;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: all 0.25s ease;
+}
+
+.vj-map-directions-btn:hover {
+    background: var(--primary-green-light, #004D3E);
+    transform: translateY(-2px);
+}
+
+.vj-map-iframe-box {
+    width: 100%;
+    height: 380px;
+    border-radius: 14px;
+    overflow: hidden;
+    border: 1px solid rgba(0, 59, 47, 0.1);
+}
+
+.vj-map-iframe-box iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
+/* ── Responsive Media Queries ── */
+@media (max-width: 1024px) {
+    .vj-contact-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+}
+
+@media (max-width: 650px) {
+    .vj-contact-hero-banner {
+        padding: 3rem 1rem 4rem 1rem;
+    }
+
+    .vj-contact-hero-title {
+        font-size: 2.2rem;
+    }
+
+    .vj-contact-main-wrapper {
+        margin-top: -1.8rem;
+        padding: 0 1rem;
+    }
+
+    .vj-form-row {
+        grid-template-columns: 1fr;
+        gap: 1.2rem;
+    }
+
+    .vj-contact-actions-row {
+        grid-template-columns: 1fr;
+    }
+
+    .vj-contact-form-card {
+        padding: 2rem 1.4rem;
+    }
+
+    .vj-contact-map-section {
+        padding: 1.4rem;
+    }
+}
+
+/* ══════════════════════════════════════════
+   CONTACT US SHIMMER LOADING SKELETON
+══════════════════════════════════════════ */
+.vj-shimmer-hero {
+    min-height: 220px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.vj-shimmer-line {
+    background: linear-gradient(
+        90deg,
+        rgba(0, 59, 47, 0.08) 0%,
+        rgba(212, 175, 55, 0.22) 50%,
+        rgba(0, 59, 47, 0.08) 100%
+    );
+    background-size: 200% 100%;
+    animation: vjContactShimmer 1.5s infinite ease-in-out;
+    border-radius: 6px;
+}
+
+.vj-shimmer-hero .vj-shimmer-line {
+    background: linear-gradient(
+        90deg,
+        rgba(255, 255, 255, 0.08) 0%,
+        rgba(212, 175, 55, 0.28) 50%,
+        rgba(255, 255, 255, 0.08) 100%
+    );
+    background-size: 200% 100%;
+    animation: vjContactShimmer 1.5s infinite ease-in-out;
+}
+
+.vj-shimmer-pill {
+    width: 200px;
+    height: 28px;
+    border-radius: 30px;
+    margin-bottom: 1.2rem;
+    background: linear-gradient(
+        90deg,
+        rgba(212, 175, 55, 0.15) 0%,
+        rgba(212, 175, 55, 0.35) 50%,
+        rgba(212, 175, 55, 0.15) 100%
+    );
+    background-size: 200% 100%;
+    animation: vjContactShimmer 1.5s infinite ease-in-out;
+}
+
+.vj-shimmer-title {
+    width: min(480px, 90%);
+    height: 44px;
+    margin-bottom: 1rem;
+    border-radius: 8px;
+}
+
+.vj-shimmer-divider {
+    width: 80px;
+    height: 3px;
+    margin: 0.8rem auto 1.2rem auto;
+    border-radius: 2px;
+    background: rgba(212, 175, 55, 0.25);
+}
+
+.vj-shimmer-sub {
+    width: min(560px, 85%);
+    height: 16px;
+    border-radius: 6px;
+}
+
+.vj-shimmer-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 12px;
+    background: linear-gradient(
+        90deg,
+        rgba(0, 59, 47, 0.08) 0%,
+        rgba(212, 175, 55, 0.25) 50%,
+        rgba(0, 59, 47, 0.08) 100%
+    );
+    background-size: 200% 100%;
+    animation: vjContactShimmer 1.5s infinite ease-in-out;
+    flex-shrink: 0;
+}
+
+.vj-shimmer-card {
+    pointer-events: none;
+    border-color: rgba(212, 175, 55, 0.2) !important;
+}
+
+@keyframes vjContactShimmer {
+    0% {
+        background-position: 200% 0;
+    }
+    100% {
+        background-position: -200% 0;
+    }
+}
