@@ -965,23 +965,10 @@ const ProductDetailsPage = ({ liveRates = [], wishlist = [], onToggleWishlist })
                           window.location.href = `/product/${encodeURIComponent(relProd.name.toLowerCase())}`;
                         }}
                       >
-                        VIEW DETAILS
-                      </button>
-                      <button
-                        type="button"
-                        className="pd-related-quickview-btn"
-                        title="Quick View"
-                        aria-label="Quick View"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          window.location.href = `/product/${encodeURIComponent(relProd.name.toLowerCase())}`;
-                        }}
-                      >
-                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                          <polyline points="15 3 21 3 21 9"></polyline>
-                          <polyline points="9 21 3 21 3 15"></polyline>
-                          <line x1="21" y1="3" x2="14" y2="10"></line>
-                          <line x1="3" y1="21" x2="10" y2="14"></line>
+                        <span>View Details</span>
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
+                          <line x1="5" y1="12" x2="19" y2="12"></line>
+                          <polyline points="12 5 19 12 12 19"></polyline>
                         </svg>
                       </button>
                     </div>
@@ -993,11 +980,15 @@ const ProductDetailsPage = ({ liveRates = [], wishlist = [], onToggleWishlist })
                     <h3 className="pd-related-title" title={relProd.name}>
                       {relProd.name}
                     </h3>
-                    {relFinalPrice > 0 && (
-                      <div className="pd-related-price">
-                        ₹ {relFinalPrice.toLocaleString('en-IN')}
-                      </div>
-                    )}
+                    <div className="pd-related-price">
+                      {relFinalPrice > 0 ? (
+                        `₹ ${relFinalPrice.toLocaleString('en-IN')}`
+                      ) : relProd.price && parseFloat(relProd.price) > 0 ? (
+                        `₹ ${parseFloat(relProd.price).toLocaleString('en-IN')}`
+                      ) : (
+                        <span className="pd-related-price-request">Price on Request</span>
+                      )}
+                    </div>
                   </div>
                 </div>
               );
