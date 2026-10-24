@@ -749,7 +749,9 @@ const ProductDetailsPage = ({ liveRates = [], wishlist = [], onToggleWishlist })
               ₹ {finalPrice > 0 ? finalPrice.toLocaleString('en-IN') + '.00' : 'Price on Request'}
             </div>
 
-            <p className="product-desc">{product.description || 'No description available for this product.'}</p>
+            {product.description && product.description.trim() ? (
+              <p className="product-desc">{product.description}</p>
+            ) : null}
 
             <div className="specs-list">
               <div className="spec-item">
