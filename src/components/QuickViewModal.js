@@ -266,7 +266,9 @@ const QuickViewModal = ({ product, onClose, onAddToCart, liveRates = [] }) => {
               ₹ {finalPrice > 0 ? finalPrice.toLocaleString('en-IN') + '.00' : 'Price on Request'}
             </div>
 
-            <p className="quickview-desc">{product.description || 'No description available for this product.'}</p>
+            {product.description && product.description.trim() ? (
+              <p className="quickview-desc">{product.description}</p>
+            ) : null}
 
             <div className="specs-list">
               {product.productCode && (
