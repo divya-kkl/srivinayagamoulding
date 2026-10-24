@@ -912,7 +912,7 @@
   max-height: 520px;
   border-radius: 16px;
   overflow: hidden;
-  cursor: crosshair;
+  cursor: zoom-in;
   background: #ffffff;
   user-select: none;
   display: flex;
