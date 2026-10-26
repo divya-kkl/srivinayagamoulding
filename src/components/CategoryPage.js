@@ -217,60 +217,17 @@ const CategoryPage = ({ liveRates = [] }) => {
 
         <main className="category-main-content">
         
-          {childCategories.length > 0 && (
-            <div className="category-child-cards-section">
-              <div className="shop-by-category-header">
-                <div className="header-line"></div>
-                <span className="header-diamond">◆</span>
-                <h3 className="shop-by-category-title">SHOP BY CATEGORY</h3>
-                <span className="header-diamond">◆</span>
-                <div className="header-line"></div>
-              </div>
-
-              <div className="category-child-grid">
-                {childCategories.map(child => (
-                  <div 
-                    key={child.id} 
-                    className="child-card-wrapper"
-                    onClick={() => {
-                      window.location.href = `/subcategory/${encodeURIComponent(child.name)}`;
-                    }}
-                  >
-                    <div className="child-card-img-box">
-                      {child.image ? (
-                        <img 
-                          src={child.image} 
-                          alt={child.name} 
-                          loading="lazy"
-                          onError={(e) => { 
-                            e.target.style.display = 'none'; 
-                          }}
-                        />
-                      ) : (
-                        <div className="child-card-fallback">
-                          <span>{child.name?.charAt(0)?.toUpperCase() || 'J'}</span>
-                        </div>
-                      )}
-                    </div>
-                    <div className="child-card-meta">
-                      <h4 className="child-card-title">{child.name}</h4>
-                      <span className="child-card-explore">
-                        Explore Now <span className="explore-arrow">→</span>
-                      </span>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
-
           <div className="category-toolbar">
             <div className="sort-box">
               <label>Sort by:</label>
               <SortDropdown value={sortBy} onChange={setSortBy} />
             </div>
             <div className="items-count">
-              Showing {filteredProducts.length} of {products.length} products directly in <strong>{subcategoryName}</strong>
+              {loading ? (
+                <div className="product-shimmer" style={{ width: '200px', height: '16px', borderRadius: '4px' }}></div>
+              ) : (
+                <>Showing {filteredProducts.length} of {products.length} products directly in <strong>{subcategoryName}</strong></>
+              )}
             </div>
           </div>
 
@@ -309,7 +266,7 @@ const CategoryPage = ({ liveRates = [] }) => {
               <h3 style={{ color: 'var(--primary-green, #003B2F)' }}>No products directly listed in {subcategoryName}</h3>
               {childCategories.length > 0 && (
                 <p style={{ color: '#666', marginTop: '8px' }}>
-                  Please explore the Child Collections above to see related jewellery items.
+                  Please explore the Child Collections below to see related jewellery items.
                 </p>
               )}
               {(minPrice || maxPrice) && (
@@ -392,6 +349,53 @@ const CategoryPage = ({ liveRates = [] }) => {
                 step={12}
               />
             </>
+          )}
+
+          {childCategories.length > 0 && (
+            <div className="category-child-cards-section" style={{ marginTop: '30px' }}>
+              <div className="shop-by-category-header">
+                <div className="header-line"></div>
+                <span className="header-diamond">◆</span>
+                <h3 className="shop-by-category-title">SHOP BY CATEGORY</h3>
+                <span className="header-diamond">◆</span>
+                <div className="header-line"></div>
+              </div>
+
+              <div className="category-child-grid">
+                {childCategories.map(child => (
+                  <div 
+                    key={child.id} 
+                    className="child-card-wrapper"
+                    onClick={() => {
+                      window.location.href = `/subcategory/${encodeURIComponent(child.name)}`;
+                    }}
+                  >
+                    <div className="child-card-img-box">
+                      {child.image ? (
+                        <img 
+                          src={child.image} 
+                          alt={child.name} 
+                          loading="lazy"
+                          onError={(e) => { 
+                            e.target.style.display = 'none'; 
+                          }}
+                        />
+                      ) : (
+                        <div className="child-card-fallback">
+                          <span>{child.name?.charAt(0)?.toUpperCase() || 'J'}</span>
+                        </div>
+                      )}
+                    </div>
+                    <div className="child-card-meta">
+                      <h4 className="child-card-title">{child.name}</h4>
+                      <span className="child-card-explore">
+                        Explore Now <span className="explore-arrow">→</span>
+                      </span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
           )}
         </main>
       </div>
