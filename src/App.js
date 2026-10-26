@@ -127,6 +127,7 @@ function App() {
         onOpenCalculator={() => setIsCalculatorOpen(true)}
         siteSettings={siteSettings}
         isLoadingSettings={isLoadingSettings}
+        lastRateUpdate={goldRates.length > 0 ? (goldRates[0].updatedAt || goldRates[0].createdAt) : null}
       />
 
       {/* 2. Main Royal Navigation Bar on non-home pages */}
