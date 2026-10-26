@@ -762,9 +762,6 @@ const RateHistoryModal = ({ isOpen, onClose, onOpenCalculator, liveRates = [] })
               Official market bullion rates updated daily. Prices exclude Making Charges & GST unless specified.
             </span>
           </div>
-          <button type="button" className="rhm-footer-close-btn" onClick={onClose}>
-            Close
-          </button>
         </div>
       </div>
     </div>
