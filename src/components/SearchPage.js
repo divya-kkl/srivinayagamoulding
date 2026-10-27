@@ -162,7 +162,11 @@ const SearchPage = ({ liveRates = [] }) => {
               <SortDropdown value={sortBy} onChange={setSortBy} />
             </div>
             <div className="items-count">
-              Found {filteredProducts.length} products
+              {loading ? (
+                <div className="product-shimmer" style={{ width: '140px', height: '16px', borderRadius: '4px' }}></div>
+              ) : (
+                <>Found {filteredProducts.length} products</>
+              )}
             </div>
           </div>
 

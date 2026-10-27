@@ -77,13 +77,65 @@ const Footer = ({ onSelectCategory, onOpenCalculator, logoUrl, shopName = 'Sri v
                 <span className="c-icon">📍</span>
                 <span>{isLoadingSettings ? <div className="nav-shimmer" style={{ display: 'inline-block', width: '200px', height: '14px', borderRadius: '4px' }}></div> : (siteSettings?.store_address || 'Sri vinayaga Moulding Flagship Store, No. 42, Cathedral Road, T. Nagar, Chennai - 600017')}</span>
               </li>
-              <li>
-                <span className="c-icon">📞</span>
-                <span>{isLoadingSettings ? <div className="nav-shimmer" style={{ display: 'inline-block', width: '120px', height: '14px', borderRadius: '4px' }}></div> : (siteSettings?.store_phone || '+91 98765 43210 / 044-2834 9999')}</span>
+              <li className="footer-contact-phone-item">
+                {isLoadingSettings ? (
+                  <>
+                    <span className="c-icon">📞</span>
+                    <div className="nav-shimmer" style={{ display: 'inline-block', width: '120px', height: '14px', borderRadius: '4px' }}></div>
+                  </>
+                ) : (
+                  (() => {
+                    const phoneString = siteSettings?.store_phone || '+91 98431 72314';
+                    const parts = phoneString.split('/');
+                    const firstCleanNumber = parts[0]?.trim().replace(/[^0-9+]/g, '') || '';
+                    return (
+                      <>
+                        <a
+                          href={`tel:${firstCleanNumber}`}
+                          className="footer-phone-icon-link"
+                          title="Call Us"
+                          aria-label="Call store"
+                        >
+                          <span className="c-icon">📞</span>
+                        </a>
+                        <span className="footer-phone-numbers">
+                          {parts.map((part, index) => {
+                            const trimmed = part.trim();
+                            const dialNumber = trimmed.replace(/[^0-9+]/g, '');
+                            return (
+                              <React.Fragment key={index}>
+                                <a
+                                  href={`tel:${dialNumber}`}
+                                  className="footer-phone-link"
+                                  title={`Call ${trimmed}`}
+                                >
+                                  {trimmed}
+                                </a>
+                                {index < parts.length - 1 && <span className="footer-phone-separator"> / </span>}
+                              </React.Fragment>
+                            );
+                          })}
+                        </span>
+                      </>
+                    );
+                  })()
+                )}
               </li>
               <li>
                 <span className="c-icon">✉️</span>
-                <span>{isLoadingSettings ? <div className="nav-shimmer" style={{ display: 'inline-block', width: '150px', height: '14px', borderRadius: '4px' }}></div> : (siteSettings?.store_email || 'support@godjewellery.com')}</span>
+                <span>
+                  {isLoadingSettings ? (
+                    <div className="nav-shimmer" style={{ display: 'inline-block', width: '150px', height: '14px', borderRadius: '4px' }}></div>
+                  ) : (
+                    <a
+                      href={`mailto:${siteSettings?.store_email || 'support@godjewellery.com'}`}
+                      className="footer-phone-link"
+                      title="Send Email"
+                    >
+                      {siteSettings?.store_email || 'support@godjewellery.com'}
+                    </a>
+                  )}
+                </span>
               </li>
               <li>
                 <span className="c-icon">🕒</span>

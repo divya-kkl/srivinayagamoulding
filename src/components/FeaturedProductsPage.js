@@ -10,7 +10,7 @@ const FeaturedProductsPage = ({ liveRates = [] }) => {
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [tagTitle, setTagTitle] = useState('Featured Jewellery');
+  const [tagTitle, setTagTitle] = useState('');
 
   const [minPrice, setMinPrice] = useState('');
   const [maxPrice, setMaxPrice] = useState('');
@@ -138,7 +138,16 @@ const FeaturedProductsPage = ({ liveRates = [] }) => {
           </svg>
         </a>
         <span style={{ margin: '0 10px', color: '#888' }}>&gt;</span>
-        <span style={{ textTransform: 'uppercase', fontWeight: '700', color: 'var(--primary-green, #003B2F)' }}>{tagTitle}</span>
+        {loading ? (
+          <div
+            className="product-shimmer"
+            style={{ width: '160px', height: '18px', borderRadius: '4px', display: 'inline-block' }}
+          ></div>
+        ) : (
+          <span style={{ textTransform: 'uppercase', fontWeight: '700', color: 'var(--primary-green, #003B2F)' }}>
+            {tagTitle}
+          </span>
+        )}
       </div>
 
       {/* Mobile Show Filters Bar */}
@@ -201,7 +210,11 @@ const FeaturedProductsPage = ({ liveRates = [] }) => {
               <SortDropdown value={sortBy} onChange={setSortBy} />
             </div>
             <div className="items-count">
-              Showing {filteredProducts.length} of {products.length} products
+              {loading ? (
+                <div className="product-shimmer" style={{ width: '180px', height: '16px', borderRadius: '4px' }}></div>
+              ) : (
+                <>Showing {filteredProducts.length} of {products.length} products</>
+              )}
             </div>
           </div>
 
