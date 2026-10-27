@@ -1,5 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './ContactUs.css';
+import { FaLocationDot } from "react-icons/fa6";
+import { IoCall } from "react-icons/io5";
+import { MdEmail } from "react-icons/md";
+import { FaClock } from "react-icons/fa6";
 
 const ContactUs = ({ siteSettings, isLoadingSettings }) => {
     const [pageLoading, setPageLoading] = useState(true);
@@ -163,17 +167,15 @@ const ContactUs = ({ siteSettings, isLoadingSettings }) => {
                 <div className="vj-contact-grid">
                     <div className="vj-contact-info-col">
                         <div className="vj-info-card">
-                            <div className="vj-info-icon-box">📍</div>
+                            <div className="vj-info-icon-box"><FaLocationDot /></div>
                             <div className="vj-info-body">
-                                <p className="vj-info-label">Flagship Showroom</p>
                                 <h3 className="vj-info-title">Store Address</h3>
                                 <p className="vj-info-desc">{storeAddress}</p>
                             </div>
                         </div>
                         <div className="vj-info-card">
-                            <div className="vj-info-icon-box">📞</div>
+                            <div className="vj-info-icon-box"><IoCall /></div>
                             <div className="vj-info-body">
-                                <p className="vj-info-label">Direct Line</p>
                                 <h3 className="vj-info-title">Call For Inquiry</h3>
                                 <p className="vj-info-desc">
                                     <a href={callUrl}>{storePhone}</a>
@@ -181,9 +183,8 @@ const ContactUs = ({ siteSettings, isLoadingSettings }) => {
                             </div>
                         </div>
                         <div className="vj-info-card">
-                            <div className="vj-info-icon-box">✉️</div>
+                            <div className="vj-info-icon-box"><MdEmail /></div>
                             <div className="vj-info-body">
-                                <p className="vj-info-label">Email Support</p>
                                 <h3 className="vj-info-title">Write To Us</h3>
                                 <p className="vj-info-desc">
                                     <a href={`mailto:${storeEmail}`}>{storeEmail}</a>
@@ -191,9 +192,8 @@ const ContactUs = ({ siteSettings, isLoadingSettings }) => {
                             </div>
                         </div>
                         <div className="vj-info-card">
-                            <div className="vj-info-icon-box">🕒</div>
+                            <div className="vj-info-icon-box"><FaClock /></div>
                             <div className="vj-info-body">
-                                <p className="vj-info-label">Showroom Hours</p>
                                 <h3 className="vj-info-title">Visiting Timings</h3>
                                 <p className="vj-info-desc">{storeTiming}</p>
                             </div>

@@ -15,6 +15,7 @@
     "language-subtag-registry": "^0.4.2",
     "react": "^19.3.0",
     "react-dom": "^19.3.0",
+    "react-icons": "^5.7.0",
     "react-redux": "^9.3.0",
     "react-router-dom": "^7.18.4",
     "react-scripts": "5.0.1",

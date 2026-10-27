@@ -130,23 +130,21 @@ function App() {
         lastRateUpdate={goldRates.length > 0 ? (goldRates[0].updatedAt || goldRates[0].createdAt) : null}
       />
 
-      {/* 2. Main Royal Navigation Bar on non-home pages */}
-      {(isProductRoute || isSubcategoryRoute || isSearchRoute || isFeaturedRoute || isContactRoute) && (
-        <Navbar
-          activeCategory={isContactRoute ? 'contact' : activeCategory}
-          setActiveCategory={setActiveCategory}
-          searchQuery={searchQuery}
-          setSearchQuery={setSearchQuery}
-          wishlistCount={currentWishlist.length}
-          onOpenWishlist={() => { }}
-          onOpenCalculator={() => setIsCalculatorOpen(true)}
-          logoUrl={siteSettings?.logo_url}
-          shopName={siteSettings?.shop_name}
-          isLoadingSettings={isLoadingSettings}
-          liveRates={currentRates}
-          isOverlay={false}
-        />
-      )}
+      {/* 2. Main Royal Navigation Bar */}
+      <Navbar
+        activeCategory={isContactRoute ? 'contact' : activeCategory}
+        setActiveCategory={setActiveCategory}
+        searchQuery={searchQuery}
+        setSearchQuery={setSearchQuery}
+        wishlistCount={currentWishlist.length}
+        onOpenWishlist={() => { }}
+        onOpenCalculator={() => setIsCalculatorOpen(true)}
+        logoUrl={siteSettings?.logo_url}
+        shopName={siteSettings?.shop_name}
+        isLoadingSettings={isLoadingSettings}
+        liveRates={currentRates}
+        isOverlay={false}
+      />
 
       {isContactRoute ? (
         <ContactUs siteSettings={siteSettings} isLoadingSettings={isLoadingSettings} />
@@ -165,35 +163,17 @@ function App() {
         <FeaturedProductsPage liveRates={currentRates} />
       ) : (
         <>
-          {/* Seamless Transparent Overlay Navbar directly over Bridal Hero Banner */}
-          <div className="vj-hero-with-navbar-wrapper">
-            <Navbar
-              activeCategory={activeCategory}
-              setActiveCategory={setActiveCategory}
-              searchQuery={searchQuery}
-              setSearchQuery={setSearchQuery}
-              wishlistCount={currentWishlist.length}
-              onOpenWishlist={() => { }}
-              onOpenCalculator={() => setIsCalculatorOpen(true)}
-              logoUrl={siteSettings?.logo_url}
-              shopName={siteSettings?.shop_name}
-              isLoadingSettings={isLoadingSettings}
-              liveRates={currentRates}
-              isOverlay={true}
-            />
-
-            <HeroCarousel
-              onSelectCategory={(catId) => {
-                if (catId === 'scheme') {
-                  const el = document.getElementById('gold-savings-scheme');
-                  if (el) el.scrollIntoView({ behavior: 'smooth' });
-                } else {
-                  setActiveCategory(catId);
-                }
-              }}
-              onOpenCalculator={() => setIsCalculatorOpen(true)}
-            />
-          </div>
+          <HeroCarousel
+            onSelectCategory={(catId) => {
+              if (catId === 'scheme') {
+                const el = document.getElementById('gold-savings-scheme');
+                if (el) el.scrollIntoView({ behavior: 'smooth' });
+              } else {
+                setActiveCategory(catId);
+              }
+            }}
+            onOpenCalculator={() => setIsCalculatorOpen(true)}
+          />
 
           <Categories
             activeCategory="all"

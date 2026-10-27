@@ -302,14 +302,121 @@ const Navbar = ({
           )}
         </nav>
 
-        {/* 3. Right: Search Icon */}
-        <div className="vj-right-actions">
-          {/* Search Icon Trigger */}
+        {/* 3. Right: Search in Navbar */}
+        <div className="vj-right-actions" ref={searchBarRef}>
+          {/* Desktop Search Bar directly inside Navbar */}
+          <div className="vj-navbar-search-box desktop-only">
+            <div className="vj-search-input-wrapper">
+              <svg className="vj-search-input-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" strokeWidth="2.2">
+                <circle cx="11" cy="11" r="8" />
+                <line x1="21" y1="21" x2="16.65" y2="16.65" />
+              </svg>
+              <input
+                type="text"
+                className="vj-search-floating-input"
+                placeholder="Search By Product"
+                value={searchTerm}
+                onChange={(e) => {
+                  setSearchTerm(e.target.value);
+                  if (e.target.value.trim()) setIsSearchOpen(true);
+                }}
+                onFocus={() => {
+                  if (searchTerm.trim()) setIsSearchOpen(true);
+                }}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' && searchTerm.trim()) {
+                    setIsSearchOpen(false);
+                    window.location.href = `/search?q=${encodeURIComponent(searchTerm.trim())}`;
+                  } else if (e.key === 'Escape') {
+                    setIsSearchOpen(false);
+                  }
+                }}
+              />
+              {isSearching && <div className="vj-search-spinner" />}
+              <button
+                type="button"
+                className="vj-search-close-icon-btn"
+                onClick={() => {
+                  setSearchTerm('');
+                  setSearchResults([]);
+                  if (setSearchQuery) setSearchQuery('');
+                  setIsSearchOpen(false);
+                }}
+                title="Clear search"
+                aria-label="Clear"
+              >
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                  <line x1="18" y1="6" x2="6" y2="18"></line>
+                  <line x1="6" y1="6" x2="18" y2="18"></line>
+                </svg>
+              </button>
+            </div>
+
+            {/* Desktop Live Search Suggestions Dropdown */}
+            {isSearchOpen && searchTerm.trim() && (
+              <div className="vj-floating-search-results">
+                <div className="vj-search-header-row">
+                  <span>
+                    {isSearching ? 'Searching Jewellery...' : `Found ${searchResults.length} Products`}
+                  </span>
+                  <span className="vj-search-hint">Press Enter ↵</span>
+                </div>
+
+                {searchResults.length === 0 && !isSearching ? (
+                  <div className="vj-search-empty-state">
+                    <p>No jewellery found for <strong>"{searchTerm}"</strong></p>
+                    <span>  </span>
+                  </div>
+                ) : (
+                  <div className="vj-floating-results-list">
+                    {searchResults.slice(0, 5).map((item) => {
+                      const { finalPrice } = calculateFinalPrice(item, liveRates);
+                      return (
+                        <div
+                          key={item.id}
+                          className="vj-search-result-row"
+                          onClick={() => {
+                            setIsSearchOpen(false);
+                            window.location.href = `/product/${encodeURIComponent(item.name.toLowerCase())}`;
+                          }}
+                        >
+                          <img src={item.image} alt={item.name} className="vj-result-thumb" />
+                          <div className="vj-result-info">
+                            <span className="vj-result-name">{item.name}</span>
+                            <span className="vj-result-sub">
+                              {item.categoryName || 'Jewellery'} {item.purity ? `• ${item.purity}` : ''} {item.netWeight ? `• ${item.netWeight}g` : ''}
+                            </span>
+                          </div>
+                          {finalPrice > 0 && (
+                            <strong className="vj-result-price">₹{finalPrice.toLocaleString('en-IN')}</strong>
+                          )}
+                        </div>
+                      );
+                    })}
+                  </div>
+                )}
+
+                {searchResults.length > 0 && (
+                  <div
+                    className="vj-search-footer-action"
+                    onClick={() => {
+                      setIsSearchOpen(false);
+                      window.location.href = `/search?q=${encodeURIComponent(searchTerm.trim())}`;
+                    }}
+                  >
+                    View all {searchResults.length} results →
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
+
+          {/* Mobile Search Icon Trigger */}
           <button
             type="button"
-            className={`vj-search-icon-btn ${isSearchOpen ? 'active' : ''}`}
+            className={`vj-search-icon-btn mobile-only ${isSearchOpen ? 'active' : ''}`}
             onClick={() => setIsSearchOpen(!isSearchOpen)}
-            title="Search by jewellery name "
+            title="Search by jewellery name"
             aria-label="Search"
           >
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2">
@@ -320,9 +427,9 @@ const Navbar = ({
         </div>
       </div>
 
-      {/* Compact Professional Floating Search Card */}
+      {/* Mobile Floating Search Card */}
       {isSearchOpen && (
-        <div className="vj-search-floating-card animate-fade-in" ref={searchBarRef}>
+        <div className="vj-search-floating-card mobile-only animate-fade-in">
           <div className="vj-search-input-wrapper">
             <svg className="vj-search-input-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#D4AF37" strokeWidth="2.2">
               <circle cx="11" cy="11" r="8" />
