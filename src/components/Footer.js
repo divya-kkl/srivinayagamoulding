@@ -1,5 +1,8 @@
 import React from 'react';
 import './Footer.css';
+import { FaLocationDot, FaClock } from "react-icons/fa6";
+import { IoCall } from "react-icons/io5";
+import { MdEmail } from "react-icons/md";
 
 const Footer = ({ onSelectCategory, onOpenCalculator, logoUrl, shopName = 'Sri vinayaga Moulding', siteSettings = {}, isLoadingSettings }) => {
   return (
@@ -74,7 +77,7 @@ const Footer = ({ onSelectCategory, onOpenCalculator, logoUrl, shopName = 'Sri v
             <h4 className="footer-col-title">Store & Contact Info</h4>
             <ul className="footer-contact-list">
               <li>
-                <span className="c-icon">📍</span>
+                <span className="c-icon"><FaLocationDot /></span>
                 <span>{isLoadingSettings ? <div className="nav-shimmer" style={{ display: 'inline-block', width: '200px', height: '14px', borderRadius: '4px' }}></div> : (siteSettings?.store_address || 'Sri vinayaga Moulding Flagship Store, No. 42, Cathedral Road, T. Nagar, Chennai - 600017')}</span>
               </li>
               <li
@@ -91,7 +94,7 @@ const Footer = ({ onSelectCategory, onOpenCalculator, logoUrl, shopName = 'Sri v
               >
                 {isLoadingSettings ? (
                   <>
-                    <span className="c-icon">📞</span>
+                    <span className="c-icon"><IoCall /></span>
                     <div className="nav-shimmer" style={{ display: 'inline-block', width: '120px', height: '14px', borderRadius: '4px' }}></div>
                   </>
                 ) : (
@@ -111,7 +114,7 @@ const Footer = ({ onSelectCategory, onOpenCalculator, logoUrl, shopName = 'Sri v
                             window.location.href = `tel:${firstCleanNumber}`;
                           }}
                         >
-                          <span className="c-icon">📞</span>
+                          <span className="c-icon"><IoCall /></span>
                         </a>
                         <span className="footer-phone-numbers">
                           {parts.map((part, index) => {
@@ -141,7 +144,7 @@ const Footer = ({ onSelectCategory, onOpenCalculator, logoUrl, shopName = 'Sri v
                 )}
               </li>
               <li>
-                <span className="c-icon">✉️</span>
+                <span className="c-icon"><MdEmail /></span>
                 <span>
                   {isLoadingSettings ? (
                     <div className="nav-shimmer" style={{ display: 'inline-block', width: '150px', height: '14px', borderRadius: '4px' }}></div>
@@ -157,7 +160,7 @@ const Footer = ({ onSelectCategory, onOpenCalculator, logoUrl, shopName = 'Sri v
                 </span>
               </li>
               <li>
-                <span className="c-icon">🕒</span>
+                <span className="c-icon"><FaClock /></span>
                 <span>{isLoadingSettings ? <div className="nav-shimmer" style={{ display: 'inline-block', width: '140px', height: '14px', borderRadius: '4px' }}></div> : (siteSettings?.store_timing || 'Mon - Sun: 10:00 AM - 9:00 PM')}</span>
               </li>
             </ul>
@@ -204,21 +207,21 @@ const Footer = ({ onSelectCategory, onOpenCalculator, logoUrl, shopName = 'Sri v
             <h4 className="footer-col-title">Store Location</h4>
             <div className="map-snippet-box">
               {isLoadingSettings ? (
-                <div className="nav-shimmer" style={{ width: '100%', height: '160px', borderRadius: '8px' }}></div>
+                <div className="nav-shimmer" style={{ width: '100%', height: '210px', borderRadius: '10px' }}></div>
               ) : siteSettings?.latitude && siteSettings?.longitude ? (
                 <iframe
                   title="Store Location"
                   width="100%"
-                  height="160"
+                  height="210"
                   frameBorder="0"
                   scrolling="no"
                   marginHeight="0"
                   marginWidth="0"
                   src={`https://maps.google.com/maps?q=${siteSettings.latitude},${siteSettings.longitude}&hl=en&z=14&output=embed`}
-                  style={{ borderRadius: '8px', border: '1px solid var(--border-gold)' }}
+                  style={{ borderRadius: '10px', border: 'none', display: 'block' }}
                 ></iframe>
               ) : (
-                <div className="map-fake-bg">
+                <div className="map-fake-bg" style={{ minHeight: '210px' }}>
                   <span className="map-pin-icon">📍</span>
                   <span className="map-location-name">{shopName}</span>
                   <small>Open in Google Maps</small>

@@ -96,6 +96,12 @@
 
 .c-icon {
   font-size: 1rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 2px;
+  color: var(--gold-light, #ffd54f);
 }
 
 .footer-phone-icon-link {
@@ -186,12 +192,19 @@
 }
 
 .map-snippet-box {
-  background: #002820;
-  border: 1px solid var(--border-gold);
+  background: transparent;
+  border: none;
   border-radius: var(--radius-md);
-  padding: 0.85rem;
+  padding: 0;
   margin-bottom: 1.25rem;
-  cursor: pointer;
+  overflow: hidden;
+}
+
+.map-snippet-box iframe {
+  display: block;
+  width: 100%;
+  border: none !important;
+  border-radius: var(--radius-md);
 }
 
 .map-fake-bg {
