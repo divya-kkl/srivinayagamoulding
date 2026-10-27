@@ -2,7 +2,15 @@ import React, { useState, useEffect } from 'react';
 import RateHistoryModal from './RateHistoryModal';
 import './GoldRateTicker.css';
 
-const GoldRateTicker = ({ rates = [], onOpenCalculator, siteSettings, isLoadingSettings, isLoadingRates }) => {
+const GoldRateTicker = ({ rates = [], onOpenCalculator, siteSettings, isLoadingSettings, isLoadingRates, lastRateUpdate }) => {
+
+  const formatUpdateTime = (isoStr) => {
+    if (!isoStr) return null;
+    const d = new Date(isoStr);
+    return d.toLocaleString('en-IN', { dateStyle: 'short', timeStyle: 'short', hour12: true });
+  };
+
+  const updatedLabel = formatUpdateTime(lastRateUpdate);
   const [shimmering, setShimmering] = useState(true);
   const [isHistoryOpen, setIsHistoryOpen] = useState(false);
 
@@ -91,6 +99,9 @@ const GoldRateTicker = ({ rates = [], onOpenCalculator, siteSettings, isLoadingS
         </div>
 
         <div className="ticker-right">
+          {updatedLabel && (
+            <span className="ticker-last-updated">Last updated: {updatedLabel}</span>
+          )}
           <a
             href={siteSettings?.store_phone ? `tel:${siteSettings.store_phone}` : '#'}
             className="phone-contact"

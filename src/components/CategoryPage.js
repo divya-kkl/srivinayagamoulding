@@ -270,7 +270,11 @@ const CategoryPage = ({ liveRates = [] }) => {
               <SortDropdown value={sortBy} onChange={setSortBy} />
             </div>
             <div className="items-count">
-              Showing {filteredProducts.length} of {products.length} products directly in <strong>{subcategoryName}</strong>
+              {loading ? (
+                <div className="product-shimmer" style={{ width: '200px', height: '16px', borderRadius: '4px' }}></div>
+              ) : (
+                <>Showing {filteredProducts.length} of {products.length} products directly in <strong>{subcategoryName}</strong></>
+              )}
             </div>
           </div>
 
