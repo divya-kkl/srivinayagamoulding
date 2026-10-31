@@ -221,7 +221,7 @@ const Navbar = ({
             </div>
           )}
 
-          
+
         </div>
 
         {/* 2. Center: Dynamic Categories Navigation Links */}
