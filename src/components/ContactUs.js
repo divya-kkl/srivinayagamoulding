@@ -201,7 +201,8 @@ const ContactUs = ({ siteSettings, isLoadingSettings }) => {
                         <div className="vj-contact-actions-row">
                            
                             <a href={callUrl} className="vj-action-btn call">
-                                <span>📞 Call Directly</span>
+                                <IoCall size={18} />
+                                <span>Call Directly</span>
                             </a>
                         </div>
 
@@ -339,3 +340,4 @@ const ContactUs = ({ siteSettings, isLoadingSettings }) => {
 };
 
 export default ContactUs;
+
