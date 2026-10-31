@@ -3,7 +3,7 @@ import './ProductGrid.css';
 import { supabase } from '../supabaseClient';
 import { getProductsFromSupabase } from '../services/productService';
 import { getTagsFromSupabase } from '../services/tagService';
-import { calculateFinalPrice, getProductWeightDisplay } from '../admin/product/ProductPriceCalculator';
+import { getProductWeightDisplay } from '../admin/product/ProductPriceCalculator';
 import { doesProductMatchQuery } from '../utils/tamilSearchHelper';
 
 const ProductGrid = ({
@@ -211,17 +211,7 @@ const ProductGrid = ({
                     {getProductWeightDisplay(product)} • {product.purity ? product.purity.replace(/\s*gold/i, '').trim() || '22K' : '22K'}
                   </div>
 
-                  {(() => {
-                    const { finalPrice } = calculateFinalPrice(product, liveRates);
-                    if (finalPrice > 0) {
-                      return (
-                        <div style={{ color: '#000', fontWeight: 'bold', fontSize: '1.4rem', marginBottom: '15px' }}>
-                          ₹{finalPrice.toLocaleString('en-IN')}
-                        </div>
-                      );
-                    }
-                    return <div style={{ marginBottom: '15px' }}>&nbsp;</div>;
-                  })()}
+
                 </div>
 
                 <button

@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './QuickViewModal.css';
-import { calculateFinalPrice } from '../admin/product/ProductPriceCalculator';
 
 const QuickViewModal = ({ product, onClose, onAddToCart, liveRates = [] }) => {
   const [activeImage, setActiveImage] = useState('');
@@ -140,8 +139,6 @@ const QuickViewModal = ({ product, onClose, onAddToCart, liveRates = [] }) => {
     }
   };
 
-  const { finalPrice, basePrice, makingCharge, gstRate } = calculateFinalPrice(product, liveRates);
-  const gstAmount = finalPrice - (basePrice + makingCharge);
 
   return (
     <div className="modal-overlay" onClick={onClose}>
@@ -262,9 +259,7 @@ const QuickViewModal = ({ product, onClose, onAddToCart, liveRates = [] }) => {
               </button>
             </div>
 
-            <div className="quickview-price">
-              ₹ {finalPrice > 0 ? finalPrice.toLocaleString('en-IN') + '.00' : 'Price on Request'}
-            </div>
+
 
             {product.description && product.description.trim() ? (
               <p className="quickview-desc">{product.description}</p>
@@ -301,27 +296,7 @@ const QuickViewModal = ({ product, onClose, onAddToCart, liveRates = [] }) => {
               </div>
             </div>
 
-            {finalPrice > 0 && (
-              <div className="price-breakup">
-                <h4>PRICE BREAKUP</h4>
-                <div className="breakup-row">
-                  <div className="breakup-col">
-                    <span>{product.purity ? product.purity.toUpperCase() : '22KT'} GOLD</span>
-                    <strong>₹ {basePrice.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</strong>
-                  </div>
-                  <div className="breakup-plus">+</div>
-                  <div className="breakup-col">
-                    <span>MC</span>
-                    <strong>₹ {makingCharge.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</strong>
-                  </div>
-                  <div className="breakup-plus">+</div>
-                  <div className="breakup-col">
-                    <span>GST({gstRate.toFixed(2)}%)</span>
-                    <strong>₹ {Math.round(gstAmount).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</strong>
-                  </div>
-                </div>
-              </div>
-            )}
+
 
             <div className="whatsapp-help">
               <span>Have Questions?</span>
