@@ -458,7 +458,7 @@ const ProductDetailsPage = ({ liveRates = [], wishlist = [], onToggleWishlist })
                 <div className="pd-shimmer" style={{ width: '40px', height: '40px', borderRadius: '50%' }} />
               </div>
 
-              <div className="pd-shimmer" style={{ width: '35%', height: '38px', marginBottom: '2rem', borderRadius: '6px' }} />
+
 
               <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginBottom: '2rem' }}>
                 <div className="pd-shimmer" style={{ width: '85%', height: '14px', borderRadius: '4px' }} />
@@ -480,25 +480,7 @@ const ProductDetailsPage = ({ liveRates = [], wishlist = [], onToggleWishlist })
                 </div>
               </div>
 
-              <div className="price-breakup">
-                <div className="pd-shimmer" style={{ width: '130px', height: '16px', marginBottom: '1.2rem', borderRadius: '4px' }} />
-                <div className="breakup-row">
-                  <div className="breakup-col">
-                    <div className="pd-shimmer" style={{ width: '70px', height: '12px', borderRadius: '3px' }} />
-                    <div className="pd-shimmer" style={{ width: '90px', height: '18px', borderRadius: '4px' }} />
-                  </div>
-                  <div className="breakup-plus" style={{ color: '#ccc' }}>+</div>
-                  <div className="breakup-col">
-                    <div className="pd-shimmer" style={{ width: '35px', height: '12px', borderRadius: '3px' }} />
-                    <div className="pd-shimmer" style={{ width: '70px', height: '18px', borderRadius: '4px' }} />
-                  </div>
-                  <div className="breakup-plus" style={{ color: '#ccc' }}>+</div>
-                  <div className="breakup-col">
-                    <div className="pd-shimmer" style={{ width: '65px', height: '12px', borderRadius: '3px' }} />
-                    <div className="pd-shimmer" style={{ width: '80px', height: '18px', borderRadius: '4px' }} />
-                  </div>
-                </div>
-              </div>
+
 
             </div>
           </div>
@@ -516,8 +498,7 @@ const ProductDetailsPage = ({ liveRates = [], wishlist = [], onToggleWishlist })
     );
   }
 
-  const { finalPrice, basePrice, makingCharge, gstRate } = calculateFinalPrice(product, ratesToUse);
-  const gstAmount = finalPrice - (basePrice + makingCharge);
+  const { makingCharge } = calculateFinalPrice(product, ratesToUse);
 
   // Wastage / Making Charge display calculation
   const netWt = parseFloat(product.netWeight) > 0
@@ -745,9 +726,7 @@ const ProductDetailsPage = ({ liveRates = [], wishlist = [], onToggleWishlist })
               </button>
             </div>
 
-            <div className="product-price">
-              ₹ {finalPrice > 0 ? finalPrice.toLocaleString('en-IN') + '.00' : 'Price on Request'}
-            </div>
+
 
             {product.description && product.description.trim() ? (
               <p className="product-desc">{product.description}</p>
@@ -788,27 +767,7 @@ const ProductDetailsPage = ({ liveRates = [], wishlist = [], onToggleWishlist })
               )}
             </div>
 
-            {finalPrice > 0 && (
-              <div className="price-breakup">
-                <h4>PRICE BREAKUP</h4>
-                <div className="breakup-row">
-                  <div className="breakup-col">
-                    <span>{product.purity ? product.purity.toUpperCase() : '22KT'} GOLD</span>
-                    <strong>₹ {basePrice.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</strong>
-                  </div>
-                  <div className="breakup-plus">+</div>
-                  <div className="breakup-col">
-                    <span>MC</span>
-                    <strong>₹ {makingCharge.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</strong>
-                  </div>
-                  <div className="breakup-plus">+</div>
-                  <div className="breakup-col">
-                    <span>GST({gstRate.toFixed(2)}%)</span>
-                    <strong>₹ {Math.round(gstAmount).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}</strong>
-                  </div>
-                </div>
-              </div>
-            )}
+
 
           </div>
         </div>
@@ -934,7 +893,6 @@ const ProductDetailsPage = ({ liveRates = [], wishlist = [], onToggleWishlist })
           <h2 className="pd-related-heading">Related Products</h2>
           <div className="pd-related-grid">
             {relatedProducts.map((relProd) => {
-              const { finalPrice: relFinalPrice } = calculateFinalPrice(relProd, liveRates);
               const relSubtitle = `${relProd.categoryName || 'GOLD'} ${relProd.purity ? relProd.purity.replace(' Gold', '') : ''}`.trim() || 'GOLD 18K';
 
               return (
@@ -980,15 +938,7 @@ const ProductDetailsPage = ({ liveRates = [], wishlist = [], onToggleWishlist })
                     <h3 className="pd-related-title" title={relProd.name}>
                       {relProd.name}
                     </h3>
-                    <div className="pd-related-price">
-                      {relFinalPrice > 0 ? (
-                        `₹ ${relFinalPrice.toLocaleString('en-IN')}`
-                      ) : relProd.price && parseFloat(relProd.price) > 0 ? (
-                        `₹ ${parseFloat(relProd.price).toLocaleString('en-IN')}`
-                      ) : (
-                        <span className="pd-related-price-request">Price on Request</span>
-                      )}
-                    </div>
+
                   </div>
                 </div>
               );

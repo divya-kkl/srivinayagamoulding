@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './CategoryPage.css';
 import { searchProductsInSupabase } from '../services/productService';
-import { calculateFinalPrice, getProductWeightDisplay } from '../admin/product/ProductPriceCalculator';
+import { getProductWeightDisplay } from '../admin/product/ProductPriceCalculator';
 import LoadMoreSection from './LoadMoreSection';
 import SortDropdown from './SortDropdown';
 
@@ -11,12 +11,7 @@ const SearchPage = ({ liveRates = [] }) => {
   const [loading, setLoading] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
 
-  const [minPrice, setMinPrice] = useState('');
-  const [maxPrice, setMaxPrice] = useState('');
-  const [inputMinPrice, setInputMinPrice] = useState('');
-  const [inputMaxPrice, setInputMaxPrice] = useState('');
   const [sortBy, setSortBy] = useState('position');
-  const [showFilters, setShowFilters] = useState(false);
   const [visibleCount, setVisibleCount] = useState(12);
 
   useEffect(() => {
@@ -48,48 +43,17 @@ const SearchPage = ({ liveRates = [] }) => {
   useEffect(() => {
     let result = [...products];
 
-    if (minPrice !== '' || maxPrice !== '') {
-      const min = parseFloat(minPrice) || 0;
-      const max = parseFloat(maxPrice) || Infinity;
-
-      result = result.filter(p => {
-        const { finalPrice } = calculateFinalPrice(p, liveRates);
-        return finalPrice >= min && finalPrice <= max;
-      });
-    }
-
-    if (sortBy === 'price-low-high') {
-      result.sort((a, b) => {
-        const priceA = calculateFinalPrice(a, liveRates).finalPrice || 0;
-        const priceB = calculateFinalPrice(b, liveRates).finalPrice || 0;
-        return priceA - priceB;
-      });
-    } else if (sortBy === 'price-high-low') {
-      result.sort((a, b) => {
-        const priceA = calculateFinalPrice(a, liveRates).finalPrice || 0;
-        const priceB = calculateFinalPrice(b, liveRates).finalPrice || 0;
-        return priceB - priceA;
-      });
+    if (sortBy === 'name-a-z') {
+      result.sort((a, b) => (a.name || '').localeCompare(b.name || ''));
+    } else if (sortBy === 'name-z-a') {
+      result.sort((a, b) => (b.name || '').localeCompare(a.name || ''));
     } else if (sortBy === 'position') {
       result.sort((a, b) => (a.position || 0) - (b.position || 0));
     }
 
     setFilteredProducts(result);
     setVisibleCount(12);
-  }, [minPrice, maxPrice, sortBy, products, liveRates]);
-
-  const handlePriceFilter = (e) => {
-    e.preventDefault();
-    setMinPrice(inputMinPrice);
-    setMaxPrice(inputMaxPrice);
-  };
-
-  const handleClearPriceFilter = () => {
-    setInputMinPrice('');
-    setInputMaxPrice('');
-    setMinPrice('');
-    setMaxPrice('');
-  };
+  }, [sortBy, products]);
 
   return (
     <div className="category-page-container animate-fade-in" style={{ paddingTop: '20px' }}>
@@ -104,57 +68,7 @@ const SearchPage = ({ liveRates = [] }) => {
         <span>SEARCH RESULTS FOR "{searchQuery}"</span>
       </div>
 
-      {/* Mobile Show Filters Bar */}
-      <div className="container mobile-filter-bar-wrapper">
-        <button
-          type="button"
-          className="mobile-filter-bar-btn"
-          onClick={() => setShowFilters(!showFilters)}
-        >
-          <span>{showFilters ? 'Hide Filters' : 'Show Filters'}</span>
-          <span className="mobile-filter-icon">☰</span>
-        </button>
-      </div>
-
-      <div className="container category-page-layout">
-        <aside className={`category-sidebar ${showFilters ? 'mobile-visible' : ''}`}>
-          <div className="filter-block">
-            <div className="filter-title-row">
-              <h3 className="filter-title">PRICE</h3>
-              {(minPrice !== '' || maxPrice !== '' || inputMinPrice !== '' || inputMaxPrice !== '') && (
-                <button
-                  type="button"
-                  onClick={handleClearPriceFilter}
-                  className="price-simple-x-btn"
-                  title="Clear Price Filter"
-                  aria-label="Clear Price Filter"
-                >
-                  ✕
-                </button>
-              )}
-            </div>
-            <div className="price-range-label">
-              ₹ {minPrice || '0'} - ₹ {maxPrice || 'Any'}
-            </div>
-            <form onSubmit={handlePriceFilter} className="price-filter-form">
-              <input
-                type="number"
-                placeholder="Min"
-                value={inputMinPrice}
-                onChange={e => setInputMinPrice(e.target.value)}
-              />
-              <span className="price-separator">-</span>
-              <input
-                type="number"
-                placeholder="Max"
-                value={inputMaxPrice}
-                onChange={e => setInputMaxPrice(e.target.value)}
-              />
-              <button type="submit" className="price-go-btn">Go</button>
-            </form>
-          </div>
-        </aside>
-
+        <div className="container category-page-layout">
         <main className="category-main-content">
           <div className="category-toolbar">
             <div className="sort-box">
@@ -169,22 +83,6 @@ const SearchPage = ({ liveRates = [] }) => {
               )}
             </div>
           </div>
-
-          {(minPrice !== '' || maxPrice !== '') && (
-            <div className="active-filter-banner" style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: '8px', marginBottom: '16px', background: '#FFFDF5', border: '1px solid #E2D6BE', padding: '8px 14px', borderRadius: '8px' }}>
-              <span style={{ fontSize: '0.86rem', color: '#444' }}>
-                Applied Price Filter: <strong style={{ color: 'var(--primary-green, #003B2F)' }}>₹{minPrice || '0'} - ₹{maxPrice || 'Any'}</strong> ({filteredProducts.length} items found)
-              </span>
-              <button
-                type="button"
-                onClick={handleClearPriceFilter}
-                style={{ background: 'var(--primary-green, #003B2F)', color: '#fff', border: 'none', padding: '5px 12px', borderRadius: '6px', fontSize: '0.78rem', cursor: 'pointer', fontWeight: 'bold', display: 'inline-flex', alignItems: 'center', gap: '4px' }}
-                title="Remove Filter"
-              >
-                ✕ Remove Filter
-              </button>
-            </div>
-          )}
 
           {loading ? (
             <div className="products-grid">
@@ -234,17 +132,7 @@ const SearchPage = ({ liveRates = [] }) => {
                         {getProductWeightDisplay(product)} • {product.purity ? product.purity.replace(/\s*gold/i, '').trim() || '22K' : '22K'}
                       </div>
 
-                      {(() => {
-                        const { finalPrice } = calculateFinalPrice(product, liveRates);
-                        if (finalPrice > 0) {
-                          return (
-                            <div style={{ color: '#000', fontWeight: 'bold', fontSize: '1.4rem', marginBottom: '15px' }}>
-                              ₹{finalPrice.toLocaleString('en-IN')}
-                            </div>
-                          );
-                        }
-                        return <div style={{ marginBottom: '15px' }}>&nbsp;</div>;
-                      })()}
+
                     </div>
                     <button
                       className="view-product-btn"

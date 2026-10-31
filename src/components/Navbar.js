@@ -4,7 +4,6 @@ import './Navbar.css';
 import { getCategoriesFromSupabase } from '../services/categoryService';
 import { getSubcategoriesFromSupabase } from '../services/subcategoryService';
 import { searchProductsInSupabase } from '../services/productService';
-import { calculateFinalPrice } from '../admin/product/ProductPriceCalculator';
 import { getSiteSettings } from '../services/settingService';
 
 const Navbar = ({
@@ -372,7 +371,6 @@ const Navbar = ({
                 ) : (
                   <div className="vj-floating-results-list">
                     {searchResults.slice(0, 5).map((item) => {
-                      const { finalPrice } = calculateFinalPrice(item, liveRates);
                       return (
                         <div
                           key={item.id}
@@ -389,9 +387,7 @@ const Navbar = ({
                               {item.categoryName || 'Jewellery'} {item.purity ? `• ${item.purity}` : ''} {item.netWeight ? `• ${item.netWeight}g` : ''}
                             </span>
                           </div>
-                          {finalPrice > 0 && (
-                            <strong className="vj-result-price">₹{finalPrice.toLocaleString('en-IN')}</strong>
-                          )}
+
                         </div>
                       );
                     })}
@@ -500,7 +496,6 @@ const Navbar = ({
               ) : (
                 <div className="vj-floating-results-list">
                   {searchResults.slice(0, 5).map((item) => {
-                    const { finalPrice } = calculateFinalPrice(item, liveRates);
                     return (
                       <div
                         key={item.id}
@@ -517,9 +512,7 @@ const Navbar = ({
                             {item.categoryName || 'Jewellery'} {item.purity ? `• ${item.purity}` : ''} {item.netWeight ? `• ${item.netWeight}g` : ''}
                           </span>
                         </div>
-                        {finalPrice > 0 && (
-                          <strong className="vj-result-price">₹{finalPrice.toLocaleString('en-IN')}</strong>
-                        )}
+
                       </div>
                     );
                   })}

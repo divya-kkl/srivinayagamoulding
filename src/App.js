@@ -7,7 +7,7 @@ import Categories from './components/Categories';
 import ProductGrid from './components/ProductGrid';
 import GoldCalculatorModal from './components/GoldCalculatorModal';
 import Banner2Section from './components/Banner2Section';
-import BudgetDealsSection from './components/BudgetDealsSection';
+// import BudgetDealsSection from './components/BudgetDealsSection';
 import Testimonials from './components/Testimonials';
 
 import QuickViewModal from './components/QuickViewModal';
@@ -199,7 +199,7 @@ function App() {
           />
 
           <Banner2Section />
-          <BudgetDealsSection liveRates={currentRates} />
+          {/* <BudgetDealsSection liveRates={currentRates} /> */}
 
           {/* God Moulding Product Section */}
           <ProductGrid
